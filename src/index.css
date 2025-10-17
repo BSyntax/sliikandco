@@ -1,0 +1,205 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+}
+
+:root {
+  /* Color Palette */
+  --color-primary: #7c9885;
+  --color-secondary: #f4f3ee;
+  --color-tertiary: #80a9d4;
+
+  --color-white: #ffffff;
+  --color-dark: #101419;
+  --color-gray: #cfcbca;
+  --color-light-gray: #f2f2f2;
+  --text-color: #393e41;
+
+  /*  Font Sizes */
+  --f-xs: 0.75rem;
+  --f-sm: 0.875rem;
+  --f-md: 1rem;
+  --f-lg: 1.125rem;
+  --f-xl: 1.25rem;
+  --f-xxl: 2rem;
+
+  /*  Line Heights */
+  --l-tight: 1.2;
+  --l-normal: 1.5;
+  --l-loose: 1.8;
+
+  /* Box Shadows */
+  --shadow-sm: rgba(27, 31, 35, 0.04) 0px 1px 0px,
+    rgba(255, 255, 255, 0.25) 0px 1px 0px inset;
+  --shadow-md: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  --shadow-lg: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  --shadow-xl: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background: var(--color-white);
+  font-family: "Poppins", sans-serif;
+  color: var(--text-color);
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+button {
+  border: none;
+  outline: none;
+  font-size: var(--f-sm);
+  font-weight: 400;
+  border-radius: 2px;
+  font-family: "Poppins", sans-serif;
+}
+
+img {
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* nav */
+
+header {
+  width: 100%;
+}
+
+header .nav-container {
+  padding: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  position: relative;
+}
+
+.nav-container .nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links .nav-link {
+  color: var(--text-color);
+  font-size: var(--f-sm);
+  display: inline-block;
+  position: relative;
+}
+
+.nav-links .nav-link::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 1px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+.nav-links .nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link.active::after {
+  width: 100%;
+}
+
+.nav-container .nav-logo {
+  font-size: var(--f-md);
+  flex-shrink: 0;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--color-dark);
+}
+
+.nav-container .nav-icons {
+  display: flex;
+  gap: 0.625rem;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.nav-icons .nav-link {
+  color: var(--text-color);
+  flex-wrap: 0;
+}
+/* hero */
+
+.hero {
+  width: 100%;
+  height: calc(100vh - 80px);
+  overflow: hidden;
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.hero .hero-image {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+}
+
+.hero .hero-text {
+  text-align: center;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 70%;
+  left: 50%;
+  z-index: 10;
+}
+
+.hero-text h1 {
+  font-family: "melodrama", sans-serif;
+  font-size: var(--f-xxl);
+  font-weight: 700;
+  color: var(--color-white);
+  line-height: var(--l-loose);
+}
+
+.hero p {
+  font-size: var(--f-sm);
+  font-weight: 400;
+  color: var(--color-white);
+  line-height: var(--l-normal);
+}
+
+.hero-text button {
+  padding: 1rem 2rem;
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--color-white);
+  font-weight: 500;
+  font-size: var(--f-sm);
+  background-color: var(--color-dark);
+  cursor: pointer;
+}
