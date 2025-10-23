@@ -4,11 +4,16 @@ import "./index.css";
 import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import NotFound from "./components/pages/NotFound.jsx";
+import Login from "./components/pages/Login.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
   {
     path: "*",

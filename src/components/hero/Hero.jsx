@@ -1,8 +1,16 @@
 import React from "react";
-import img1 from "../../assets/images/hero-4.png";
-import img2 from "../../assets/images/hero-2.jpg";
+import img1 from "../../assets/images/hero-4.webp";
+import img2 from "../../assets/images/hero-2.webp";
+import Button from "../controls/Button";
+import { useNavigate } from "react-router";
 
 export default function Hero() {
+  let navigate = useNavigate();
+
+  const handleExplore = () => {
+    navigate("/shop");
+  };
+
   return (
     <div className="hero">
       <div className="hero-image">
@@ -15,7 +23,7 @@ export default function Hero() {
           Discover curated collections of premium men’s and women’s
           fashion—experience style and elegance from the comfort of your home.
         </p>
-        <button className="hero-button">Explore</button>
+        <Button text="Explore" action={handleExplore} type={"button"} />
       </div>
     </div>
   );
