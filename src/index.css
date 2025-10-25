@@ -20,6 +20,9 @@
   --color-light-gray: #f2f2f2;
   --text-color: #393e41;
 
+  --color-danger: #e5383b;
+  --color-success: #3dccc7;
+
   /*  Font Sizes */
   --f-xs: 0.75rem;
   --f-sm: 0.875rem;
@@ -615,12 +618,19 @@ header .nav-container {
   gap: 1rem;
 }
 
-.login h1 {
+.login   h1 {
   font-size: 1.75rem;
   font-family: "melodrama", sans-serif;
   font-weight: 700;
   color: var(--color-dark);
   line-height: var(--l-loose);
+}
+
+.login .header-container p {
+  font-size: var(--f-xs);
+  font-weight: 400;
+  color: var(--text-color);
+  line-height: var(--l-normal);
 }
 
 .login form {
@@ -636,6 +646,11 @@ header .nav-container {
   width: 100%;
 }
 
+.login .input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
 .login input,
 .login .button {
   width: 100%;
@@ -644,11 +659,38 @@ header .nav-container {
   font-family: "Poppins", sans-serif;
 }
 
-.login input[type="email"],
-.login input[type="password"] {
+.login input {
+  caret-color: var(--color-caret, #19180a);
   border: 1px solid var(--color-gray);
   outline: none;
   border-radius: 2px;
+  padding-block: 0.625rem;
+  font-size: var(--f-xs);
+  box-sizing: border-box;
+}
+
+.login input[type="password"] {
+  padding-right: 2.5rem;
+}
+
+.login input[type="email"]::placeholder,
+.login input[type="password"]::placeholder,
+.login input[type="text"]::placeholder {
+  font-size: var(--f-xs);
+  font-family: "Poppins", sans-serif;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 60%;
+  right: 1rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--color-gray);
+}
+
+.password-toggle > * {
+  font-size: 1.125rem;
 }
 
 .login .button {
@@ -682,4 +724,32 @@ header .nav-container {
   left: 0;
   background: var(--text-color);
   transition: all 0.3s ease;
+}
+
+.login .error-container {
+  margin-top: 0.5rem;
+  text-align: left;
+}
+
+.form-control .error,
+.error-details > * {
+  font-size: var(--f-xs);
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  color: var(--color-danger);
+  text-align: start;
+}
+
+.form-control .error {
+  margin: 0.2rem 0;
+}
+
+.error-container .error-details {
+  padding-left: 1.125rem;
+  margin: 0.2rem 0 0;
+}
+
+.error-details > * {
+  margin-bottom: 0.2rem;
+  list-style: disc;
 }

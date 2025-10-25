@@ -6,13 +6,27 @@ import Footer from "../footer/Footer";
 import TopButton from "../controls/TopButton";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 
-export default function Login() {
+export default function Register() {
   const navigate = useNavigate();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [firstNameError, setFirstNameError] = useState("");
+  const [lastNameError, setLastNameError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value);
+    setFirstNameError("");
+  };
+
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value);
+    setLastNameError("");
+  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -31,23 +45,39 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    // Validate first name
+    if (!firstName.trim()) {
+      setFirstNameError("First name is required");
+      return;
+    }
+    setFirstNameError("");
 
+    // Validate last name
+    if (!lastName.trim()) {
+      setLastNameError("Last name is required");
+      return;
+    }
+    setLastNameError("");
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setEmailError("Invalid email format");
       return;
     }
     setEmailError("");
 
+    // Validate password
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(password)) {
       setPasswordError("Password does not meet requirements");
       return;
     }
     setPasswordError("");
 
-    navigate("/");
+    // Simulate API call
+    console.log("Registering:", { firstName, lastName, email, password });
+    navigate("/login"); // Navigate to login after successful registration
   };
 
   return (
@@ -55,8 +85,38 @@ export default function Login() {
       <Nav />
       <div className="login-aligner">
         <div className="login">
-          <h1>Login</h1>
+          <div className="header-container">
+            <h1>Register</h1>
+            <p>Create your account to get started.</p>
+          </div>
           <form onSubmit={handleSubmit} autoComplete="off" noValidate>
+            <div className="form-control">
+              <div className="input-wrapper">
+                <input
+                  type="text"
+                  onChange={handleFirstNameChange}
+                  placeholder="First Name*"
+                  value={firstName}
+                  autoFocus
+                  aria-invalid={!!firstNameError}
+                  aria-describedby={firstNameError ? "first-name-error" : undefined}
+                />
+              </div>
+              {firstNameError && <p className="error" id="first-name-error">{firstNameError}</p>}
+            </div>
+            <div className="form-control">
+              <div className="input-wrapper">
+                <input
+                  type="text"
+                  onChange={handleLastNameChange}
+                  placeholder="Last Name*"
+                  value={lastName}
+                  aria-invalid={!!lastNameError}
+                  aria-describedby={lastNameError ? "last-name-error" : undefined}
+                />
+              </div>
+              {lastNameError && <p className="error" id="last-name-error">{lastNameError}</p>}
+            </div>
             <div className="form-control">
               <div className="input-wrapper">
                 <input
@@ -64,10 +124,11 @@ export default function Login() {
                   onChange={handleEmailChange}
                   placeholder="Email*"
                   value={email}
-                  autoFocus
+                  aria-invalid={!!emailError}
+                  aria-describedby={emailError ? "email-error" : undefined}
                 />
               </div>
-              {emailError && <p className="error">{emailError}</p>}
+              {emailError && <p className="error" id="email-error">{emailError}</p>}
             </div>
             <div className="form-control password-container">
               <div className="input-wrapper">
@@ -76,6 +137,8 @@ export default function Login() {
                   onChange={handlePasswordChange}
                   placeholder="Password*"
                   value={password}
+                  aria-invalid={!!passwordError}
+                  aria-describedby={passwordError ? "password-error" : undefined}
                 />
                 <div className="password-toggle">
                   {showPassword ? (
@@ -86,7 +149,8 @@ export default function Login() {
                 </div>
               </div>
               {passwordError && (
-                <div className="error-container">
+                <div className="error-container" id="password-error">
+                  <p className="error">{passwordError}</p>
                   <ul className="error-details">
                     <li>At least 8 characters</li>
                     <li>Include one uppercase letter</li>
@@ -98,14 +162,13 @@ export default function Login() {
               )}
             </div>
             <div className="form-control">
-              <Button text="Login" type="submit" />
+              <Button text="Create Account" type="submit" />
             </div>
           </form>
           <div className="auth-links">
-            <NavLink to="/register">
-              Don't have an account? <span>Sign up</span>
+            <NavLink to="/login">
+              Already have an account? <span>Sign in</span>
             </NavLink>
-            <NavLink to="/reset-password">Reset Password</NavLink>
           </div>
         </div>
       </div>
