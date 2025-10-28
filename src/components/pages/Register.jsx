@@ -45,21 +45,18 @@ export default function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate first name
     if (!firstName.trim()) {
       setFirstNameError("First name is required");
       return;
     }
     setFirstNameError("");
 
-    // Validate last name
     if (!lastName.trim()) {
       setLastNameError("Last name is required");
       return;
     }
     setLastNameError("");
 
-    // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setEmailError("Invalid email format");
@@ -67,7 +64,6 @@ export default function Register() {
     }
     setEmailError("");
 
-    // Validate password
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(password)) {
       setPasswordError("Password does not meet requirements");
@@ -75,9 +71,8 @@ export default function Register() {
     }
     setPasswordError("");
 
-    // Simulate API call
     console.log("Registering:", { firstName, lastName, email, password });
-    navigate("/login"); // Navigate to login after successful registration
+    navigate("/login"); 
   };
 
   return (

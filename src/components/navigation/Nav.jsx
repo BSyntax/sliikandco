@@ -111,7 +111,7 @@ export default function Nav() {
           <NavLink to="/login" className="nav-link">
             <LuUser />
           </NavLink>
-          <NavLink to="/wishlist" className="nav-link">
+          <NavLink to="/whishlist" className="nav-link">
             <LuHeart />
           </NavLink>
           <NavLink to="/cart" className="nav-link">
@@ -119,7 +119,7 @@ export default function Nav() {
           </NavLink>
         </div>
       </nav>
-      {searchModel === "open" && <SearchModel/>}
+      {searchModel === "open" && <SearchModel />}
     </header>
   );
 }

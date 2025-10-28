@@ -7,6 +7,7 @@ import NotFound from "./components/pages/NotFound.jsx";
 import Login from "./components/pages/Login.jsx";
 import Register from "./components/pages/Register.jsx";
 import ResetPassword from "./components/pages/ResetPassword.jsx";
+import Whishlist from "./components/pages/Whishlist.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/reset-password",
     element: <ResetPassword />,
+  },
+  {
+    path: "/whishlist",
+    element: <Whishlist />,
   },
   {
     path: "*",
