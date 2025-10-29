@@ -805,6 +805,13 @@ header .nav-container {
   gap: 1rem;
 }
 
+.wishlist-items p {
+  font-size: var(--f-sm);
+  font-weight: 400;
+  color: var(--text-color);
+  line-height: var(--l-loose);
+}
+
 .wishlist-items .wishlist-headers {
   width: 100%;
   display: grid;

@@ -1,32 +1,28 @@
-import React from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { NavLink } from "react-router-dom";
-import WishlistImage from "../../assets/images/wishlist-image.jpg";
+
 import Button from "../controls/Button";
 import { RiCloseFill } from "react-icons/ri";
 
-export default function WishItem() {
-  const handleAddCart = () => {
-    console.log("Add to cart");
-  };
-
+export default function WishItem({
+  product,
+  handleAddCart,
+  removeFromWishlist,
+}) {
   return (
     <div className="wishitem">
       <div className="wishitem-product">
-        <div className="cancel-icon">
+        <div className="cancel-icon" onClick={removeFromWishlist}>
           <RiCloseFill />
         </div>
         <div className="wishitem-image">
-          <img src={WishlistImage} alt="Wishlist Image" />
+          <img src={product.image} alt={product.name} />
         </div>
         <div className="product-name">
-          <p>Men’s Casual Jacket</p>
+          <p>{product.name}</p>
         </div>
       </div>
-      <p className="wishitem-price">$100</p>
+      <p className="wishitem-price">${product.price}</p>
       <p className="wishitem-status">In Stock</p>
-      <Button text="Add to Cart" action={() => handleAddCart} type="button" />
+      <Button text="Add to Cart" action={handleAddCart} type="button" />
     </div>
   );
 }

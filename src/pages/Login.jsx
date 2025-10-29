@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import Nav from "../navigation/Nav";
-import Button from "../controls/Button";
-import Footer from "../footer/Footer";
-import TopButton from "../controls/TopButton";
+import Nav from "../components/navigation/Nav";
+import Button from "../components/controls/Button";
+import Footer from "../components/footer/Footer";
+import TopButton from "../components/controls/TopButton";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 
 export default function Login() {

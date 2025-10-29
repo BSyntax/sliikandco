@@ -3,11 +3,11 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router";
-import NotFound from "./components/pages/NotFound.jsx";
-import Login from "./components/pages/Login.jsx";
-import Register from "./components/pages/Register.jsx";
-import ResetPassword from "./components/pages/ResetPassword.jsx";
-import Whishlist from "./components/pages/Whishlist.jsx";
+import NotFound from "./pages/NotFound.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
+import Whishlist from "./pages/Whishlist.jsx";
 
 const router = createBrowserRouter([
   {

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Nav from "../navigation/Nav";
-import Footer from "../footer/Footer";
-import image from "../../assets/images/404.webp";
-import TopButton from "../controls/TopButton";
+import Nav from "../components/navigation/Nav";
+import Footer from "../components/footer/Footer";
+import image from "../assets/images/404.webp";
+import TopButton from "../components/controls/TopButton";
 
 export default function NotFound() {
  

@@ -1,12 +1,20 @@
-import Nav from "./components/navigation/Nav";
-import Hero from "./components/hero/Hero";
+import { AuthProvider } from "./context/AuthProvider";
+import { CartProvider } from "./context/CartProvider";
+import { WishlistProvider } from "./context/WishlistProvider";
+import { ProductProvider } from "./context/ProductProvider";
+import AppRouter from "./router/AppRouter";
 
 function App() {
   return (
-    <>
-      <Nav />
-      <Hero />
-    </>
+    <AuthProvider>
+      <CartProvider>
+        <WishlistProvider>
+          <ProductProvider>
+            <AppRouter />
+          </ProductProvider>
+        </WishlistProvider>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 
