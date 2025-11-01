@@ -5,6 +5,7 @@ import { HiOutlineShoppingBag } from "react-icons/hi";
 import { LuUser, LuSearch, LuHeart } from "react-icons/lu";
 import DropDownModel from "./DropDownModel";
 import SearchModel from "../search/SearchModel";
+import CartModel from "../cart/CartModel";
 
 export default function Nav() {
   const [dropdownType, setDropdownType] = useState(null);
@@ -35,6 +36,14 @@ export default function Nav() {
     window.addEventListener("scroll", handleSticky);
     return () => window.removeEventListener("scroll", handleSticky);
   }, []);
+
+  const [cartModalOpen, setCartModalOpen] = useState(false);
+
+  const handleCartModel = (e) => {
+    e.preventDefault();
+    let result = !cartModalOpen;
+    setCartModalOpen(result);
+  };
 
   return (
     <header className={sticky ? "sticky" : ""}>
@@ -114,10 +123,15 @@ export default function Nav() {
           <NavLink to="/whishlist" className="nav-link">
             <LuHeart />
           </NavLink>
-          <NavLink to="/cart" className="nav-link">
+          <NavLink
+            to="/cart"
+            className="nav-link"
+            onClick={(e) => handleCartModel(e)}
+          >
             <HiOutlineShoppingBag />
           </NavLink>
         </div>
+        <CartModel cartModalOpen={cartModalOpen} setCartModalOpen={setCartModalOpen} />
       </nav>
       {searchModel === "open" && <SearchModel />}
     </header>
