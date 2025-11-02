@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "../../index.css";
 import { NavLink } from "react-router-dom";
 import { HiOutlineShoppingBag } from "react-icons/hi";
@@ -6,44 +6,63 @@ import { LuUser, LuSearch, LuHeart } from "react-icons/lu";
 import DropDownModel from "./DropDownModel";
 import SearchModel from "../search/SearchModel";
 import CartModel from "../cart/CartModel";
+import { useCart } from "../../context/CartProvider";
 
 export default function Nav() {
   const [dropdownType, setDropdownType] = useState(null);
   const [searchModel, setSearchModel] = useState("close");
   const [sticky, setSticky] = useState(false);
+  const [cartModalOpen, setCartModalOpen] = useState(false);
+  const dropdownTimeoutRef = useRef(null);
+  const cart = useCart();
+  const cartCount = cart.cart.reduce((acc, item) => acc + item.quantity, 0);
 
-  const handleEnter = (type) => setDropdownType(type);
-  const handleLeave = () => setDropdownType(null);
+  const handleEnter = (type) => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+    setDropdownType(type);
+  };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchModel === "close") {
-      setSearchModel("open");
-    } else {
-      setSearchModel("close");
+  const handleLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setDropdownType(null);
+    }, 150);
+  };
+
+  const handleDropdownEnter = () => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
     }
   };
 
+  const handleDropdownLeave = () => {
+    setDropdownType(null);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearchModel((prev) => (prev === "close" ? "open" : "close"));
+  };
+
+  const handleCartModel = (e) => {
+    e.preventDefault();
+    setCartModalOpen((prev) => !prev);
+  };
+
   const handleSticky = () => {
-    if (window.scrollY > 0) {
-      setSticky(true);
-    } else {
-      setSticky(false);
-    }
+    setSticky(window.scrollY > 0);
   };
 
   useEffect(() => {
     window.addEventListener("scroll", handleSticky);
-    return () => window.removeEventListener("scroll", handleSticky);
+    return () => {
+      window.removeEventListener("scroll", handleSticky);
+      if (dropdownTimeoutRef.current) {
+        clearTimeout(dropdownTimeoutRef.current);
+      }
+    };
   }, []);
-
-  const [cartModalOpen, setCartModalOpen] = useState(false);
-
-  const handleCartModel = (e) => {
-    e.preventDefault();
-    let result = !cartModalOpen;
-    setCartModalOpen(result);
-  };
 
   return (
     <header className={sticky ? "sticky" : ""}>
@@ -65,15 +84,17 @@ export default function Nav() {
             <NavLink
               to="/shop"
               className="nav-link"
-              onClick={(e) => {
-                if (dropdownType === "shop") e.preventDefault();
-              }}
+              onClick={(e) => e.preventDefault()}
             >
               Shop
             </NavLink>
 
             {dropdownType === "shop" && (
-              <div className="menu-dropdown active">
+              <div
+                className="menu-dropdown active"
+                onMouseEnter={handleDropdownEnter}
+                onMouseLeave={handleDropdownLeave}
+              >
                 <DropDownModel type="shop" />
               </div>
             )}
@@ -87,15 +108,17 @@ export default function Nav() {
             <NavLink
               to="/collections"
               className="nav-link"
-              onClick={(e) => {
-                if (dropdownType === "collections") e.preventDefault();
-              }}
+              onClick={(e) => e.preventDefault()}
             >
               Collections
             </NavLink>
 
             {dropdownType === "collection" && (
-              <div className="menu-dropdown active">
+              <div
+                className="menu-dropdown active"
+                onMouseEnter={handleDropdownEnter}
+                onMouseLeave={handleDropdownLeave}
+              >
                 <DropDownModel type="collection" />
               </div>
             )}
@@ -110,29 +133,31 @@ export default function Nav() {
         </div>
 
         <div className="nav-icons">
-          <NavLink
-            to="/search"
-            onClick={(e) => handleSearch(e)}
-            className="nav-link"
-          >
+          <NavLink to="/search" onClick={handleSearch} className="nav-link">
             <LuSearch />
           </NavLink>
           <NavLink to="/login" className="nav-link">
             <LuUser />
           </NavLink>
-          <NavLink to="/whishlist" className="nav-link">
+          <NavLink to="/wishlist" className="nav-link">
             <LuHeart />
           </NavLink>
           <NavLink
             to="/cart"
-            className="nav-link"
-            onClick={(e) => handleCartModel(e)}
+            onClick={handleCartModel}
+            className="nav-link cart-icon"
           >
             <HiOutlineShoppingBag />
+            {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
           </NavLink>
         </div>
-        <CartModel cartModalOpen={cartModalOpen} setCartModalOpen={setCartModalOpen} />
+
+        <CartModel
+          cartModalOpen={cartModalOpen}
+          setCartModalOpen={setCartModalOpen}
+        />
       </nav>
+
       {searchModel === "open" && <SearchModel />}
     </header>
   );

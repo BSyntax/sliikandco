@@ -177,7 +177,7 @@ header .nav-container {
 
 .nav-container .nav-icons {
   display: flex;
-  gap: 0.625rem;
+  gap: 0.75rem;
   align-items: center;
   flex-shrink: 0;
 }
@@ -185,6 +185,26 @@ header .nav-container {
 .nav-icons .nav-link {
   color: var(--text-color);
   flex-wrap: 0;
+}
+
+.nav-link.cart-icon {
+  position: relative;
+}
+
+.nav-link .cart-count {
+  display: grid;
+  place-content: center;
+  width: 15px;
+  height: 15px;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1px;
+  border-radius: 50%;
+  background: var(--color-dark);
+  color: var(--color-white);
+  position: absolute;
+  top: -1px;
+  right: -10px;
 }
 
 /* menu dropdown */
@@ -195,32 +215,61 @@ header .nav-container {
 }
 
 .menu-dropdown {
-  width: 100vw;
-  height: 50vh;
   position: absolute;
-  top: 50px;
+  top: 100%;
   left: 50%;
-  transform: translate(-50%, -100px);
+  width: 100vw;
+  max-height: 0;
+  height: 50vh;
   background: var(--color-white);
-  border-radius: 0 0 10px 10px;
   overflow: hidden;
-  max-height: 400px;
-  opacity: 1;
   display: grid;
   place-content: center;
-  visibility: hidden;
-  transition: max-height 0.4s ease, opacity 0.3s ease, transform 0.4s ease,
-    visibility 0s linear 0.4s;
   z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(-20px);
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.4s;
+  pointer-events: none;
+  box-shadow: var(--shadow-lg);
 }
 
 .menu-dropdown.active {
-  max-height: 400px;
   opacity: 1;
   visibility: visible;
-  transform: translate(-50%, 0);
-  transition: max-height 0.4s ease, opacity 0.3s ease, transform 0.4s ease,
-    visibility 0s;
+  max-height: 400px;
+  transform: translateX(-50%) translateY(0);
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0s;
+  pointer-events: all;
+}
+
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-30px);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    max-height: 400px;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    max-height: 400px;
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-30px);
+    max-height: 0;
+  }
 }
 
 .search-model-form {
@@ -331,6 +380,7 @@ header .nav-container {
   position: absolute;
   bottom: 0;
   left: 0;
+  bottom: -1px;
   background: var(--text-color);
   transition: all 0.3s ease;
 }
@@ -1133,8 +1183,9 @@ header .nav-container {
   height: 100%;
   border: none;
   text-align: center;
-  font-weight: 500;
-  font-size: var(--f-sm);
+  font-weight: 400;
+  font-family: "Poppins", sans-serif;
+  font-size: var(--f-xs);
   background: transparent;
   padding: 0;
   margin: 0;
