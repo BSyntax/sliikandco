@@ -1,84 +1,36 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 import { RiCloseFill } from "react-icons/ri";
 import ShoppingBag from "../../assets/images/shopping-bag.png";
-import SkipperImage from "../../assets/images/white-tshirt.png";
-import JeansImage from "../../assets/images/jeans.png";
-import BootsImage from "../../assets/images/hiking-boots.png";
-import JacketImage from "../../assets/images/wool-jacket.png";
-import CardiganImage from "../../assets/images/cardigan.png";
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 import Button from "../controls/Button";
 import CartItem from "./CartItem";
 import PropTypes from "prop-types";
+import { useCart } from "../../context/CartProvider";
 
 export default function CartModel({ cartModalOpen, setCartModalOpen }) {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Classic Green Skipper",
-      price: 249.99,
-      quantity: 1,
-      size: "M",
-      sizeType: "Size",
-      image: SkipperImage,
-    },
-    {
-      id: 2,
-      name: "Slim Fit Jeans",
-      price: 599.99,
-      quantity: 1,
-      size: "32",
-      sizeType: "Waist",
-      image: JeansImage,
-    },
-    {
-      id: 3,
-      name: "Suede Hiking boots",
-      price: 1299.99,
-      quantity: 1,
-      size: "42",
-      sizeType: "EU",
-      image: BootsImage,
-    },
-    {
-      id: 4,
-      name: "Shearling-Collared Wool Jacket",
-      price: 799.99,
-      quantity: 1,
-      size: "S",
-      sizeType: "Size",
-      image: JacketImage,
-    },
-    {
-      id: 5,
-      name: "Button-up Cardigan",
-      price: 1499.99,
-      quantity: 1,
-      size: "L",
-      sizeType: "Size",
-      image: CardiganImage,
-    },
-  ]);
+  const { cart, updateQuantity, removeCart } = useCart();
   useLockBodyScroll(cartModalOpen);
 
-  const handleDelete = useCallback((id) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-  }, []);
+  const handleDelete = useCallback(
+    (id) => {
+      removeCart(id);
+    },
+    [removeCart]
+  );
 
-  const handleQuantityChange = useCallback((id, quantity) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, quantity: quantity } : item
-      )
-    );
-  }, []);
+  const handleQuantityChange = useCallback(
+    (id, quantity) => {
+      updateQuantity(id, quantity);
+    },
+    [updateQuantity]
+  );
 
   const handleCheckout = () => {
     console.log("Proceeding to checkout");
   };
 
-  const total = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
+  const total = cart.reduce(
+    (sum, item) => sum + item.price * (item.quantity ?? 1),
     0
   );
 
@@ -95,9 +47,9 @@ export default function CartModel({ cartModalOpen, setCartModalOpen }) {
           </div>
 
           <div className="cart-model-body">
-            {cartItems.length > 0 ? (
+            {cart.length > 0 ? (
               <div className="item-container">
-                {cartItems.map((item) => (
+                {cart.map((item) => (
                   <CartItem
                     key={item.id}
                     item={item}
