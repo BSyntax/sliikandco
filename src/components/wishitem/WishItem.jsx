@@ -22,7 +22,7 @@ export default function WishItem({
           <p>{name}</p>
         </div>
       </div>
-      <p className="wishitem-price">${price}</p>
+      <p className="wishitem-price">R{price}</p>
       <p className="wishitem-date">{formattedDate}</p>
       <p className="wishitem-status">{stock}</p>
       <div className="wishitem-actions">

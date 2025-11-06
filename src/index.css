@@ -297,6 +297,12 @@ header .nav-container {
   font-family: "Poppins", sans-serif;
 }
 
+.search-model-form input::placeholder {
+  font-family: "poppins", sans-serif;
+  font-weight: 400;
+  font-size: var(--f-sm);
+}
+
 .search-model-form .clear-icon {
   position: absolute;
   top: 40%;
@@ -414,9 +420,32 @@ header .nav-container {
   grid-template-columns: 1fr 1fr;
 }
 
+.image-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
 .hero-image img {
   width: 100%;
   height: 100%;
+}
+
+.women-container img {
+  object-fit: cover;
+  object-position:center 20%;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.men-container img {
+  object-fit: cover;
+  object-position: top center;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .hero .hero-text {
@@ -448,8 +477,9 @@ header .nav-container {
   display: inline-block;
   margin-top: 1rem;
   color: var(--color-white);
-  font-weight: 500;
+  font-weight: 400;
   font-size: var(--f-sm);
+  font-family: "Poppins", sans-serif;
   background-color: var(--color-dark);
   cursor: pointer;
 }
@@ -983,7 +1013,7 @@ header .nav-container {
 .wishitem .wishitem-price,
 .wishitem .wishitem-date,
 .wishitem .wishitem-status,
-.wishitem .product-name p{
+.wishitem .product-name p {
   width: 100%;
   text-align: center;
   font-size: var(--f-xs);
