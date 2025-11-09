@@ -14,7 +14,12 @@ export default function useLockBodyScroll(open) {
       document.body.style.position = "";
       document.body.style.top = "";
       document.body.style.width = "";
-      window.scrollTo(0, scrollY);
+
+      window.scrollTo({
+        top: scrollY,
+        left: 0,
+        behavior: "auto",
+      });
     };
   }, [open]);
 }

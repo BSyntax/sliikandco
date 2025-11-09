@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import Nav from "../components/navigation/Nav";
 import Button from "../components/controls/Button";
-import Footer from "../components/footer/Footer";
-import TopButton from "../components/controls/TopButton";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 
 export default function Register() {
@@ -64,7 +61,8 @@ export default function Register() {
     }
     setEmailError("");
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(password)) {
       setPasswordError("Password does not meet requirements");
       return;
@@ -72,12 +70,11 @@ export default function Register() {
     setPasswordError("");
 
     console.log("Registering:", { firstName, lastName, email, password });
-    navigate("/login"); 
+    navigate("/login");
   };
 
   return (
     <div className="login-container">
-      <Nav />
       <div className="login-aligner">
         <div className="login">
           <div className="header-container">
@@ -94,10 +91,16 @@ export default function Register() {
                   value={firstName}
                   autoFocus
                   aria-invalid={!!firstNameError}
-                  aria-describedby={firstNameError ? "first-name-error" : undefined}
+                  aria-describedby={
+                    firstNameError ? "first-name-error" : undefined
+                  }
                 />
               </div>
-              {firstNameError && <p className="error" id="first-name-error">{firstNameError}</p>}
+              {firstNameError && (
+                <p className="error" id="first-name-error">
+                  {firstNameError}
+                </p>
+              )}
             </div>
             <div className="form-control">
               <div className="input-wrapper">
@@ -107,10 +110,16 @@ export default function Register() {
                   placeholder="Last Name*"
                   value={lastName}
                   aria-invalid={!!lastNameError}
-                  aria-describedby={lastNameError ? "last-name-error" : undefined}
+                  aria-describedby={
+                    lastNameError ? "last-name-error" : undefined
+                  }
                 />
               </div>
-              {lastNameError && <p className="error" id="last-name-error">{lastNameError}</p>}
+              {lastNameError && (
+                <p className="error" id="last-name-error">
+                  {lastNameError}
+                </p>
+              )}
             </div>
             <div className="form-control">
               <div className="input-wrapper">
@@ -123,7 +132,11 @@ export default function Register() {
                   aria-describedby={emailError ? "email-error" : undefined}
                 />
               </div>
-              {emailError && <p className="error" id="email-error">{emailError}</p>}
+              {emailError && (
+                <p className="error" id="email-error">
+                  {emailError}
+                </p>
+              )}
             </div>
             <div className="form-control password-container">
               <div className="input-wrapper">
@@ -133,7 +146,9 @@ export default function Register() {
                   placeholder="Password*"
                   value={password}
                   aria-invalid={!!passwordError}
-                  aria-describedby={passwordError ? "password-error" : undefined}
+                  aria-describedby={
+                    passwordError ? "password-error" : undefined
+                  }
                 />
                 <div className="password-toggle">
                   {showPassword ? (
@@ -167,8 +182,6 @@ export default function Register() {
           </div>
         </div>
       </div>
-      <Footer />
-      <TopButton />
     </div>
   );
 }

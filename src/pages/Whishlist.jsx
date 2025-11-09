@@ -2,10 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import WishItem from "../components/wishitem/WishItem";
-import Nav from "../components/navigation/Nav";
-import Footer from "../components/footer/Footer";
 import BreadCrumb from "../components/wishitem/BreadCrumb";
-import TopButton from "../components/controls/TopButton";
 import { useWishlist } from "../context/WishlistProvider";
 import Button from "../components/controls/Button";
 import image from "../assets/images/shopping.png";
@@ -16,7 +13,6 @@ export default function Wishlist() {
 
   return (
     <>
-      <Nav />
       <div className="wishlist">
         <div className="wishlist-container">
           <BreadCrumb from="Home" current="Wishlist" />
@@ -57,8 +53,6 @@ export default function Wishlist() {
           </div>
         </div>
       </div>
-      <TopButton />
-      <Footer />
     </>
   );
 }

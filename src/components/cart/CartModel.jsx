@@ -18,6 +18,13 @@ export default function CartModel({ cartModalOpen, setCartModalOpen }) {
     [removeCart]
   );
 
+  const handleCloseCart = () => {
+    setCartModalOpen(false);
+    if (document.activeElement) {
+      document.activeElement.blur();
+    }
+  };
+
   const handleQuantityChange = useCallback(
     (id, quantity) => {
       updateQuantity(id, quantity);
@@ -41,7 +48,7 @@ export default function CartModel({ cartModalOpen, setCartModalOpen }) {
         <div className="cart-model">
           <div className="cart-model-header">
             <h2>Cart</h2>
-            <span onClick={() => setCartModalOpen(false)}>
+            <span onClick={handleCloseCart}>
               <RiCloseFill />
             </span>
           </div>

@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import Nav from "../components/navigation/Nav";
 import Button from "../components/controls/Button";
-import Footer from "../components/footer/Footer";
-import TopButton from "../components/controls/TopButton";
 
 export default function ResetPassword() {
   const [email, setEmail] = useState("");
@@ -29,7 +26,6 @@ export default function ResetPassword() {
 
   return (
     <div className="login-container">
-      <Nav />
       <div className="login-aligner">
         <div className="login">
           <div className="header-container">
@@ -64,8 +60,6 @@ export default function ResetPassword() {
           </div>
         </div>
       </div>
-      <Footer />
-      <TopButton />
     </div>
   );
 }

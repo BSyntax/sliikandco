@@ -6,6 +6,10 @@ import Register from "../pages/Register";
 import ResetPassword from "../pages/ResetPassword";
 import Wishlist from "../pages/Whishlist";
 import NotFound from "../pages/NotFound";
+import About from "../pages/About";
+import Contact from "../pages/Contact";
+import Footer from "../components/footer/Footer";
+import TopButton from "../components/controls/TopButton";
 import "../scrollbar.css";
 
 export default function AppRouter() {
@@ -18,8 +22,12 @@ export default function AppRouter() {
         <Route path="/register" element={<Register />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <TopButton />
+      <Footer />
     </>
   );
 }

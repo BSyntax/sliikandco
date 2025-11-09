@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import Nav from "../components/navigation/Nav";
 import Button from "../components/controls/Button";
-import Footer from "../components/footer/Footer";
-import TopButton from "../components/controls/TopButton";
-import { LuEye, LuEyeOff } from "react-icons/lu";
 
+import { LuEye, LuEyeOff } from "react-icons/lu";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -53,7 +50,6 @@ export default function Login() {
 
   return (
     <div className="login-container">
-      <Nav />
       <div className="login-aligner">
         <div className="login">
           <h1>Login</h1>
@@ -110,8 +106,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-      <Footer />
-      <TopButton />
     </div>
   );
 }
