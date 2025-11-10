@@ -1,12 +1,10 @@
 import React from "react";
 import BreadCrumb from "../components/wishitem/BreadCrumb";
-import LookbookGallery from "../components/lookbookGallery/LookbookGallery";
 import Button from "../components/controls/Button";
 import AboutGallery1 from "../assets/images/about-gallery-1.webp";
 import AboutGallery2 from "../assets/images/about-gallery-2.webp";
 import PerksBar from "../components/perksBar/PerksBar";
 import NewsletterSignup from "../components/newsletter/NewsletterSignup ";
-import AboutHeroContent from "../components/about/AboutHeroContent";
 import TeamSection from "../components/about/TeamSection";
 
 export default function About() {
@@ -18,7 +16,6 @@ export default function About() {
         <div className="about-container container">
           <div className="about-content">
             <div className="about-text">
-              <h4 className="about-heading">About Us</h4>
               <h2 className="about-title">Our Story</h2>
               <p className="about-description">
                 At Sliik & Co, fashion isn’t just about what you wear—it’s about
