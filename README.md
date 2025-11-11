@@ -13,7 +13,7 @@ This project is designed as a full-featured fashion retail website. It focuses o
 * **Wishlist** — Users can save favorite items for later.
 * **Cart System** — Add, remove, and update products in the shopping cart.
 * **User-Friendly Navigation** — Clear and consistent layout with header, footer, and announcement bar.
-* **Newsletter Subscription** — Stay connected through email updates.
+* **Newsletter Subscription** - Stay connected through email updates.
 * **Lookbook and About Sections** — Showcase brand identity and featured collections.
 * **Fully Responsive** — Works seamlessly on desktop, tablet, and mobile screens.
 
@@ -90,7 +90,3 @@ JWT_SECRET=your_secret_key
 
 **Sliik & Co.** — Developed and designed by Muzuvukile Nqwiliso.
 A vision-driven e-commerce experience built to blend technology and style.
-
----
-
-Would you like me to tailor it slightly toward a *fashion brand identity* (more brand tone, less technical) or keep it **developer-focused** like this?
