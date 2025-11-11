@@ -76,9 +76,9 @@ This project is designed as a full-featured fashion retail website. It focuses o
 Create a `.env` file in the `/server` directory and include:
 
 ```
-MONGO_URI=your_mongodb_connection_string
+MONGO_URI=my_mongodb_connection_string
 PORT=5000
-JWT_SECRET=your_secret_key
+JWT_SECRET=my_secret_key
 ```
 
 ## Future Enhancements
