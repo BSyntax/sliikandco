@@ -1,8 +1,9 @@
 import { createContext, useContext, useState } from "react";
 import SkipperImage from "../assets/images/white-tshirt.png";
-import JeansImage from "../assets/images/jeans.png";
-import BootsImage from "../assets/images/hiking-boots.png";
+import JeansImage from "../assets/images/product-2.webp";
+// import BootsImage from "../assets/images/hiking-boots.png";
 import JacketImage from "../assets/images/wool-jacket.png";
+import BootsImage from "../assets/images/product-1.webp";
 import CardiganImage from "../assets/images/cardigan.png";
 
 const CartContext = createContext();
@@ -54,6 +55,33 @@ export const CartProvider = ({ children }) => {
       sizeType: "Size",
       image: CardiganImage,
     },
+    {
+      id: 6,
+      name: "Button-up Cardigan",
+      price: 1499.99,
+      quantity: 1,
+      size: "L",
+      sizeType: "Size",
+      image: CardiganImage,
+    },
+    {
+      id: 7,
+      name: "Button-up Cardigan",
+      price: 1499.99,
+      quantity: 1,
+      size: "L",
+      sizeType: "Size",
+      image: CardiganImage,
+    },
+    {
+      id: 8,
+      name: "Button-up Cardigan",
+      price: 1499.99,
+      quantity: 1,
+      size: "L",
+      sizeType: "Size",
+      image: CardiganImage,
+    },
   ]);
 
   const addCart = (product) => {
@@ -78,6 +106,7 @@ export const CartProvider = ({ children }) => {
 
   const removeCart = (id) => {
     setCart((prev) => prev.filter((i) => i.id !== id));
+    console.log("removeCart", id);
   };
 
   return (

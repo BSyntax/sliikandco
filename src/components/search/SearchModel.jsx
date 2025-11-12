@@ -29,7 +29,7 @@ export default function SearchModel({ setSearchModel, visible = true }) {
   ) : null;
 }
 
-handleText.PropTypes = {
+SearchModel.propTypes = {
   setSearchModel: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
 };

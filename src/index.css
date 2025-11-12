@@ -24,12 +24,14 @@
   --color-success: #3dccc7;
 
   /*  Font Sizes */
-  --f-sm: 0.75rem;
+  --f-xs: 0.75rem;
   --f-sm: 0.875rem;
   --f-md: 1rem;
   --f-lg: 1.125rem;
   --f-xl: 1.25rem;
-  --f-xxl: 2rem;
+  --f-2xl: 1.5rem;
+  --f-3xl: 1.75rem;
+  --f-4xl: 2rem;
 
   /*  Line Heights */
   --l-tight: 1.2;
@@ -116,6 +118,23 @@ img {
 
 .breadcrumb-container {
   margin-top: calc(var(--announcement-height) + var(--header-height));
+}
+
+.button-primary {
+  font-size: var(--f-sm);
+  font-weight: 400;
+  padding: 0.5rem 0.75rem;
+  color: var(--color-white);
+  background-color: var(--color-dark);
+}
+
+.button-secondary {
+  font-size: var(--f-sm);
+  font-weight: 400;
+  padding: 0.5rem 0.75rem;
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--color-gray);
 }
 
 /* nav */
@@ -508,14 +527,14 @@ header .nav-container {
 
 .hero-text h1 {
   font-family: "melodrama", sans-serif;
-  font-size: var(--f-xxl);
+  font-size: var(--f-4xl);
   font-weight: 700;
   color: var(--color-white);
   line-height: var(--l-loose);
 }
 
 .hero p {
-  font-size: var(--f-sm);
+  font-size: var(--f-md);
   font-weight: 400;
   color: var(--color-white);
   line-height: var(--l-normal);
@@ -1645,7 +1664,7 @@ header .nav-container {
 }
 
 .about-text h2 {
-  font-size: 1.5rem;
+  font-size: var(--f-4xl);
   font-weight: 600;
   font-family: "melodrama", sans-serif;
   color: var(--color-dark);
@@ -1834,9 +1853,9 @@ header .nav-container {
 
 /* Home */
 
-.section-heading {
-  font-size: 1.5rem;
-  font-weight: 700;
+.header-title {
+  font-size: var(--f-3xl);
+  font-weight: 400;
   font-family: "jost", sans-serif;
   text-transform: capitalize;
   color: var(--color-dark);
@@ -1844,8 +1863,12 @@ header .nav-container {
   padding-block: 1rem;
 }
 
+.section-header {
+  padding-top: 3rem;
+}
+
 .main-section {
-  padding-block: 3rem;
+  padding-bottom: 3rem;
 }
 
 .collections-section {
@@ -1998,4 +2021,125 @@ header .nav-container {
     width: 120px;
     padding: 0 1rem;
   }
+}
+
+/* Feature collection */
+
+.section-header .header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.header-controls .toggle-group {
+  flex: 1;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 2rem;
+}
+
+.toggle-group .toggle-link {
+  font-size: var(--f-lg);
+  font-weight: 400;
+  color: var(--text-color);
+  line-height: var(--l-normal);
+  text-transform: capitalize;
+  cursor: pointer;
+  position: relative;
+}
+
+.toggle-group .toggle-link::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 1px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+.toggle-group .toggle-link:hover::after {
+  width: 100%;
+}
+
+.toggle-group .toggle-link.active::after {
+  width: 100%;
+}
+
+/* Product grid and Card */
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(332px, 1fr));
+  gap: 0.625rem;
+  padding: 0;
+  list-style: none;
+  margin-top: 2rem;
+  row-gap: 2rem;
+}
+
+.product-grid .product-card {
+  width: 100%;
+  height: 100%;
+  text-align: start;
+  cursor: pointer;
+}
+
+.product-card .product-image {
+  width: 100%;
+  height: 400px;
+  place-self: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f6f6f6;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.product-card .product-info {
+  margin-top: 0.125rem;
+  text-align: start;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.product-card .product-title {
+  font-size: var(--f-sm);
+  font-weight: 400;
+  line-height: var(--l-normal);
+  display: inline-block;
+  color: var(--color-dark);
+}
+
+.product-card .product-price {
+  font-size: var(--f-xs);
+  font-weight: 400;
+  line-height: var(--l-normal);
+  color: var(--text-color);
+}
+
+.product-card .size-group {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  gap: 1rem;
+}
+
+.product-card .size-button {
+  background: transparent;
+  font-size: var(--f-xs);
+  font-weight: 400;
+  color: var(--color-gray);
 }
