@@ -1,21 +1,17 @@
 import React, { useState } from "react";
-import { LuSearch } from "react-icons/lu";
-import { useNavigate } from "react-router";
 import { RiCloseLine } from "react-icons/ri";
+import PropTypes from "prop-types";
 
-export default function SearchModel({ visible = true }) {
+export default function SearchModel({ setSearchModel, visible = true }) {
   if (!visible) return null;
   const [text, setText] = useState("");
-  const navigate = useNavigate();
+
+  const handleCloseModel = (e) => {
+    e.preventDefault();
+    setSearchModel((prev) => (prev === "close" ? "open" : "close"));
+  };
 
   const handleText = (e) => setText(e.target.value);
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (text.trim() !== "") {
-      navigate(`/search/${text}`);
-    }
-  };
 
   return visible ? (
     <div className="search-model-form">
@@ -26,14 +22,14 @@ export default function SearchModel({ visible = true }) {
         placeholder="Search here..."
         onKeyDown={(e) => e.key === "Enter" && handleSearch(e)}
       />
-      {text && (
-        <button className="clear-icon" onClick={() => setText("")}>
-          <RiCloseLine />
-        </button>
-      )}
-      <button className="search-button" onClick={handleSearch}>
-        <LuSearch />
+      <button className="search-button" onClick={handleCloseModel}>
+        <RiCloseLine />
       </button>
     </div>
   ) : null;
 }
+
+handleText.PropTypes = {
+  setSearchModel: PropTypes.func.isRequired,
+  visible: PropTypes.bool.isRequired,
+};

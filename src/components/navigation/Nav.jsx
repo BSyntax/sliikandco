@@ -161,7 +161,9 @@ export default function Nav() {
           />
         </nav>
 
-        {searchModel === "open" && <SearchModel />}
+        {searchModel === "open" && (
+          <SearchModel setSearchModel={setSearchModel} />
+        )}
       </header>
     </>
   );
