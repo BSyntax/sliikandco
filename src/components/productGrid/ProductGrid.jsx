@@ -1,13 +1,13 @@
 import React from "react";
 import ProductCard from "../ProductCard/ProductCard";
-import { useCart } from "../../context/CartProvider";
+import { useProducts } from "../../context/ProductProvider";
 
-export default function ProductGrid() {
-  const { cart } = useCart();
-  const displayedProducts = cart.slice(0, 8);
+export default function ProductGrid({ gender }) {
+  const products = useProducts().products;
+  const filteredProducts = products.filter((p) => p.gender === gender);
   return (
     <section className="product-grid container">
-      {displayedProducts.map((product) => (
+      {filteredProducts.map((product) => (
         <ProductCard key={product.id} {...product} />
       ))}
     </section>

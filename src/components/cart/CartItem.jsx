@@ -14,9 +14,7 @@ const CartItem = memo(({ item, onQuantityChange, onDelete }) => {
     onQuantityChange(item.id, item.quantity + 1);
   };
 
-  const handleDelete = () => {
-    onDelete(item.id);
-  };
+  const handleRemove = () => onDelete(item.id);
 
   return (
     <div className="cart-item">
@@ -62,11 +60,12 @@ const CartItem = memo(({ item, onQuantityChange, onDelete }) => {
 
       <div className="item-right">
         <div className="item-price">R{item.price.toFixed(2)}</div>
+
         <Button
+          text="Remove"
+          onClick={handleRemove}
+          variant="secondary"
           className="delete-btn"
-          text={"Remove"}
-          action={handleDelete}
-          type="button"
         />
       </div>
     </div>
@@ -84,7 +83,7 @@ CartItem.propTypes = {
     image: PropTypes.string.isRequired,
   }).isRequired,
   onQuantityChange: PropTypes.func,
-  onDelete: PropTypes.func,
+  onDelete: PropTypes.func.isRequired,
 };
 
 CartItem.defaultProps = {

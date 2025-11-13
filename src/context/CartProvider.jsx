@@ -1,88 +1,11 @@
 import { createContext, useContext, useState } from "react";
-import SkipperImage from "../assets/images/white-tshirt.png";
-import JeansImage from "../assets/images/product-2.webp";
-// import BootsImage from "../assets/images/hiking-boots.png";
-import JacketImage from "../assets/images/wool-jacket.png";
-import BootsImage from "../assets/images/product-1.webp";
-import CardiganImage from "../assets/images/cardigan.png";
+import { v4 as uuidv4 } from "uuid";
+import { store_products } from "../../data/products";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([
-    {
-      id: 1,
-      name: "Classic Green Skipper",
-      price: 249.99,
-      quantity: 1,
-      size: "M",
-      sizeType: "Size",
-      image: SkipperImage,
-    },
-    {
-      id: 2,
-      name: "Slim Fit Jeans",
-      price: 599.99,
-      quantity: 1,
-      size: "32",
-      sizeType: "Waist",
-      image: JeansImage,
-    },
-    {
-      id: 3,
-      name: "Suede Hiking boots",
-      price: 1299.99,
-      quantity: 1,
-      size: "42",
-      sizeType: "EU",
-      image: BootsImage,
-    },
-    {
-      id: 4,
-      name: "Shearling-Collared Wool Jacket",
-      price: 799.99,
-      quantity: 1,
-      size: "S",
-      sizeType: "Size",
-      image: JacketImage,
-    },
-    {
-      id: 5,
-      name: "Button-up Cardigan",
-      price: 1499.99,
-      quantity: 1,
-      size: "L",
-      sizeType: "Size",
-      image: CardiganImage,
-    },
-    {
-      id: 6,
-      name: "Button-up Cardigan",
-      price: 1499.99,
-      quantity: 1,
-      size: "L",
-      sizeType: "Size",
-      image: CardiganImage,
-    },
-    {
-      id: 7,
-      name: "Button-up Cardigan",
-      price: 1499.99,
-      quantity: 1,
-      size: "L",
-      sizeType: "Size",
-      image: CardiganImage,
-    },
-    {
-      id: 8,
-      name: "Button-up Cardigan",
-      price: 1499.99,
-      quantity: 1,
-      size: "L",
-      sizeType: "Size",
-      image: CardiganImage,
-    },
-  ]);
+  const [cart, setCart] = useState(store_products.slice(0, 4));
 
   const addCart = (product) => {
     setCart((prev) => {

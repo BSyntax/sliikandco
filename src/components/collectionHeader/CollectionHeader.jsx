@@ -3,21 +3,12 @@ import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import Button from "../controls/Button";
 
-export default function CollectionHeader({ title, showGenderToggle }) {
-  const [activeTab, setActiveTab] = useState("men");
-
-  const handleMen = (e) => {
-    e.preventDefault();
-    setActiveTab("men");
-    console.log("Men");
-  };
-
-  const handleWomen = (e) => {
-    e.preventDefault();
-    setActiveTab("women");
-    console.log("Women");
-  };
-
+export default function CollectionHeader({
+  title,
+  showGenderToggle,
+  selectedGender,
+  onGenderChange,
+}) {
   return (
     <section className="section-header container">
       <div className="header-top">
@@ -28,16 +19,24 @@ export default function CollectionHeader({ title, showGenderToggle }) {
             <div className="toggle-group">
               <NavLink
                 to="/men"
-                onClick={handleMen}
-                className={`toggle-link ${activeTab === "men" ? "active" : ""}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onGenderChange("Men");
+                }}
+                className={`toggle-link ${
+                  selectedGender === "Men" ? "active" : ""
+                }`}
               >
                 Men
               </NavLink>
               <NavLink
-                to="/women" 
-                onClick={handleWomen}
+                to="/women"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onGenderChange("Women");
+                }}
                 className={`toggle-link ${
-                  activeTab === "women" ? "active" : ""
+                  selectedGender === "Momen" ? "active" : ""
                 }`}
               >
                 Women

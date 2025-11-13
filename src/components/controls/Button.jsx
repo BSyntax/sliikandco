@@ -6,12 +6,13 @@ export default function Button({
   onClick,
   variant = "primary",
   type = "button",
+  className = "",
 }) {
   return (
     <button
       className={`button ${
         variant === "primary" ? "button-primary" : "button-secondary"
-      }`}
+      } ${className}`}
       type={type}
       onClick={onClick}
     >
@@ -25,4 +26,5 @@ Button.propTypes = {
   onClick: PropTypes.func,
   variant: PropTypes.oneOf(["primary", "secondary"]),
   type: PropTypes.oneOf(["button", "submit", "reset"]),
+  className: PropTypes.string,
 };

@@ -1,48 +1,68 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useCallback } from "react";
 import { useCart } from "./CartProvider";
-import SkipperImage from "../assets/images/white-tshirt.png";
+import { useProducts } from "../context/ProductProvider";
 
 const WishlistContext = createContext();
 
 export const WishlistProvider = ({ children }) => {
-  const [wishlist, setWishlist] = useState([
-    {
-      id: 1,
-      name: "Classic Green Skipper",
-      price: 249.99,
-      quantity: 1,
-      size: "M",
-      sizeType: "Size",
-      stock: "In Stock",
-      image: SkipperImage,
-      dateAdded: new Date(),
-    },
-  ]);
-
+  const { products } = useProducts();
   const { addCart } = useCart();
 
-  const handleAddCart = (product) => {
-    addCart(product);
-    removeFromWishlist(product.id);
-  };
+  const [wishlist, setWishlist] = useState(() => {
+    const firstProduct = products[0];
+    return firstProduct ? [firstProduct] : [];
+  });
 
-  const addToWishlist = (product) => {
-    setWishlist([...wishlist, product]);
-  };
+  const addToWishlist = useCallback((product) => {
+    if (!product?.id) {
+      console.warn("addToWishlist: Product missing id", product);
+      return;
+    }
 
-  const removeFromWishlist = (productId) => {
-    setWishlist(wishlist.filter((product) => product.id !== productId));
-  };
+    setWishlist((prev) => {
+      if (prev.some((item) => item.id === product.id)) {
+        return prev;
+      }
+      return [...prev, product];
+    });
+  }, []);
+
+  const removeFromWishlist = useCallback((productId) => {
+    if (!productId) return;
+    setWishlist((prev) => prev.filter((item) => item.id !== productId));
+  }, []);
+
+  const handleAddCart = useCallback(
+    (product) => {
+      if (!product?.id) {
+        console.warn("handleAddCart: Invalid product", product);
+        return;
+      }
+
+      addCart(product);
+      removeFromWishlist(product.id); 
+    },
+    [addCart, removeFromWishlist]
+  );
 
   return (
     <WishlistContext.Provider
-      value={{ wishlist, addToWishlist, removeFromWishlist, handleAddCart }}
+      value={{
+        wishlist,
+        addToWishlist,
+        removeFromWishlist,
+        handleAddCart,
+      }}
     >
       {children}
     </WishlistContext.Provider>
   );
 };
 
-export function useWishlist() {
-  return useContext(WishlistContext);
-}
+export const useWishlist = () => {
+  const context = useContext(WishlistContext);
+  if (!context) {
+    throw new Error("useWishlist must be used within WishlistProvider");
+  }
+  return context;
+};

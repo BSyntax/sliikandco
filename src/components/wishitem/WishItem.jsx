@@ -26,7 +26,7 @@ export default function WishItem({
       <p className="wishitem-date">{formattedDate}</p>
       <p className="wishitem-status">{stock}</p>
       <div className="wishitem-actions">
-        <Button text="Add to Cart" action={handleAddCart} type="button" />
+        <Button text="Add to Cart" onClick={handleAddCart} type="button" />
         <RiCloseFill className="cancel-icon" onClick={removeFromWishlist} />
       </div>
     </div>

@@ -568,7 +568,7 @@ header .nav-container {
 }
 
 .sliik-404 h1 {
-  font-size: var(--f-xxl);
+  font-size: var(--f-4xl);
   font-weight: 700;
   color: var(--color-dark);
   line-height: var(--l-loose);
@@ -1397,6 +1397,7 @@ header .nav-container {
   font-size: var(--f-sm);
   font-weight: 400;
   color: #a6a2a2;
+  border: none;
   letter-spacing: 0.5px;
 }
 
@@ -2073,7 +2074,7 @@ header .nav-container {
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(332px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.625rem;
   padding: 0;
   list-style: none;

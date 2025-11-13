@@ -5,11 +5,10 @@ import WishItem from "../components/wishitem/WishItem";
 import BreadCrumb from "../components/wishitem/BreadCrumb";
 import { useWishlist } from "../context/WishlistProvider";
 import Button from "../components/controls/Button";
-import image from "../assets/images/shopping.png";
+import image from "../assets/images/shopping.webp";
 
 export default function Wishlist() {
   const { wishlist, removeFromWishlist, handleAddCart } = useWishlist();
-  const navigate = useNavigate();
 
   return (
     <>
