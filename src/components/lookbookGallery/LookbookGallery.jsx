@@ -6,6 +6,7 @@ import Lookbook4 from "../../assets/images/lookup-gallery-4.webp";
 import Lookbook5 from "../../assets/images/lookup-gallery-5.webp";
 import Lookbook6 from "../../assets/images/lookup-gallery-6.webp";
 
+
 export default function LookbookGallery() {
   return (
     <section className="lookbook-gallery">

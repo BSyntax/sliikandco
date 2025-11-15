@@ -1,6 +1,10 @@
 # Sliik & Co. — Fashion E-Commerce Website
 
+
 Sliik & Co. is a modern, fully responsive e-commerce platform built with React, Express, Node.js, and MongoDB. It delivers a sleek and seamless online shopping experience for fashion enthusiasts who value both style and usability.
+
+⚠️ This is a **demo e-commerce project** for job applications and showcasing my skill in React and Node.js, MongoDB. 
+All product images are used for **educational purposes only** and belong to their respective owners.
 
 ## Overview
 

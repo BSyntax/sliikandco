@@ -36,7 +36,7 @@ export default function CollectionHeader({
                   onGenderChange("Women");
                 }}
                 className={`toggle-link ${
-                  selectedGender === "Momen" ? "active" : ""
+                  selectedGender === "Women" ? "active" : ""
                 }`}
               >
                 Women

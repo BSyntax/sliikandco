@@ -3,49 +3,55 @@ import PropTypes from "prop-types";
 import { useCart } from "../../context/CartProvider";
 import { useNavigate } from "react-router-dom";
 
-export default function ProductCard({
-  id,
-  name,
-  price,
-  image,
-  sizes = ["S", "M", "L", "XL"],
-  sizeType = "Size",
-}) {
+export default function ProductCard({ product }) {
   const [selectedSize, setSelectedSize] = useState(null);
+  const [image, setImage] = useState(product.image);
   const { addCart } = useCart();
   const navigate = useNavigate();
 
   const handleSizeClick = (size) => {
     setSelectedSize(size);
     addCart({
-      id: Date.now() + Math.random(),
-      name,
-      price,
+      id: product.id,
+      name: product.name,
+      price: product.price,
       quantity: 1,
-      size,
-      sizeType,
-      image,
+      size: size,
+      sizeType: product.sizeType,
+      image: product.image,
     });
+  };
+
+  const handleImage = () => {
+    let newImg = product.gallery[1];
+    newImg && setImage(newImg);
   };
 
   return (
     <article className="product-card">
       <div
         className="product-image"
-        onClick={() => navigate(`/product/${id}`)}
+        onClick={() => navigate(`/product/${product.id}`)}
         role="button"
         tabIndex={0}
-        onKeyDown={(e) => e.key === "Enter" && navigate(`/product/${id}`)}
+        onKeyDown={(e) =>
+          e.key === "Enter" && navigate(`/product/${product.id}`)
+        }
       >
-        <img src={image} alt={name} />
+        <img
+          src={image}
+          onMouseEnter={handleImage}
+          onMouseLeave={() => setImage(product.image)}
+          alt={product.name}
+        />
       </div>
 
       <div className="product-info">
-        <span className="product-title">{name}</span>
-        <p className="product-price">R{price.toFixed(2)}</p>
+        <span className="product-title">{product.name}</span>
+        <p className="product-price">R{product.price.toFixed(2)}</p>
 
         <div className="size-group">
-          {sizes.map((size) => (
+          {product.sizes?.map((size) => (
             <button
               key={size}
               type="button"
@@ -64,10 +70,12 @@ export default function ProductCard({
 }
 
 ProductCard.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  sizes: PropTypes.arrayOf(PropTypes.string),
-  sizeType: PropTypes.string,
+  product: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    sizes: PropTypes.arrayOf(PropTypes.string),
+    sizeType: PropTypes.string,
+  }).isRequired,
 };

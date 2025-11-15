@@ -14,7 +14,7 @@ export default function CompanyLogosShowcase() {
     <section className="logos-section">
       <div className="logos-wrapper">
         <div className="logos-track">
-          {logos.concat(logos).map((logo, idx) => (
+          {[...logos, ...logos, ...logos, ...logos].map((logo, idx) => (
             <div key={idx} className="logo-item">
               <img
                 src={logo}

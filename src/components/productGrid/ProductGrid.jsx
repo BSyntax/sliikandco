@@ -8,7 +8,7 @@ export default function ProductGrid({ gender }) {
   return (
     <section className="product-grid container">
       {filteredProducts.map((product) => (
-        <ProductCard key={product.id} {...product} />
+        <ProductCard key={product.id} product={product} />
       ))}
     </section>
   );

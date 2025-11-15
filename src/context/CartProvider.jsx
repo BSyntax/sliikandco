@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { store_products } from "../../data/products";
 
 const CartContext = createContext();
