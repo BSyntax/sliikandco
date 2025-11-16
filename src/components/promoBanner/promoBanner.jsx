@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Button from "../controls/Button";
+import { useNavigate } from "react-router-dom";
 
 const PromoBanner = ({
   promoImage,
@@ -9,6 +10,7 @@ const PromoBanner = ({
   promoDescription,
   promoButtonText,
 }) => {
+  const navigate = useNavigate();
   return (
     <section className="promo-banner">
       <div className="promo-image">
@@ -30,7 +32,9 @@ const PromoBanner = ({
           <p className="promo-description">{promoDescription}</p>
           <Button
             text={promoButtonText}
-            onClick={() => {}}
+            onClick={() => {
+              navigate("/contact");
+            }}
             variant="primary"
             className="promo-button"
           />
@@ -43,6 +47,9 @@ const PromoBanner = ({
 PromoBanner.propTypes = {
   promoImage: PropTypes.string,
   promoCaption: PropTypes.string,
+  promoHeadline: PropTypes.string,
+  promoDescription: PropTypes.string,
+  promoButtonText: PropTypes.string,
 };
 
 export default PromoBanner;

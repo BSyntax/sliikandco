@@ -10,6 +10,7 @@ import shirtBeigeImg from "../src/assets/products/shirt-concha.webp";
 import golferAquaImg from "../src/assets/products/color-golfer.webp";
 import crewSweatImg from "../src/assets/products/crew-sweatshirt.webp";
 import nswHoodieImg from "../src/assets/products/hoodie-fleece.webp";
+import piquePoloNavyImg from "../src/assets/products/pique-polo-navy.webp";
 
 // women
 import miniSkirtImg from "../src/assets/products/mini-skirt.webp";
@@ -20,6 +21,7 @@ import crossoverSandalsImg from "../src/assets/products/crossover-sandals.webp";
 import croppedHoodieImg from "../src/assets/products/cropped-hoodie.webp";
 import croppedWashedImg from "../src/assets/products/cropped-hoodie-1.webp";
 import offShoulderImg from "../src/assets/products/off-shoulder.webp";
+import fittedTeePinkImg from "../src/assets/products/fitted-tee-pink.webp";
 
 export const store_products = [
   {
@@ -38,7 +40,7 @@ export const store_products = [
     brand: "Maison Wear",
     description:
       "Breathable cotton polo with classic skipper styling. Perfect for casual comfort.",
-    isNew: false,
+    isNew: true,
     isOnSale: true,
     discountPercent: 15,
     inStock: true,
@@ -62,7 +64,7 @@ export const store_products = [
     brand: "TrailFlex",
     description:
       "Relaxed-fit sweatshorts in soft cotton blend. Ideal for lounging or warm days.",
-    isNew: false,
+    isNew: true,
     isOnSale: false,
     inStock: true,
     image: sweatshortsImg,
@@ -85,7 +87,7 @@ export const store_products = [
     brand: "Maison Wear",
     description:
       "Textured knit golfer with tipped collar. Lightweight and stylish for warm days.",
-    isNew: false,
+    isNew: true,
     isOnSale: false,
     inStock: true,
     image: golferGreenImg,
@@ -154,7 +156,7 @@ export const store_products = [
     brand: "Active Grace",
     description:
       "Sleek wrap-style skort with built-in shorts. Combines elegance and functionality.",
-    isNew: false,
+    isNew: true,
     isOnSale: true,
     discountPercent: 15,
     inStock: true,
@@ -178,7 +180,7 @@ export const store_products = [
     brand: "Ryan & Co.",
     description:
       "Soft ribbed henley with button placket and long sleeves. Effortless layering essential.",
-    isNew: false,
+    isNew: true,
     isOnSale: false,
     inStock: true,
     image: henleyNavyImg,
@@ -201,7 +203,7 @@ export const store_products = [
     brand: "Sole & Story",
     description:
       "Delicate crossover straps in soft pastel tones. Lightweight and perfect for warm days.",
-    isNew: false,
+    isNew: true,
     isOnSale: true,
     discountPercent: 20,
     inStock: true,
@@ -272,7 +274,7 @@ export const store_products = [
     brand: "Urban Denim Co.",
     description:
       "Striped knitted polo with stretch. Casual fit, great for layering or standalone wear.",
-    isNew: false,
+    isNew: true,
     isOnSale: false,
     inStock: true,
     image: poloStripeImg,
@@ -318,7 +320,7 @@ export const store_products = [
     brand: "Maison Wear",
     description:
       "Short-sleeve colour-block golfer. Premium knit, modern fit, perfect for layering.",
-    isNew: false,
+    isNew: true,
     isOnSale: true,
     discountPercent: 10,
     inStock: true,
@@ -365,7 +367,7 @@ export const store_products = [
     brand: "Daily Streetwear",
     description:
       "Oversized crew neck sweatshirt in soft fleece. Minimalist design, maximum comfort.",
-    isNew: false,
+    isNew: true,
     isOnSale: true,
     discountPercent: 20,
     inStock: true,
@@ -389,12 +391,61 @@ export const store_products = [
     brand: "Daily Streetwear",
     description:
       "Oversized fleece pullover hoodie with subtle Swoosh branding. Unisex comfort.",
-    isNew: false,
+    isNew: true,
     isOnSale: true,
     discountPercent: 20,
     inStock: true,
     image: nswHoodieImg,
     gallery: [nswHoodieImg],
     tags: ["hoodie", "streetwear", "nike"],
+  },
+  {
+    id: uuidv4(),
+    name: "Fitted Tee - Dusty Pink",
+    slug: "fitted-tee-dusty-pink",
+    price: 199.99,
+    quantity: 1,
+    size: "M",
+    sizeType: "Size",
+    sizesAvailable: ["XS", "S", "M", "L", "XL"],
+    colors: ["Dusty Pink"],
+    selectedColor: "Dusty Pink",
+    category: "T-Shirts",
+    gender: "Men",
+    brand: "Sliik & Co.",
+    description:
+      "A soft, form-hugging fitted tee crafted from premium cotton for everyday comfort and effortless style.",
+    isNew: false,
+    isOnSale: false,
+    discountPercent: 0,
+    inStock: true,
+    image: fittedTeePinkImg,
+    gallery: [fittedTeePinkImg],
+    tags: ["t-shirt", "fitted", "essentials", "basics"],
+  },
+
+  {
+    id: uuidv4(),
+    name: "Piqué Polo - Navy",
+    slug: "pique-polo-navy",
+    price: 279.99,
+    quantity: 1,
+    size: "M",
+    sizeType: "Size",
+    sizesAvailable: ["S", "M", "L", "XL"],
+    colors: ["Navy"],
+    selectedColor: "Navy",
+    category: "Polos",
+    gender: "Men",
+    brand: "Sliik & Co.",
+    description:
+      "A classic navy piqué polo with a structured collar and tailored fit—perfect for casual and smart-casual looks.",
+    isNew: false,
+    isOnSale: false,
+    discountPercent: 0,
+    inStock: true,
+    image: piquePoloNavyImg,
+    gallery: [piquePoloNavyImg],
+    tags: ["polo", "smart-casual", "essentials"],
   },
 ];

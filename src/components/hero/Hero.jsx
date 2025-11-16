@@ -23,12 +23,12 @@ export default function Hero() {
       </div>
 
       <div className="hero-text">
-        <h1>Explore Sliik & Co.</h1>
+        <h1>Minimal & Modern</h1>
         <p>
-          Discover curated collections of premium men’s and women’s fashion
-          experience style and elegance with every piece you wear.
+          Timeless silhouettes. Premium fabrics. Designed in Cape Town made
+          for the world.
         </p>
-        <Button text="Explore" action={handleExplore} type="button" />
+        <Button text="Explore Now" onClick={handleExplore} variant="primary" />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../controls/Button";
 
 export default function CollectionHeader({
@@ -9,13 +9,22 @@ export default function CollectionHeader({
   selectedGender,
   onGenderChange,
 }) {
+  const navigate = useNavigate();
   return (
     <section className="section-header container">
-      <div className="header-top">
+      <div
+        className={`${
+          showGenderToggle ? "header-top" : "header-top no-toggle"
+        }`}
+      >
         <h2 className="header-title">{title}</h2>
 
-        {showGenderToggle && (
-          <div className="header-controls">
+        {showGenderToggle && title === "New Arrivals" && (
+          <div
+            className={`header-actions ${
+              title === "New Arrivals" ? "with-toggle" : ""
+            }`}
+          >
             <div className="toggle-group">
               <NavLink
                 to="/men"
@@ -45,11 +54,26 @@ export default function CollectionHeader({
 
             <Button
               text="View All"
-              onClick={() => {}}
+              onClick={() => {
+                navigate("/shop");
+              }}
               variant="secondary"
               type="button"
+              className="collection-button"
             />
           </div>
+        )}
+
+        {title === "Best Sellers" && showGenderToggle === false && (
+          <Button
+            text="View All"
+            onClick={() => {
+              navigate("/shop");
+            }}
+            variant="secondary"
+            type="button"
+            className="collection-button"
+          />
         )}
       </div>
     </section>
@@ -59,4 +83,6 @@ export default function CollectionHeader({
 CollectionHeader.propTypes = {
   title: PropTypes.string.isRequired,
   showGenderToggle: PropTypes.bool,
+  selectedGender: PropTypes.string,
+  onGenderChange: PropTypes.func,
 };

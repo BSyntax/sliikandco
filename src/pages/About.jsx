@@ -18,14 +18,14 @@ export default function About() {
             <div className="about-text">
               <h2 className="about-title">Our Story</h2>
               <p className="about-description">
-                At Sliik & Co, fashion isn’t just about what you wear—it’s about
+                At Sliik & Co, fashion isn’t just about what you wear it’s about
                 confidence, creativity, and expression. Our journey began with a
                 simple mission: to bring you timeless pieces that blend comfort,
                 quality, and individuality. Every collection we create is
                 inspired by modern living and the spirit of self-expression.
               </p>
               <p className="about-description">
-                We believe that fashion is more than just clothing—it’s a form
+                We believe that fashion is more than just clothing it’s a form
                 of self-expression, a reflection of your personality and values.
                 Our collections are designed to be versatile, allowing you to
                 express yourself through your unique style and preferences.

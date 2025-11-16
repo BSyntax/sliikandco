@@ -14,7 +14,9 @@ export default function ProductCard({ product }) {
     addCart({
       id: product.id,
       name: product.name,
-      price: product.price,
+      price: product.isOnSale
+        ? product.price * (1 - product.discountPercent / 100)
+        : product.price,
       quantity: 1,
       size: size,
       sizeType: product.sizeType,
@@ -29,6 +31,9 @@ export default function ProductCard({ product }) {
 
   return (
     <article className="product-card">
+      {product.isOnSale && (
+        <span className="sale-badge">{product.discountPercent}% Off</span>
+      )}
       <div
         className="product-image"
         onClick={() => navigate(`/product/${product.id}`)}
@@ -48,10 +53,27 @@ export default function ProductCard({ product }) {
 
       <div className="product-info">
         <span className="product-title">{product.name}</span>
-        <p className="product-price">R{product.price.toFixed(2)}</p>
+        <p className="product-price">
+          {product.isOnSale ? (
+            <div className="price-on-sale">
+              <span className="original-price">
+                {`R${product.price.toFixed(2)}`}
+              </span>
+              --
+              <span>
+                {`R${(
+                  product.price *
+                  (1 - product.discountPercent / 100)
+                ).toFixed(2)}`}
+              </span>
+            </div>
+          ) : (
+            `R${product.price.toFixed(2)}`
+          )}
+        </p>
 
         <div className="size-group">
-          {product.sizes?.map((size) => (
+          {product.sizesAvailable?.map((size) => (
             <button
               key={size}
               type="button"

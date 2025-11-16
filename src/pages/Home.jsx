@@ -8,12 +8,15 @@ import HeroVideoBanner from "../components/videoBanner/HeroVideoBanner";
 import FashionVideo from "../assets/videos/fashion-video.mp4";
 import promoBannerImage from "../assets/images/promoBanner-01.webp";
 import PromoBanner from "../components/promoBanner/promoBanner";
-import PerksBar from "../components/perksBar/PerksBar";
 import NewsletterSignup from "../components/newsletter/NewsletterSignup ";
 import LookbookGallery from "../components/lookbookGallery/LookbookGallery";
+import { Link, useNavigate } from "react-router-dom";
+import PerksBar from "../components/perksBar/PerksBar";
+import { LuFacebook, LuInstagram, LuTwitter } from "react-icons/lu";
 
 export default function Home() {
   const [selectedGender, setSelectedGender] = useState("Men");
+  const navigate = useNavigate();
   return (
     <>
       <Hero />
@@ -30,7 +33,7 @@ export default function Home() {
           selectedGender={selectedGender}
           onGenderChange={setSelectedGender}
         />
-        <ProductGrid gender={selectedGender} />
+        <ProductGrid headerTitle="New Arrivals" gender={selectedGender} />
         <PromoBanner
           promoImage={promoBannerImage}
           promoCaption="CURATED"
@@ -46,13 +49,52 @@ export default function Home() {
           onButtonClick={() => navigate("/shop")}
         />{" "}
         <CollectionHeader
-          title="New Arrivals"
-          showGenderToggle={true}
+          title="Best Sellers"
+          showGenderToggle={false}
           selectedGender={selectedGender}
           onGenderChange={setSelectedGender}
         />
-        <ProductGrid gender={selectedGender} />
+        <ProductGrid headerTitle="Best Sellers" gender={selectedGender} />
         <NewsletterSignup />
+        <div className="stay-connected container">
+          <div className="stay-connected-content">
+            <span className="stay-connected-caption">Follow Us</span>
+            <Link to="/" className="stay-connected-logo">
+              Sliik & Co
+            </Link>
+            <p className="stay-connected-description">
+              Stay connected with us on social media for the latest updates,
+              exclusive offers, and style inspiration. Join our community and be
+              the first to know about new arrivals and special events.
+            </p>
+          </div>
+          <div className="stay-connected-icons">
+            <span className="stay-connected-icon">
+              <Link
+                to="https://facebook.com/sliikandco"
+                aria-label="Visit our Facebook page"
+              >
+                <LuFacebook />
+              </Link>
+            </span>
+            <span className="stay-connected-icon">
+              <Link
+                to="https://twitter.com/sliikandco"
+                aria-label="Visit our Twitter page"
+              >
+                <LuTwitter />
+              </Link>
+            </span>
+            <span className="stay-connected-icon">
+              <Link
+                to="https://instagram.com/sliikandco"
+                aria-label="Visit our Instagram page"
+              >
+                <LuInstagram />
+              </Link>
+            </span>
+          </div>
+        </div>
       </main>
       <LookbookGallery />
     </>
