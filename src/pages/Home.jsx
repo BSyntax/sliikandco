@@ -11,7 +11,6 @@ import PromoBanner from "../components/promoBanner/promoBanner";
 import NewsletterSignup from "../components/newsletter/NewsletterSignup ";
 import LookbookGallery from "../components/lookbookGallery/LookbookGallery";
 import { Link, useNavigate } from "react-router-dom";
-import PerksBar from "../components/perksBar/PerksBar";
 import { LuFacebook, LuInstagram, LuTwitter } from "react-icons/lu";
 
 export default function Home() {
@@ -60,7 +59,7 @@ export default function Home() {
           <div className="stay-connected-content">
             <span className="stay-connected-caption">Follow Us</span>
             <Link to="/" className="stay-connected-logo">
-              Sliik & Co
+              Sliik & Co.
             </Link>
             <p className="stay-connected-description">
               Stay connected with us on social media for the latest updates,

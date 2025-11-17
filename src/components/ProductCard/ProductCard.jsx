@@ -9,24 +9,29 @@ export default function ProductCard({ product }) {
   const { addCart } = useCart();
   const navigate = useNavigate();
 
-  const handleSizeClick = (size) => {
-    setSelectedSize(size);
+  const finalPrice = product.isOnSale
+    ? product.price * (1 - (product.discountPercent || 0) / 100)
+    : product.price;
+
+  const handleAddToCart = () => {
+    if (!selectedSize && product.sizesAvailable?.length > 0) {
+      alert("Please select a size first.");
+      return;
+    }
     addCart({
       id: product.id,
       name: product.name,
-      price: product.isOnSale
-        ? product.price * (1 - product.discountPercent / 100)
-        : product.price,
+      price: finalPrice,
       quantity: 1,
-      size: size,
+      size: selectedSize,
       sizeType: product.sizeType,
       image: product.image,
     });
   };
 
-  const handleImage = () => {
-    let newImg = product.gallery[1];
-    newImg && setImage(newImg);
+  const handleImageHover = () => {
+    const newImg = product.gallery?.[1];
+    if (newImg) setImage(newImg);
   };
 
   return (
@@ -34,6 +39,7 @@ export default function ProductCard({ product }) {
       {product.isOnSale && (
         <span className="sale-badge">{product.discountPercent}% Off</span>
       )}
+
       <div
         className="product-image"
         onClick={() => navigate(`/product/${product.id}`)}
@@ -45,7 +51,7 @@ export default function ProductCard({ product }) {
       >
         <img
           src={image}
-          onMouseEnter={handleImage}
+          onMouseEnter={handleImageHover}
           onMouseLeave={() => setImage(product.image)}
           alt={product.name}
         />
@@ -53,6 +59,7 @@ export default function ProductCard({ product }) {
 
       <div className="product-info">
         <span className="product-title">{product.name}</span>
+
         <p className="product-price">
           {product.isOnSale ? (
             <div className="price-on-sale">
@@ -60,32 +67,33 @@ export default function ProductCard({ product }) {
                 {`R${product.price.toFixed(2)}`}
               </span>
               --
-              <span>
-                {`R${(
-                  product.price *
-                  (1 - product.discountPercent / 100)
-                ).toFixed(2)}`}
-              </span>
+              <span>{`R${finalPrice.toFixed(2)}`}</span>
             </div>
           ) : (
-            `R${product.price.toFixed(2)}`
+            `R${finalPrice.toFixed(2)}`
           )}
         </p>
 
-        <div className="size-group">
-          {product.sizesAvailable?.map((size) => (
-            <button
-              key={size}
-              type="button"
-              className={
-                "size-button" + (selectedSize === size ? " size-active" : "")
-              }
-              onClick={() => handleSizeClick(size)}
-            >
-              {size}
-            </button>
-          ))}
-        </div>
+        {product.sizesAvailable?.length > 0 && (
+          <div className="size-group">
+            {product.sizesAvailable.map((size) => (
+              <button
+                key={size}
+                type="button"
+                className={
+                  "size-button" + (selectedSize === size ? " size-active" : "")
+                }
+                onClick={() => setSelectedSize(size)}
+              >
+                {size}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <button className="add-to-cart-btn" onClick={handleAddToCart}>
+          Add to Cart
+        </button>
       </div>
     </article>
   );
@@ -97,7 +105,10 @@ ProductCard.propTypes = {
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
-    sizes: PropTypes.arrayOf(PropTypes.string),
+    gallery: PropTypes.arrayOf(PropTypes.string),
+    sizesAvailable: PropTypes.arrayOf(PropTypes.string),
     sizeType: PropTypes.string,
+    isOnSale: PropTypes.bool,
+    discountPercent: PropTypes.number,
   }).isRequired,
 };

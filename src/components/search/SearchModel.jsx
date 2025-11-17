@@ -1,35 +1,48 @@
 import React, { useState } from "react";
 import { RiCloseLine } from "react-icons/ri";
-import PropTypes from "prop-types";
+import { NavLink } from "react-router-dom";
+import ProductGrid from "../productGrid/ProductGrid";
 
 export default function SearchModel({ setSearchModel, visible = true }) {
   if (!visible) return null;
   const [text, setText] = useState("");
 
-  const handleCloseModel = (e) => {
-    e.preventDefault();
-    setSearchModel((prev) => (prev === "close" ? "open" : "close"));
+  const handleClose = () => {
+    setSearchModel("close");
   };
 
-  const handleText = (e) => setText(e.target.value);
+  const handleSearch = (e) => {
+    setText(e.target.value);
+  };
 
-  return visible ? (
-    <div className="search-model-form">
-      <input
-        type="text"
-        onChange={handleText}
-        value={text}
-        placeholder="Search here..."
-        onKeyDown={(e) => e.key === "Enter" && handleSearch(e)}
-      />
-      <button className="search-button" onClick={handleCloseModel}>
-        <RiCloseLine />
-      </button>
+  return (
+    <div className={`search-model-form ${text ? "search-model--active" : ""}`}>
+      <div className="search-controls">
+        <input
+          type="text"
+          onChange={handleSearch}
+          value={text}
+          placeholder="Search here..."
+          autoFocus
+        />
+        <button className="search-button" onClick={handleClose}>
+          <RiCloseLine />
+        </button>
+      </div>
+
+      {text && (
+        <div className="view-searched">
+          <NavLink
+            to={`/search?query=${encodeURIComponent(text)}`}
+            className="search-link"
+            onClick={handleClose}
+          >
+            View all results for "{text}"
+          </NavLink>
+        </div>
+      )}
+
+      <ProductGrid searchText={text} />
     </div>
-  ) : null;
+  );
 }
-
-SearchModel.propTypes = {
-  setSearchModel: PropTypes.func.isRequired,
-  visible: PropTypes.bool.isRequired,
-};
