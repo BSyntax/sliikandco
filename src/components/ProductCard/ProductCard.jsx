@@ -13,17 +13,14 @@ export default function ProductCard({ product }) {
     ? product.price * (1 - (product.discountPercent || 0) / 100)
     : product.price;
 
-  const handleAddToCart = () => {
-    if (!selectedSize && product.sizesAvailable?.length > 0) {
-      alert("Please select a size first.");
-      return;
-    }
+  const handleAddToCart = (sizeToAddToCart) => {
+    console.log(product.image);
     addCart({
       id: product.id,
       name: product.name,
       price: finalPrice,
       quantity: 1,
-      size: selectedSize,
+      size: sizeToAddToCart,
       sizeType: product.sizeType,
       image: product.image,
     });
@@ -83,17 +80,16 @@ export default function ProductCard({ product }) {
                 className={
                   "size-button" + (selectedSize === size ? " size-active" : "")
                 }
-                onClick={() => setSelectedSize(size)}
+                onClick={() => {
+                  setSelectedSize(size);
+                  handleAddToCart(size);
+                }}
               >
                 {size}
               </button>
             ))}
           </div>
         )}
-
-        <button className="add-to-cart-btn" onClick={handleAddToCart}>
-          Add to Cart
-        </button>
       </div>
     </article>
   );

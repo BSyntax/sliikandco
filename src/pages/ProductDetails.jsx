@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import BreadCrumb from "../components/wishitem/BreadCrumb";
 import Button from "../components/controls/Button";
@@ -7,13 +6,26 @@ import { useProducts } from "../context/ProductProvider";
 
 export default function ProductDetails() {
   const { id } = useParams();
-  const { products } = useProducts();
+  const { products, loading } = useProducts();
 
-  if (!products) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <section className="product-details container">
+        <div className="loader">Loading product...</div>
+      </section>
+    );
+  }
 
-  const product = products.find((p) => p.id === Number(id));
 
-  if (!product) return <p className="no-product">Product not found.</p>;
+  if (!products || products.length === 0) {
+    return <p className="no-product">No products available.</p>;
+  }
+
+  const product = products.find((item) => item.id == id);
+
+  if (!product) {
+    return <p className="no-product">Product not found.</p>;
+  }
 
   return (
     <>
@@ -22,10 +34,7 @@ export default function ProductDetails() {
         <div className="product-grid">
           <div className="grid-left">
             <div className="product-img">
-              <img
-                src={product.image || "https://via.placeholder.com/400"}
-                alt={product.name}
-              />
+              <img src={product.image} alt={product.name} loading="lazy" />
             </div>
           </div>
 
@@ -37,23 +46,11 @@ export default function ProductDetails() {
               </button>
             </div>
 
-            <p className="product-price">${product.price.toFixed(2)}</p>
+            <p className="product-price">R{product.price.toFixed(2)}</p>
             <p className="product-description">{product.description}</p>
 
-            {product.colors && product.colors.length > 0 && (
-              <div className="product-colors">
-                {product.colors.map((color) => (
-                  <span
-                    key={color}
-                    style={{ backgroundColor: color }}
-                    className="color-swatch"
-                  ></span>
-                ))}
-              </div>
-            )}
-
             <div className="product-actions">
-              <Button text="Add to Cart" type="primary" />
+              <Button text="Add to Cart" variant="primary" />
             </div>
           </div>
         </div>

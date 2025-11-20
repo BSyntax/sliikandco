@@ -39,7 +39,7 @@ export const store_products = [
     gender: "Men",
     brand: "Maison Wear",
     description:
-      "Breathable cotton polo with classic skipper styling. Perfect for casual comfort.",
+      "Crafted from highly breathable cotton, this slim-fit polo offers both comfort and a sharp silhouette. Its classic skipper styling adds a touch of nautical charm, making it a versatile choice for any casual occasion.",
     isNew: true,
     isOnSale: true,
     discountPercent: 15,
@@ -63,7 +63,7 @@ export const store_products = [
     gender: "Men",
     brand: "TrailFlex",
     description:
-      "Relaxed-fit sweatshorts in soft cotton blend. Ideal for lounging or warm days.",
+      "Engineered for ultimate comfort, these relaxed-fit sweatshorts are made from a premium soft cotton blend. Featuring a comfortable elastic waistband and a versatile brown hue, they are your go-to for lounging at home or enjoying a sunny day out.",
     isNew: true,
     isOnSale: false,
     inStock: true,
@@ -86,7 +86,7 @@ export const store_products = [
     gender: "Men",
     brand: "Maison Wear",
     description:
-      "Textured knit golfer with tipped collar. Lightweight and stylish for warm days.",
+      "Elevate your smart-casual wardrobe with the Andy Golfer. Its unique textured knit and contrasting tipped collar create a sophisticated look, while the lightweight fabric ensures you stay cool and stylish even on the warmest days.",
     isNew: true,
     isOnSale: false,
     inStock: true,
@@ -109,7 +109,7 @@ export const store_products = [
     gender: "Women",
     brand: "Cozy Vibe",
     description:
-      "Relaxed off-shoulder sweatshirt in soft, washed cotton. Perfect for cozy-casual looks.",
+      "Embrace a laid-back yet chic aesthetic with this off-shoulder sweatshirt. Made from incredibly soft, washed cotton for a lived-in feel, its relaxed silhouette drapes beautifully, making it an essential piece for your cozy-casual collection.",
     isNew: true,
     isOnSale: false,
     inStock: true,
@@ -132,7 +132,7 @@ export const store_products = [
     gender: "Women",
     brand: "Luxe Haven",
     description:
-      "Flirty mini skirt with clean lines and structured fit. Perfect for day-to-night styling.",
+      "The Haven Mini Skirt is a celebration of clean lines and modern femininity. Its structured, high-waisted fit creates a flattering silhouette that's both flirty and sophisticated, transitioning effortlessly from a day at the office to a night out.",
     isNew: true,
     isOnSale: false,
     inStock: true,
@@ -155,7 +155,7 @@ export const store_products = [
     gender: "Women",
     brand: "Active Grace",
     description:
-      "Sleek wrap-style skort with built-in shorts. Combines elegance and functionality.",
+      "Experience the perfect fusion of elegance and practicality with this wrap-style skort. While presenting as a chic skirt from the front, it features built-in shorts for complete freedom of movement, making it a versatile staple for any active or casual wardrobe.",
     isNew: true,
     isOnSale: true,
     discountPercent: 15,
@@ -179,7 +179,7 @@ export const store_products = [
     gender: "Women",
     brand: "Ryan & Co.",
     description:
-      "Soft ribbed henley with button placket and long sleeves. Effortless layering essential.",
+      "A timeless layering piece, the Ryan Henley is crafted from a soft ribbed fabric that offers both comfort and a flattering fit. The classic button placket and long sleeves make it an effortless choice for transitioning between seasons in style.",
     isNew: true,
     isOnSale: false,
     inStock: true,
@@ -202,7 +202,7 @@ export const store_products = [
     gender: "Women",
     brand: "Sole & Story",
     description:
-      "Delicate crossover straps in soft pastel tones. Lightweight and perfect for warm days.",
+      "Step into summer with these charming crossover-strap sandals. The delicate straps in a soft peach-pink hue add a touch of elegance, while the lightweight design and comfortable footbed ensure they're your perfect companion for all-day wear during warm weather.",
     isNew: true,
     isOnSale: true,
     discountPercent: 20,
@@ -226,7 +226,7 @@ export const store_products = [
     gender: "Women",
     brand: "Urban Pulse",
     description:
-      "Cropped zip hoodie with relaxed fit and marled texture. Street-ready with a feminine edge.",
+      "This cropped zip-through hoodie blends street-style attitude with a feminine touch. Its relaxed fit, soft marled texture, and modern cropped length make it a go-to piece for creating effortlessly cool, layered looks.",
     isNew: true,
     isOnSale: false,
     inStock: true,
@@ -234,7 +234,6 @@ export const store_products = [
     gallery: [croppedHoodieImg],
     tags: ["cropped", "hoodie", "zip-up"],
   },
-  ,
   {
     id: uuidv4(),
     name: "Braided Sandals - Light Beige",
@@ -250,7 +249,7 @@ export const store_products = [
     gender: "Women",
     brand: "Sole & Story",
     description:
-      "Hand-braided leather sandals with cushioned footbed. Timeless comfort meets artisan style.",
+      "Showcasing exquisite craftsmanship, these sandals feature hand-braided leather straps for a touch of artisan style. The cushioned footbed provides exceptional comfort, offering a timeless design that pairs beautifully with everything from dresses to denim.",
     isNew: true,
     isOnSale: false,
     inStock: true,
@@ -273,7 +272,7 @@ export const store_products = [
     gender: "Men",
     brand: "Urban Denim Co.",
     description:
-      "Striped knitted polo with stretch. Casual fit, great for layering or standalone wear.",
+      "A modern take on a classic, this knitted polo features a refined natural stripe pattern and is woven with a hint of stretch for added comfort. Its casual fit makes it an excellent choice for layering or wearing as a standalone statement piece.",
     isNew: true,
     isOnSale: false,
     inStock: true,
@@ -296,7 +295,7 @@ export const store_products = [
     gender: "Men",
     brand: "Nordline",
     description:
-      "Lightweight wool-blend shirt jacket with shearling collar. Warm yet refined.",
+      "The CONCHA shirt jacket offers the perfect balance of warmth and refinement. Crafted from a lightweight wool-blend and featuring a cozy shearling collar, this versatile piece can be worn as a shirt or layered as a light jacket on cooler days.",
     isNew: true,
     isOnSale: false,
     inStock: true,
@@ -319,7 +318,7 @@ export const store_products = [
     gender: "Men",
     brand: "Maison Wear",
     description:
-      "Short-sleeve colour-block golfer. Premium knit, modern fit, perfect for layering.",
+      "Make a bold statement with the BRINLEE Golfer, featuring a striking aqua colour-block design. This short-sleeve shirt is crafted from a premium knit with a modern fit, making it a standout piece that's perfect for layering or wearing on its own.",
     isNew: true,
     isOnSale: true,
     discountPercent: 10,
@@ -343,7 +342,7 @@ export const store_products = [
     gender: "Women",
     brand: "Aurora Threads",
     description:
-      "Flowing floral maxi dress in lightweight fabric. Ideal for summer events.",
+      "Capture the essence of summer with this beautiful floral maxi dress. Its flowing silhouette and lightweight fabric create an ethereal, romantic feel, making it the ideal choice for garden parties, weddings, or any sun-drenched occasion.",
     isNew: true,
     isOnSale: false,
     inStock: true,
@@ -366,7 +365,7 @@ export const store_products = [
     gender: "Men",
     brand: "Daily Streetwear",
     description:
-      "Oversized crew neck sweatshirt in soft fleece. Minimalist design, maximum comfort.",
+      "Designed for ultimate relaxation, this oversized crew neck sweatshirt is made from exceptionally soft fleece. Its minimalist design and charcoal hue offer a modern, versatile look while providing maximum comfort for your off-duty days.",
     isNew: true,
     isOnSale: true,
     discountPercent: 20,
@@ -390,7 +389,7 @@ export const store_products = [
     gender: "Men",
     brand: "Daily Streetwear",
     description:
-      "Oversized fleece pullover hoodie with subtle Swoosh branding. Unisex comfort.",
+      "A staple of modern streetwear, this oversized pullover hoodie from the Solo Swoosh collection delivers premium comfort. Crafted from soft, heavyweight fleece with subtle embroidered branding, it offers a clean, minimalist look suitable for anyone.",
     isNew: true,
     isOnSale: true,
     discountPercent: 20,
@@ -414,7 +413,7 @@ export const store_products = [
     gender: "Men",
     brand: "Sliik & Co.",
     description:
-      "A soft, form-hugging fitted tee crafted from premium cotton for everyday comfort and effortless style.",
+      "This form-hugging tee is an essential building block for any wardrobe. Crafted from premium, soft-touch cotton with a hint of stretch, it provides all-day comfort while creating a sleek, polished silhouette. The muted dusty pink hue adds a subtle touch of color to your basics.",
     isNew: false,
     isOnSale: false,
     discountPercent: 0,
@@ -439,7 +438,7 @@ export const store_products = [
     gender: "Men",
     brand: "Sliik & Co.",
     description:
-      "A classic navy piqué polo with a structured collar and tailored fit—perfect for casual and smart-casual looks.",
+      "Defined by its timeless appeal, this classic navy polo is crafted from textured piqué cotton for a breathable, comfortable feel. The structured collar and tailored fit ensure a sharp, put-together look, making it a versatile staple for both casual and smart-casual occasions.",
     isNew: false,
     isOnSale: false,
     discountPercent: 0,
