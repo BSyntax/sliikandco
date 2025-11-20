@@ -23,7 +23,7 @@ export const WishlistProvider = ({ children }) => {
       if (prev.some((item) => item.id === product.id)) {
         return prev;
       }
-      return [...prev, product];
+      return [...prev, { ...product, dateAdded: Date.now() }];
     });
   }, []);
 
@@ -40,7 +40,7 @@ export const WishlistProvider = ({ children }) => {
       }
 
       addCart(product);
-      removeFromWishlist(product.id); 
+      removeFromWishlist(product.id);
     },
     [addCart, removeFromWishlist]
   );

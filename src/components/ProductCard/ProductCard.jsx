@@ -57,7 +57,7 @@ export default function ProductCard({ product }) {
       <div className="product-info">
         <span className="product-title">{product.name}</span>
 
-        <p className="product-price">
+        <div className="product-price">
           {product.isOnSale ? (
             <div className="price-on-sale">
               <span className="original-price">
@@ -69,7 +69,7 @@ export default function ProductCard({ product }) {
           ) : (
             `R${finalPrice.toFixed(2)}`
           )}
-        </p>
+        </div>
 
         {product.sizesAvailable?.length > 0 && (
           <div className="size-group">
