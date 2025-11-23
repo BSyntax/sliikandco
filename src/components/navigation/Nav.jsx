@@ -7,6 +7,7 @@ import DropDownModel from "./DropDownModel";
 import SearchModel from "../search/SearchModel";
 import CartModel from "../cart/CartModel";
 import { useCart } from "../../context/CartProvider";
+import { useWishlist } from "../../context/WishlistProvider.jsx";
 import AnnouncementBar from "./AnnouncementBar";
 
 export default function Nav() {
@@ -16,7 +17,9 @@ export default function Nav() {
   const [cartModalOpen, setCartModalOpen] = useState(false);
   const dropdownTimeoutRef = useRef(null);
   const cart = useCart();
+  const wishlist = useWishlist();
   const cartCount = cart.cart.reduce((acc, item) => acc + item.quantity, 0);
+  const wishlistCount = wishlist.wishlist.length;
 
   const handleEnter = (type) => {
     if (dropdownTimeoutRef.current) {
@@ -142,8 +145,11 @@ export default function Nav() {
             <NavLink to="/login" className="nav-link">
               <LuUser />
             </NavLink>
-            <NavLink to="/wishlist" className="nav-link">
+            <NavLink to="/wishlist" className="nav-link wishlist-icon">
               <LuHeart />
+              {wishlistCount > 0 && (
+                <span className="wishlist-count">{wishlistCount}</span>
+              )}
             </NavLink>
             <NavLink
               to="/cart"

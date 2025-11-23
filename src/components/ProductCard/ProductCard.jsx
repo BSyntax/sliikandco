@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ProductCard({ product }) {
   const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedColor] = useState(product.colors[0].name);
   const [image, setImage] = useState(product.image);
   const { addCart } = useCart();
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ export default function ProductCard({ product }) {
       size: sizeToAddToCart,
       sizeType: product.sizeType,
       image: product.image,
+      selectedColor: selectedColor,
     });
   };
 
@@ -55,7 +57,9 @@ export default function ProductCard({ product }) {
       </div>
 
       <div className="product-info">
-        <span className="product-title">{product.name}</span>
+        <span className="product-title">
+          {product.name} {selectedColor}
+        </span>
 
         <div className="product-price">
           {product.isOnSale ? (

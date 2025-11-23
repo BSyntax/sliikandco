@@ -21,7 +21,7 @@
   --text-color: #393e41;
 
   --color-danger: #e5383b;
-  --color-success: #3dccc7;
+  --color-success: #40916c;
 
   /*  Font Sizes */
   --f-xs: 0.75rem;
@@ -255,11 +255,13 @@ header .nav-container {
   flex-wrap: 0;
 }
 
-.nav-link.cart-icon {
+.nav-link.cart-icon,
+.nav-link.wishlist-icon {
   position: relative;
 }
 
-.nav-link .cart-count {
+.nav-link .cart-count,
+.nav-link .wishlist-count {
   display: grid;
   place-content: center;
   width: 15px;
@@ -296,7 +298,7 @@ header .nav-container {
   z-index: 999;
   opacity: 0;
   visibility: hidden;
-  transform: translateX(-50%) translateY(-20px);
+  transform: translateX(-50%) translateY(20px);
   transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.4s;
   pointer-events: none;
@@ -311,32 +313,6 @@ header .nav-container {
   transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0s;
   pointer-events: all;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-30px);
-    max-height: 0;
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-    max-height: 400px;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-    max-height: 400px;
-  }
-  to {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-30px);
-    max-height: 0;
-  }
 }
 
 .search-model-form {
@@ -626,7 +602,7 @@ header .nav-container {
 
 .sliik-404 h1 {
   font-size: var(--f-4xl);
-  font-weight: 700;
+  font-weight: 500;
   color: var(--color-dark);
   line-height: var(--l-loose);
   font-family: "Jost", sans-serif;
@@ -2696,16 +2672,18 @@ header .nav-container {
 }
 
 .product-details .product-img {
-  width: 100%;
+  width: 500px;
   height: 500px;
   background-color: #f6f6f6;
+  cursor: zoom-in;
+  overflow: hidden;
+  position: relative;
 }
 
 .product-details .product-img img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  cursor: zoom-in;
 }
 
 .product-details .grid-right {
@@ -2729,6 +2707,18 @@ header .nav-container {
   align-items: center;
 }
 
+.product-details .product-rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3125rem;
+}
+
+.product-rating .no-rating {
+  font-size: var(--f-sm);
+  color: var(--text-clr);
+}
+
 .product-details .product-title {
   flex: 1;
   font-size: var(--f-2xl);
@@ -2736,13 +2726,6 @@ header .nav-container {
   color: var(--color-dark);
   line-height: var(--l-normal);
   text-align: start;
-}
-
-.product-details .wishlist-btn {
-  font-size: 1.5rem;
-  color: var(--color-dark);
-  cursor: pointer;
-  background-color: transparent;
 }
 
 .product-details .product-price {
@@ -2791,13 +2774,180 @@ header .nav-container {
   width: 100%;
   display: flex;
   justify-content: start;
+  align-items: start;
+  gap: 1rem;
+  flex-direction: column;
+  margin-top: 1rem;
+  text-align: start;
+}
+
+.product-actions .product-cart-actions {
+  width: 100%;
+  display: flex;
+  justify-content: start;
   align-items: center;
   gap: 1rem;
-  margin-top: 1rem;
+}
+.product-actions .product-cart-actions .quantity-controls {
+  display: grid;
+  grid-template-columns: 30px 45px 30px;
+  border: 1px solid var(--gray, #e5e5e5);
+  height: 44px;
+  border-radius: 2px;
+  overflow: hidden;
 }
 
 .product-actions .button {
-  width: 100%;
+  flex: 1;
   padding: 0.75rem 1.5rem;
   font-size: var(--f-sm);
+}
+
+.product-actions .wishlist-control {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.wishlist-control .wishlist-btn {
+  color: var(--color-dark);
+  cursor: pointer;
+  background-color: transparent;
+  display: grid;
+  place-content: center;
+}
+
+.product-details .product-additional-info {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  gap: 0.3125rem;
+  flex-direction: column;
+}
+
+.product-additional-info p {
+  font-size: var(--f-sm);
+  font-weight: 400;
+  color: var(--text-color);
+  line-height: var(--l-normal);
+  text-align: start;
+  flex: 1;
+}
+
+.why-shop {
+  width: 100%;
+  padding-block: 5rem;
+}
+
+.why-shop h2,
+.reviews h2 {
+  font-size: var(--f-3xl);
+  font-weight: 500;
+  font-family: "jost", sans-serif;
+  text-transform: capitalize;
+  color: var(--color-dark);
+  line-height: var(--l-normal);
+  padding-block: 1rem;
+}
+
+.why-shop .why-shop-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 100%;
+  gap: 1px;
+  text-align: center;
+}
+
+.why-shop .why-shop-card {
+  width: 100%;
+  height: 80vh;
+  position: relative;
+}
+
+.why-shop .why-shop-card::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0 0 0 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.why-shop .why-shop-image {
+  width: 100%;
+  height: 100%;
+}
+
+.why-shop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.why-shop .why-us-content {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99;
+}
+
+.why-us-content p {
+  font-size: var(--f-sm);
+  color: var(--color-white);
+  font-weight: 400;
+  line-height: var(--l-normal);
+}
+
+.why-us-content h2 {
+  color: var(--color-white);
+  font-weight: 500;
+  line-height: var(--l-normal);
+}
+
+.reviews {
+  padding-block: 4rem;
+}
+
+.reviews .reviews-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reviews .button {
+  padding-block: 0.625rem;
+}
+
+.reviews .overall-rating {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  gap: 0.3125rem;
+  margin-bottom: 1rem;
+}
+
+.reviews .overall-rating div {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 1px;
+}
+
+.reviews .overall-rating span {
+  font-size: var(--f-normal);
+  font-weight: 400;
+  line-height: var(--l-normal);
+  color: var(--text-clr);
+}
+
+.reviews .overall-rating div:first-child span {
+  margin-left: 5px;
+}
+
+.reviews .rating-breakdown {
+  width: 400px;
 }

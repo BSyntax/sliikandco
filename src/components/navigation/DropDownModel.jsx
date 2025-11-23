@@ -54,20 +54,18 @@ export default function DropDownModel({ type }) {
 
   return (
     <div className="dropdown-content">
-      <ul className="dropdown-column collection">
-        {Object.entries(content.collection).map(([category, items], index) => (
-          <li key={index} className="dropdown-category">
-            {category}
-          </li>
-        ))}
-        {content.collection.Curated.map((item, index) => (
-          <li key={index}>
-            <NavLink to={item.path} className="dropdown-item">
-              {item.name}
-            </NavLink>
-          </li>
-        ))}
-      </ul>
+      {Object.entries(content.collection).map(([category, items], index) => (
+        <ul key={index} className="dropdown-column collection">
+          <li className="dropdown-category">{category}</li>
+          {items.map((item, i) => (
+            <li key={i}>
+              <NavLink to={item.path} className="dropdown-item">
+                {item.name}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      ))}
       <div className="menu-image">
         <img src={MenuImage} alt="menu image" />
       </div>

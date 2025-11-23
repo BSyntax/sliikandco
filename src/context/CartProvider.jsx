@@ -4,7 +4,7 @@ import { store_products } from "../../data/products";
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState(store_products.slice(0, 4));
+  const [cart, setCart] = useState([]);
 
   const addCart = (product) => {
     setCart((prev) => {

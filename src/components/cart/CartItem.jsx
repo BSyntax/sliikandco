@@ -1,5 +1,4 @@
 import React, { memo } from "react";
-import { RiCloseFill } from "react-icons/ri";
 import PropTypes from "prop-types";
 import Button from "../controls/Button";
 

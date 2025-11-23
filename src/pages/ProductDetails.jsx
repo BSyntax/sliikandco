@@ -1,21 +1,32 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import BreadCrumb from "../components/wishitem/BreadCrumb";
-import Button from "../components/controls/Button";
-import { LuHeart } from "react-icons/lu";
-import { TbHeartFilled } from "react-icons/tb";
 import { useProducts } from "../context/ProductProvider";
 import { useWishlist } from "../context/WishlistProvider";
 import { useCart } from "../context/CartProvider";
+import ProductImages from "../components/product/ProductMedia";
+import ProductHeader from "../components/product/ProductHeader";
+import ProductPrice from "../components/product/ProductPrice";
+import ProductSizes from "../components/product/ProductSizes";
+import ProductActions from "../components/product/ProductActions";
+import WhyShopWithUs from "../components/whyUs/WhyShopWithUs";
+import whyUsImage01 from "../assets/images/why-us-01.webp";
+import whyUsImage02 from "../assets/images/why-us-02.webp";
+import whyUsImage03 from "../assets/images/why-us-03.webp";
+import Newsletter from "../components/newsletter/NewsletterSignup ";
+import Reviews from "../components/reviews/Reviews";
 
 export default function ProductDetails() {
   const { id } = useParams();
   const { products, loading } = useProducts();
   const { addCart } = useCart();
+  const navigate = useNavigate();
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const [selectedSize, setSelectedSize] = useState(null);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const [selectedColor, setSelectedColor] = useState(null);
   const [changeImage, setChangeImage] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
   const product = products.find((item) => String(item.id) === id);
 
@@ -23,6 +34,10 @@ export default function ProductDetails() {
     if (product) {
       if (product.sizesAvailable && product.sizesAvailable.length > 0) {
         setSelectedSize(product.sizesAvailable[0]);
+      }
+
+      if (product.colors.length > 0) {
+        setSelectedColor(product.colors[0].name);
       }
       setIsWishlisted(wishlist.some((item) => item.id === product.id));
     }
@@ -64,6 +79,10 @@ export default function ProductDetails() {
     setSelectedSize(size);
   };
 
+  const handleColorSelect = (color) => {
+    setSelectedColor(color);
+  };
+
   const handleAddToCart = () => {
     if (!product) return;
     if (!selectedSize) {
@@ -74,12 +93,48 @@ export default function ProductDetails() {
       id: product.id,
       name: product.name,
       price: finalPrice,
-      quantity: 1,
+      quantity: quantity,
       size: selectedSize,
       sizeType: product.sizeType,
       image: product.image,
+      selectedColor: selectedColor,
     });
   };
+
+  const handleQuantityIncrease = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+  };
+
+  const handleQuantityDecrease = () => {
+    setQuantity((prevQuantity) => (prevQuantity > 1 ? prevQuantity - 1 : 1));
+  };
+
+  const handleBuy = () => {
+    if (!product) return;
+    if (!selectedSize) {
+      alert("Please select a size before adding to cart.");
+      return;
+    }
+    navigate("/checkout");
+  };
+
+  const whyChooseUs = [
+    {
+      title: "Premium Materials",
+      image: whyUsImage01,
+      description: "Made to feel soft and last long.",
+    },
+    {
+      title: "Comfort-Focused Fit",
+      image: whyUsImage02,
+      description: "Tailored to move with your body.",
+    },
+    {
+      title: "Hassle-Free Shipping",
+      image: whyUsImage03,
+      description: "Delivered fast across South Africa.",
+    },
+  ];
 
   return (
     <>
@@ -87,88 +142,74 @@ export default function ProductDetails() {
       <section className="product-details container">
         <div className="product-grid">
           <div className="grid-left">
-            <div className="product-img">
-              <img src={imageToShow} alt={product.name} loading="lazy" />
-            </div>
-            <div className="image-varaints">
-              {product.gallery &&
-                product.gallery.map((img, index) => (
-                  <div
-                    className="variant"
-                    key={index}
-                    onClick={() => handleImageChange(img)}
-                  >
-                    <img src={img} alt={`${product.name} variant ${index}`} />
-                  </div>
-                ))}
-            </div>
+            <ProductImages
+              imageToShow={imageToShow}
+              product={product}
+              onImageChange={handleImageChange}
+            />
           </div>
 
           <div className="grid-right">
             <div className="grid-content">
-              <div className="product-header">
-                <h2 className="product-title">{product.name}</h2>
-                <button className="wishlist-btn" onClick={toggleWishlist}>
-                  {isWishlisted ? (
-                    <TbHeartFilled size={24} />
-                  ) : (
-                    <LuHeart size={24} />
-                  )}
-                </button>
-              </div>
-
-              <div className="product-price">
-                {product.isOnSale ? (
-                  <div className="price-on-sale">
-                    <span className="original-price">
-                      {`R${product.price.toFixed(2)}`}
-                    </span>
-                    -<span>{`R${finalPrice.toFixed(2)}`}</span>
-                  </div>
-                ) : (
-                  `R${finalPrice.toFixed(2)}`
-                )}
-              </div>
+              <ProductHeader
+                product={product}
+                rating={product.rating}
+                selectedColor={selectedColor}
+              />
+              <ProductPrice product={product} finalPrice={finalPrice} />
               <p className="product-description">{product.description}</p>
               <div className="product-colors">
                 {product.colors && product.colors.length > 0 ? (
                   <ul className="color-list">
                     {product.colors.map((color, index) => (
-                      <li key={index} style={{ backgroundColor: color }}></li>
+                      <li
+                        key={index}
+                        style={{ backgroundColor: color.hex }}
+                        onClick={() => handleColorSelect(color.name)}
+                      ></li>
                     ))}
                   </ul>
                 ) : null}
               </div>
-              <div className="size-group">
-                {product.sizesAvailable.map((size) => (
-                  <button
-                    key={size}
-                    type="button"
-                    className={`size-button${
-                      selectedSize === size ? " size-active" : ""
-                    }`}
+              <ProductSizes
+                product={product}
+                selectedSize={selectedSize}
+                onSelectSize={handleSizeSelect}
+              />
+              <ProductActions
+                onAddToCart={handleAddToCart}
+                isWishlisted={isWishlisted}
+                onToggleWishlist={toggleWishlist}
+                onBuy={handleBuy}
+                product={product}
+                quantity={quantity}
+                onQuantityIncrease={handleQuantityIncrease}
+                onQuantityDecrease={handleQuantityDecrease}
+              />
+              <div className="product-additional-info">
+                <p>SKU: {product.sku}</p>
+                <p>Category: {product.category}</p>
+                <p>Tags: {product.tags.join(", ")}</p>
+                <p>
+                  In Stock:{" "}
+                  <span
                     style={
-                      selectedSize === size
-                        ? { background: "#cfcbca", color: "#ffffff" }
-                        : {}
+                      product.inStock
+                        ? { color: "#3dccc7" }
+                        : { color: "#e5383b" }
                     }
-                    onClick={() => handleSizeSelect(size)}
                   >
-                    {size}
-                  </button>
-                ))}
-              </div>
-              <div className="product-actions">
-                <Button
-                  text="Add to Cart"
-                  variant="primary"
-                  onClick={handleAddToCart}
-                />
+                    {product.inStock ? "Available" : "Not Available"}
+                  </span>
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
+      <Reviews product={product} />
+      <WhyShopWithUs whyChooseUs={whyChooseUs} />
+      <Newsletter />
     </>
   );
 }

@@ -8,10 +8,7 @@ export const WishlistProvider = ({ children }) => {
   const { products } = useProducts();
   const { addCart } = useCart();
 
-  const [wishlist, setWishlist] = useState(() => {
-    const firstProduct = products[0];
-    return firstProduct ? [firstProduct] : [];
-  });
+  const [wishlist, setWishlist] = useState([]);
 
   const addToWishlist = useCallback((product) => {
     if (!product?.id) {
