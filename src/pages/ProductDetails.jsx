@@ -15,6 +15,7 @@ import whyUsImage02 from "../assets/images/why-us-02.webp";
 import whyUsImage03 from "../assets/images/why-us-03.webp";
 import Newsletter from "../components/newsletter/NewsletterSignup ";
 import Reviews from "../components/reviews/Reviews";
+import ProductColors from "../components/product/ProductColors";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -158,19 +159,10 @@ export default function ProductDetails() {
               />
               <ProductPrice product={product} finalPrice={finalPrice} />
               <p className="product-description">{product.description}</p>
-              <div className="product-colors">
-                {product.colors && product.colors.length > 0 ? (
-                  <ul className="color-list">
-                    {product.colors.map((color, index) => (
-                      <li
-                        key={index}
-                        style={{ backgroundColor: color.hex }}
-                        onClick={() => handleColorSelect(color.name)}
-                      ></li>
-                    ))}
-                  </ul>
-                ) : null}
-              </div>
+              <ProductColors
+                product={product}
+                handleColorSelect={handleColorSelect}
+              />
               <ProductSizes
                 product={product}
                 selectedSize={selectedSize}
@@ -195,7 +187,7 @@ export default function ProductDetails() {
                   <span
                     style={
                       product.inStock
-                        ? { color: "#3dccc7" }
+                        ? { color: "#393e41" }
                         : { color: "#e5383b" }
                     }
                   >

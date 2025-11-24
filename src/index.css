@@ -2588,9 +2588,9 @@ header .nav-container {
   background-color: #f8f9fa;
 }
 
-.filter-select-container.filter-active .filter-select-arrow {
+/* .filter-select-container.filter-active .filter-select-arrow {
   transform: rotate(180deg);
-}
+} */
 
 /* Options panel */
 .filter-options {
@@ -2950,4 +2950,22 @@ header .nav-container {
 
 .reviews .rating-breakdown {
   width: 400px;
+}
+
+/* Review Section */
+
+.review-sort {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin-block: 1.5rem;
+}
+
+.review-sort-select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
 }

@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import Button from "../controls/Button";
 import RatingBreakdown from "../../components/ratingBreakDown/RatingBreakdown";
 import { RiStarFill, RiStarHalfFill, RiStarLine } from "react-icons/ri";
+import ReviewSort from "./ReviewSort";
+import ReviewList from "./ReviewList";
 
 export default function Reviews({ product }) {
   const [averageRating, setAverageRating] = useState(0);
   const [ratingCounts, setRatingCounts] = useState([0, 0, 0, 0, 0]);
+  const [sortValue, setSortValue] = useState("recent");
+  const [reviews, setReviews] = useState(product.reviews);
 
   useEffect(() => {
     if (!product || !product.reviews) return;
@@ -35,6 +39,31 @@ export default function Reviews({ product }) {
     return stars;
   };
 
+  const getSortedReviews = () => {
+    let sorted = [...reviews];
+
+    switch (sortValue) {
+      case "recent":
+        sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
+        break;
+      case "oldest":
+        sorted.sort((a, b) => new Date(a.date) - new Date(b.date));
+        break;
+      case "high-rated":
+        sorted.sort((a, b) => b.rating - a.rating);
+        break;
+      case "low-rated":
+        sorted.sort((a, b) => a.rating - b.rating);
+        break;
+      case "with-photos":
+        sorted = sorted.filter((r) => r.images?.length > 0);
+        break;
+      default:
+        break;
+    }
+
+    return sorted;
+  };
   return (
     <section className="reviews container">
       <div className="reviews-header">
@@ -56,6 +85,8 @@ export default function Reviews({ product }) {
       </div>
 
       <RatingBreakdown counts={ratingCounts} />
+      <ReviewSort sortValue={sortValue} onSortChange={setSortValue} />
+      <ReviewList reviews={getSortedReviews()} />
     </section>
   );
 }
