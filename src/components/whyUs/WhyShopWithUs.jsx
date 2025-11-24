@@ -3,7 +3,7 @@ import React from "react";
 export default function WhyShopWithUs({ whyChooseUs }) {
   return (
     <section className="why-shop">
-      <h2 className="why-shop-header container">Why Us</h2>
+      <h2 className="why-shop-header container"></h2>
       <div className="why-shop-list">
         {whyChooseUs &&
           whyChooseUs.map((item, index) => (

@@ -8,6 +8,7 @@ import ReviewList from "./ReviewList";
 export default function Reviews({ product }) {
   const [averageRating, setAverageRating] = useState(0);
   const [ratingCounts, setRatingCounts] = useState([0, 0, 0, 0, 0]);
+
   const [sortValue, setSortValue] = useState("recent");
   const [reviews, setReviews] = useState(product.reviews);
 

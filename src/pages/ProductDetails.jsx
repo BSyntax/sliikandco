@@ -16,6 +16,8 @@ import whyUsImage03 from "../assets/images/why-us-03.webp";
 import Newsletter from "../components/newsletter/NewsletterSignup ";
 import Reviews from "../components/reviews/Reviews";
 import ProductColors from "../components/product/ProductColors";
+import CollectionHeader from "../components/collectionHeader/CollectionHeader";
+import ProductGrid from "../components/productGrid/ProductGrid";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -25,6 +27,7 @@ export default function ProductDetails() {
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const [selectedSize, setSelectedSize] = useState(null);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const [selectedGender, setSelectedGender] = useState("Men");
   const [selectedColor, setSelectedColor] = useState(null);
   const [changeImage, setChangeImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -200,6 +203,13 @@ export default function ProductDetails() {
         </div>
       </section>
       <Reviews product={product} />
+      <CollectionHeader
+        title="Best Sellers"
+        showGenderToggle={false}
+        selectedGender={selectedGender}
+        onGenderChange={setSelectedGender}
+      />
+      <ProductGrid headerTitle="Best Sellers" gender={selectedGender} />
       <WhyShopWithUs whyChooseUs={whyChooseUs} />
       <Newsletter />
     </>
