@@ -4,7 +4,7 @@ import BreadCrumb from "../components/wishitem/BreadCrumb";
 import Button from "../components/controls/Button";
 import { useNavigate } from "react-router-dom";
 import StayConnected from "../components/stayConnected/StayConnected";
-import NewsletterSignup from "../components/newsletter/NewsletterSignup ";
+import NewsletterSignup from "../components/newsletter/NewsletterSignup";
 import LookbookGallery from "../components/lookbookGallery/LookbookGallery";
 
 export default function Contact() {

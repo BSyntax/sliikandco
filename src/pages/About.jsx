@@ -4,7 +4,7 @@ import Button from "../components/controls/Button";
 import AboutGallery1 from "../assets/images/about-gallery-1.webp";
 import AboutGallery2 from "../assets/images/about-gallery-2.webp";
 import PerksBar from "../components/perksBar/PerksBar";
-import NewsletterSignup from "../components/newsletter/NewsletterSignup ";
+import NewsletterSignup from "../components/newsletter/NewsletterSignup";
 import TeamSection from "../components/about/TeamSection";
 
 export default function About() {

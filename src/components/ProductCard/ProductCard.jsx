@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useCart } from "../../context/CartProvider";
 import { useNavigate } from "react-router-dom";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, onProductClick }) {
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor] = useState(product.colors[0].name);
   const [image, setImage] = useState(product.image);
@@ -41,7 +41,10 @@ export default function ProductCard({ product }) {
 
       <div
         className="product-image"
-        onClick={() => navigate(`/product/${product.id}`)}
+        onClick={() => {
+          onProductClick && onProductClick();
+          navigate(`/product/${product.id}`);
+        }}
         role="button"
         tabIndex={0}
         onKeyDown={(e) =>
@@ -111,4 +114,9 @@ ProductCard.propTypes = {
     isOnSale: PropTypes.bool,
     discountPercent: PropTypes.number,
   }).isRequired,
+  onProductClick: PropTypes.func,
+};
+
+ProductCard.defaultProps = {
+  onProductClick: null,
 };

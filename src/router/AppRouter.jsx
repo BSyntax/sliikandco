@@ -13,11 +13,13 @@ import ProductDetails from "../pages/ProductDetails";
 import ShopProducts from "../pages/ShopProducts";
 import Footer from "../components/footer/Footer";
 import TopButton from "../components/controls/TopButton";
+import ScrollToTop from "../components/controls/ScrollToTop";
 import "../scrollbar.css";
 
 export default function AppRouter() {
   return (
     <>
+      <ScrollToTop />
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Button from "../controls/Button";
 import RatingBreakdown from "../../components/ratingBreakDown/RatingBreakdown";
 import { RiStarFill, RiStarHalfFill, RiStarLine } from "react-icons/ri";
@@ -10,7 +10,6 @@ export default function Reviews({ product }) {
   const [ratingCounts, setRatingCounts] = useState([0, 0, 0, 0, 0]);
 
   const [sortValue, setSortValue] = useState("recent");
-  const [reviews, setReviews] = useState(product.reviews);
 
   useEffect(() => {
     if (!product || !product.reviews) return;
@@ -40,8 +39,10 @@ export default function Reviews({ product }) {
     return stars;
   };
 
-  const getSortedReviews = () => {
-    let sorted = [...reviews];
+  const sortedReviews = useMemo(() => {
+    if (!product || !product.reviews) return [];
+
+    let sorted = [...product.reviews];
 
     switch (sortValue) {
       case "recent":
@@ -64,7 +65,8 @@ export default function Reviews({ product }) {
     }
 
     return sorted;
-  };
+  }, [product, sortValue]);
+
   return (
     <section className="reviews container">
       <div className="reviews-header">
@@ -87,7 +89,7 @@ export default function Reviews({ product }) {
 
       <RatingBreakdown counts={ratingCounts} />
       <ReviewSort sortValue={sortValue} onSortChange={setSortValue} />
-      <ReviewList reviews={getSortedReviews()} />
+      <ReviewList reviews={sortedReviews} />
     </section>
   );
 }

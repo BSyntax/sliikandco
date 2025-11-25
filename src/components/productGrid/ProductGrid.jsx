@@ -1,8 +1,7 @@
 import ProductCard from "../ProductCard/ProductCard";
 import { useProducts } from "../../context/ProductProvider";
 import PropTypes from "prop-types";
-
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 export default function ProductGrid({
   headerTitle,
@@ -11,66 +10,72 @@ export default function ProductGrid({
   selectedSort,
   onCountChange,
   pageType,
+  onProductClick,
 }) {
-  const products = useProducts().products;
-  let filteredProducts = [];
+  const { products } = useProducts();
 
-  if (searchText) {
-    filteredProducts = products.filter((p) =>
-      p.name.toLowerCase().includes(searchText.toLowerCase())
-    );
-  }
+  const filteredProducts = useMemo(() => {
+    let newFilteredProducts = [];
 
-  if (!searchText) {
-    switch (headerTitle) {
-      case "Best Sellers":
-        filteredProducts = [...products]
-          .sort((a, b) => a.price - b.price)
-          .slice(0, 4);
-        break;
+    if (searchText) {
+      newFilteredProducts = products.filter((p) =>
+        p.name.toLowerCase().includes(searchText.toLowerCase())
+      );
+    } else {
+      switch (headerTitle) {
+        case "Best Sellers":
+          newFilteredProducts = [...products]
+            .sort((a, b) => a.price - b.price)
+            .slice(0, 4);
+          break;
 
-      case "New Arrivals":
-        filteredProducts = products
-          .filter((p) => p.isNew && p.gender === gender)
-          .slice(0, 8);
-        break;
+        case "New Arrivals":
+          newFilteredProducts = products
+            .filter((p) => p.isNew && p.gender === gender)
+            .slice(0, 8);
+          break;
 
-      default:
-        filteredProducts = products
-          .filter((p) => p.gender === gender)
-          .slice(0, 8);
-        break;
+        default:
+          newFilteredProducts = products
+            .filter((p) => p.gender === gender)
+            .slice(0, 8);
+          break;
+      }
     }
-  }
 
-  if (pageType === "search") {
-    switch (selectedSort) {
-      case "Price: Low to High":
-        filteredProducts = [...filteredProducts].sort(
-          (a, b) => a.price - b.price
-        );
-        console.log(filteredProducts);
-        break;
+    if (pageType === "search") {
+      switch (selectedSort) {
+        case "Price: Low to High":
+          newFilteredProducts.sort((a, b) => a.price - b.price);
+          break;
 
-      case "Price: High to Low":
-        filteredProducts = [...filteredProducts].sort(
-          (a, b) => b.price - a.price
-        );
-        console.log(filteredProducts);
-        break;
+        case "Price: High to Low":
+          newFilteredProducts.sort((a, b) => b.price - a.price);
+          break;
 
-      case "Newest":
-        filteredProducts = filteredProducts.filter((p) => p.isNew);
-        break;
+        case "Newest":
+          newFilteredProducts = newFilteredProducts.filter((p) => p.isNew);
+          break;
 
-      default:
-        break;
+        default:
+          break;
+      }
     }
-  }
+    return newFilteredProducts;
+  }, [
+    products,
+    searchText,
+    headerTitle,
+    gender,
+    pageType,
+    selectedSort,
+  ]);
 
   useEffect(() => {
-    if (onCountChange) onCountChange(filteredProducts.length);
-  }, [searchText, selectedSort, products]);
+    if (onCountChange) {
+      onCountChange(filteredProducts.length);
+    }
+  }, [filteredProducts, onCountChange]);
 
   return (
     <div
@@ -80,7 +85,7 @@ export default function ProductGrid({
     >
       {filteredProducts.length > 0 ? (
         filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product.id} product={product} onProductClick={onProductClick} />
         ))
       ) : searchText ? (
         <p className="no-results">No products found for "{searchText}"</p>
@@ -93,10 +98,18 @@ ProductGrid.propTypes = {
   headerTitle: PropTypes.string,
   gender: PropTypes.string,
   searchText: PropTypes.string,
+  selectedSort: PropTypes.string,
+  onCountChange: PropTypes.func,
+  pageType: PropTypes.string,
+  onProductClick: PropTypes.func,
 };
 
 ProductGrid.defaultProps = {
   headerTitle: "",
   gender: "Men",
   searchText: "",
+  selectedSort: "",
+  onCountChange: null,
+  pageType: "",
+  onProductClick: null,
 };

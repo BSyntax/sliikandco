@@ -8,7 +8,7 @@ import HeroVideoBanner from "../components/videoBanner/HeroVideoBanner";
 import FashionVideo from "../assets/videos/fashion-video.mp4";
 import promoBannerImage from "../assets/images/promoBanner-01.webp";
 import PromoBanner from "../components/promoBanner/promoBanner";
-import NewsletterSignup from "../components/newsletter/NewsletterSignup ";
+import NewsletterSignup from "../components/newsletter/NewsletterSignup";
 import LookbookGallery from "../components/lookbookGallery/LookbookGallery";
 import { Link, useNavigate } from "react-router-dom";
 import { LuFacebook, LuInstagram, LuTwitter } from "react-icons/lu";

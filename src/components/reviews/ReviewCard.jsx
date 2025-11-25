@@ -3,7 +3,7 @@ import { RiStarFill, RiStarLine } from "react-icons/ri";
 import AvatarPlaceholder from "../../assets/images/avatar-placeholder.webp";
 
 export default function ReviewCard({ reviewInfo }) {
-  const { reviewer, rating, date, comment, recommend, images } = reviewInfo;
+  const { reviewer, rating, date, comment, recommend, images = [] } = reviewInfo;
 
   const renderStars = () => {
     return Array.from({ length: 5 }, (_, i) =>
@@ -21,9 +21,9 @@ export default function ReviewCard({ reviewInfo }) {
         <div className="reviewer-info">
           <div className="rating-stars">{renderStars()}</div>
           <div className="reviewer-details">
-            <div className={`avatar${images.length > 0 ? " has-img" : ""}`}>
+            <div className={`avatar${images?.length > 0 ? " has-img" : ""}`}>
               <img
-                src={images.length > 0 ? images[0] : AvatarPlaceholder}
+                src={images?.length > 0 ? images[0] : AvatarPlaceholder}
                 alt={reviewer}
               />
             </div>

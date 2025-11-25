@@ -13,7 +13,7 @@ import WhyShopWithUs from "../components/whyUs/WhyShopWithUs";
 import whyUsImage01 from "../assets/images/why-us-01.webp";
 import whyUsImage02 from "../assets/images/why-us-02.webp";
 import whyUsImage03 from "../assets/images/why-us-03.webp";
-import Newsletter from "../components/newsletter/NewsletterSignup ";
+import Newsletter from "../components/newsletter/NewsletterSignup";
 import Reviews from "../components/reviews/Reviews";
 import ProductColors from "../components/product/ProductColors";
 import CollectionHeader from "../components/collectionHeader/CollectionHeader";
@@ -76,7 +76,6 @@ export default function ProductDetails() {
     } else {
       addToWishlist(product);
     }
-    setIsWishlisted(!isWishlisted);
   };
 
   const handleSizeSelect = (size) => {

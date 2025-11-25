@@ -42,7 +42,7 @@ export default function SearchModel({ setSearchModel, visible = true }) {
         </div>
       )}
 
-      <ProductGrid searchText={text} />
+      <ProductGrid searchText={text} onProductClick={handleClose} />
     </div>
   );
 }
