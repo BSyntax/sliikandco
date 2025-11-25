@@ -21,10 +21,12 @@ import ProductGrid from "../components/productGrid/ProductGrid";
 
 export default function ProductDetails() {
   const { id } = useParams();
-  const { products, loading } = useProducts();
+  const { loading, getProductById } = useProducts();
   const { addCart } = useCart();
   const navigate = useNavigate();
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
+
+  const [product, setProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [selectedGender, setSelectedGender] = useState("Men");
@@ -32,17 +34,31 @@ export default function ProductDetails() {
   const [changeImage, setChangeImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
 
-  const product = products.find((item) => String(item.id) === id);
+  useEffect(() => {
+    const foundProduct = getProductById(id);
+    setProduct(foundProduct);
+  }, [id, getProductById]);
 
   useEffect(() => {
     if (product) {
+      // Set default size and color only when the product changes
       if (product.sizesAvailable && product.sizesAvailable.length > 0) {
         setSelectedSize(product.sizesAvailable[0]);
+      } else {
+        setSelectedSize(null);
       }
 
-      if (product.colors.length > 0) {
+      if (product.colors && product.colors.length > 0) {
         setSelectedColor(product.colors[0].name);
+      } else {
+        setSelectedColor(null);
       }
+    }
+  }, [product]);
+
+  useEffect(() => {
+    // Update wishlist status when product or wishlist changes
+    if (product) {
       setIsWishlisted(wishlist.some((item) => item.id === product.id));
     }
   }, [product, wishlist]);

@@ -1,6 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
-
-// Men
+// products.js
 import poloOrangeImg from "../src/assets/products/slim-polo.webp";
 import sweatshortsImg from "../src/assets/products/sweatshorts.webp";
 import golferGreenImg from "../src/assets/products/knitted-golfer.webp";
@@ -12,7 +10,6 @@ import crewSweatImg from "../src/assets/products/crew-sweatshirt.webp";
 import nswHoodieImg from "../src/assets/products/hoodie-fleece.webp";
 import piquePoloNavyImg from "../src/assets/products/pique-polo-navy.webp";
 
-// Women
 import miniSkirtImg from "../src/assets/products/mini-skirt.webp";
 import wrapSkortImg from "../src/assets/products/wrap-skort.webp";
 import henleyNavyImg from "../src/assets/products/long-sleeve.webp";
@@ -25,7 +22,7 @@ import fittedTeePinkImg from "../src/assets/products/fitted-tee-pink.webp";
 
 export const store_products = [
   {
-    id: uuidv4(),
+    id: 1,
     name: "Slim Fit Polo Shirt - Clay",
     slug: "slim-fit-polo-shirt-clay",
     price: 249.99,
@@ -60,7 +57,7 @@ export const store_products = [
         date: "2025-11-12",
         comment: "Perfect fit and the clay color is even better in person. Super breathable!",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800"],
+        images: ["https://i.pravatar.cc/150?img=1"],
       },
       {
         reviewer: "Noah R.",
@@ -76,15 +73,12 @@ export const store_products = [
         date: "2025-10-15",
         comment: "Bought two colors. Already my go-to weekend shirt.",
         recommend: true,
-        images: [
-          "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=800",
-          "https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=800",
-        ],
+        images: ["https://i.pravatar.cc/150?img=2", "https://i.pravatar.cc/150?img=3"],
       },
     ],
   },
   {
-    id: uuidv4(),
+    id: 2,
     name: "Regular Fit Sweatshorts - Clay",
     slug: "regular-fit-sweatshorts-clay",
     price: 399.99,
@@ -117,7 +111,7 @@ export const store_products = [
         date: "2025-11-20",
         comment: "Insanely soft. Best sweatshorts I’ve ever owned.",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=800"],
+        images: ["https://i.pravatar.cc/150?img=4"],
       },
       {
         reviewer: "Marcus P.",
@@ -133,7 +127,7 @@ export const store_products = [
         date: "2025-10-22",
         comment: "Perfect lounge shorts that still look stylish outside.",
         recommend: true,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=5"],
       },
       {
         reviewer: "Tyler H.",
@@ -141,12 +135,12 @@ export const store_products = [
         date: "2025-10-10",
         comment: "Bought clay and olive — both are fantastic.",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1622449256489-7e4e2df49a47?w=800"],
+        images: [],
       },
     ],
   },
   {
-    id: uuidv4(),
+    id: 3,
     name: "Andy Textured Knitted Golfer - Sage",
     slug: "andy-textured-knitted-golfer-sage",
     price: 549.99,
@@ -180,7 +174,7 @@ export const store_products = [
         date: "2025-11-18",
         comment: "The texture is incredible. Feels premium and unique.",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800"],
+        images: ["https://i.pravatar.cc/150?img=6"],
       },
       {
         reviewer: "Daniel W.",
@@ -201,7 +195,7 @@ export const store_products = [
     ],
   },
   {
-    id: uuidv4(),
+    id: 4,
     name: "Off Shoulder Sweatshirt - Charcoal",
     slug: "off-shoulder-sweatshirt-charcoal",
     price: 649.99,
@@ -235,7 +229,7 @@ export const store_products = [
         date: "2025-11-21",
         comment: "So cozy and flattering! My new favorite sweatshirt.",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1551028719-00167b629994?w=800"],
+        images: ["https://i.pravatar.cc/150?img=8"],
       },
       {
         reviewer: "Emma C.",
@@ -259,12 +253,12 @@ export const store_products = [
         date: "2025-10-12",
         comment: "Bought in charcoal and oat. Obsessed!",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=800"],
+        images: ["https://i.pravatar.cc/150?img=9"],
       },
     ],
   },
   {
-    id: uuidv4(),
+    id: 5,
     name: "Haven Mini Skirt - Stone",
     slug: "haven-mini-skirt-stone",
     price: 449.99,
@@ -298,7 +292,7 @@ export const store_products = [
         date: "2025-11-12",
         comment: "Super flattering and the fabric feels expensive.",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1593795899638-4ea7f08a87a7?w=800"],
+        images: ["https://i.pravatar.cc/150?img=10"],
       },
       {
         reviewer: "Charlotte P.",
@@ -314,12 +308,12 @@ export const store_products = [
         date: "2025-10-15",
         comment: "Great quality, just wish it had pockets.",
         recommend: false,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=11"],
       },
     ],
   },
   {
-    id: uuidv4(),
+    id: 6,
     name: "Wrap Skort - Charcoal",
     slug: "wrap-skort-charcoal",
     price: 549.99,
@@ -354,7 +348,7 @@ export const store_products = [
         date: "2025-11-23",
         comment: "Best skort ever! Looks like a skirt but feels like shorts.",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1593795899638-4ea7f08a87a7?w=800"],
+        images: ["https://i.pravatar.cc/150?img=12"],
       },
       {
         reviewer: "Evelyn B.",
@@ -370,7 +364,7 @@ export const store_products = [
         date: "2025-11-01",
         comment: "The wrap detail is so flattering. Buying every color!",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1622449256489-7e4e2df49a47?w=800"],
+        images: ["https://i.pravatar.cc/150?img=13"],
       },
       {
         reviewer: "Ella K.",
@@ -386,12 +380,12 @@ export const store_products = [
         date: "2025-10-05",
         comment: "Great quality, just wish the shorts were a bit longer.",
         recommend: false,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=14"],
       },
     ],
   },
   {
-    id: uuidv4(),
+    id: 7,
     name: "Ryan Henley Long Sleeve - Black",
     slug: "ryan-henley-long-sleeve-black",
     price: 599.99,
@@ -425,7 +419,7 @@ export const store_products = [
         date: "2025-11-15",
         comment: "So soft and the ribbing is perfect. Already bought another color.",
         recommend: true,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=15"],
       },
       {
         reviewer: "Zoe M.",
@@ -433,7 +427,7 @@ export const store_products = [
         date: "2025-10-28",
         comment: "My favorite fall layering piece!",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1551028719-00167b629994?w=800"],
+        images: ["https://i.pravatar.cc/150?img=7"],
       },
       {
         reviewer: "Lily F.",
@@ -441,12 +435,12 @@ export const store_products = [
         date: "2025-10-12",
         comment: "Love it, just slightly sheer in white.",
         recommend: true,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=16"],
       },
     ],
   },
   {
-    id: uuidv4(),
+    id: 8,
     name: "Crossover-Strap Sandals - Dusty Rose",
     slug: "crossover-strap-sandals-dusty-rose",
     price: 699.99,
@@ -481,7 +475,7 @@ export const store_products = [
         date: "2025-11-19",
         comment: "So comfy right out of the box! Wore them all day with no blisters.",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800"],
+        images: ["https://i.pravatar.cc/150?img=17"],
       },
       {
         reviewer: "Hannah L.",
@@ -497,7 +491,7 @@ export const store_products = [
         date: "2025-10-18",
         comment: "Perfect vacation sandal. Got so many compliments.",
         recommend: true,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=18"],
       },
       {
         reviewer: "Layla R.",
@@ -505,12 +499,12 @@ export const store_products = [
         date: "2025-10-05",
         comment: "The dusty rose is dreamy in person!",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1551107696-a4b0c5a0d7d2?w=800"],
+        images: ["https://i.pravatar.cc/150?img=19"],
       },
     ],
   },
   {
-    id: uuidv4(),
+    id: 9,
     name: "Cropped Zip-Through Hoodie - Oat",
     slug: "cropped-zip-through-hoodie-oat",
     price: 749.99,
@@ -544,7 +538,7 @@ export const store_products = [
         date: "2025-11-14",
         comment: "Perfect cropped length! Not too short, not too long.",
         recommend: true,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=20"],
       },
       {
         reviewer: "Sadie K.",
@@ -560,12 +554,12 @@ export const store_products = [
         date: "2025-10-10",
         comment: "My new favorite hoodie. Looks great with high-waisted jeans.",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=800"],
+        images: ["https://i.pravatar.cc/150?img=21"],
       },
     ],
   },
   {
-    id: uuidv4(),
+    id: 10,
     name: "Braided Sandals - Sand",
     slug: "braided-sandals-sand",
     price: 799.99,
@@ -599,7 +593,7 @@ export const store_products = [
         date: "2025-11-17",
         comment: "Worth every penny. The braiding is stunning.",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800"],
+        images: ["https://i.pravatar.cc/150?img=22"],
       },
       {
         reviewer: "Luna M.",
@@ -623,12 +617,12 @@ export const store_products = [
         date: "2025-10-08",
         comment: "Leather is buttery soft. Obsessed!",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1551107696-a4b0c5a0d7d2?w=800"],
+        images: ["https://i.pravatar.cc/150?img=23"],
       },
     ],
   },
   {
-    id: uuidv4(),
+    id: 11,
     name: "Knitted Polo - Stone",
     slug: "knitted-polo-stone",
     price: 599.99,
@@ -662,7 +656,7 @@ export const store_products = [
         date: "2025-11-11",
         comment: "The stripe detail is perfect. Feels high-end.",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800"],
+        images: ["https://i.pravatar.cc/150?img=24"],
       },
       {
         reviewer: "Logan P.",
@@ -678,12 +672,12 @@ export const store_products = [
         date: "2025-10-14",
         comment: "My favorite polo now. Super versatile.",
         recommend: true,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=25"],
       },
     ],
   },
   {
-    id: uuidv4(),
+    id: 12,
     name: "Shirt CONCHA - Sand",
     slug: "shirt-concha-sand",
     price: 799.99,
@@ -716,7 +710,7 @@ export const store_products = [
         date: "2025-11-16",
         comment: "Perfect transitional jacket. Looks expensive.",
         recommend: true,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=26"],
       },
       {
         reviewer: "Benjamin F.",
@@ -724,7 +718,7 @@ export const store_products = [
         date: "2025-11-02",
         comment: "The shearling collar is so luxe!",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=800"],
+        images: ["https://i.pravatar.cc/150?img=27"],
       },
       {
         reviewer: "Jack R.",
@@ -745,7 +739,7 @@ export const store_products = [
     ],
   },
   {
-    id: uuidv4(),
+    id: 13,
     name: "BRINLEE Colour Block Golfer - Sky Blue",
     slug: "brinlee-colour-block-golfer-sky-blue",
     price: 1499.99,
@@ -780,7 +774,7 @@ export const store_products = [
         date: "2025-11-13",
         comment: "Statement piece! Everyone asks where I got it.",
         recommend: true,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=28"],
       },
       {
         reviewer: "Joseph M.",
@@ -788,7 +782,7 @@ export const store_products = [
         date: "2025-10-31",
         comment: "Premium quality all the way. Worth the price.",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800"],
+        images: ["https://i.pravatar.cc/150?img=29"],
       },
       {
         reviewer: "Matthew L.",
@@ -801,7 +795,7 @@ export const store_products = [
     ],
   },
   {
-    id: uuidv4(),
+    id: 14,
     name: "Maxi Dress - Dusty Rose",
     slug: "maxi-dress-dusty-rose",
     price: 1099.99,
@@ -835,7 +829,7 @@ export const store_products = [
         date: "2025-11-09",
         comment: "Wore it to a wedding — felt like a princess!",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1593795899638-4ea7f08a87a7?w=800"],
+        images: ["https://i.pravatar.cc/150?img=30"],
       },
       {
         reviewer: "Madison T.",
@@ -851,7 +845,7 @@ export const store_products = [
         date: "2025-10-11",
         comment: "Gorgeous color, just a bit long for my height.",
         recommend: true,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=31"],
       },
       {
         reviewer: "Riley P.",
@@ -864,7 +858,7 @@ export const store_products = [
     ],
   },
   {
-    id: uuidv4(),
+    id: 15,
     name: "Crew Neck Sweatshirt - Charcoal",
     slug: "crew-neck-sweatshirt-charcoal",
     price: 699.99,
@@ -900,7 +894,7 @@ export const store_products = [
         date: "2025-11-21",
         comment: "The softest fleece ever. Living in this!",
         recommend: true,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=32"],
       },
       {
         reviewer: "Carter L.",
@@ -908,7 +902,7 @@ export const store_products = [
         date: "2025-11-07",
         comment: "Perfect oversized fit. Bought two more.",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=800"],
+        images: ["https://i.pravatar.cc/150?img=33"],
       },
       {
         reviewer: "Dylan M.",
@@ -916,7 +910,7 @@ export const store_products = [
         date: "2025-10-24",
         comment: "Best value for money. Super warm.",
         recommend: true,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=34"],
       },
       {
         reviewer: "Jordan P.",
@@ -932,12 +926,12 @@ export const store_products = [
         date: "2025-09-27",
         comment: "My daily uniform now.",
         recommend: true,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=35"],
       },
     ],
   },
   {
-    id: uuidv4(),
+    id: 16,
     name: "NSW Solo Swoosh Hoodie - Oat",
     slug: "nsw-solo-swoosh-hoodie-oat",
     price: 789.99,
@@ -972,7 +966,7 @@ export const store_products = [
         date: "2025-11-22",
         comment: "5 stars isn’t enough. Best hoodie I own.",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=800"],
+        images: ["https://i.pravatar.cc/150?img=36"],
       },
       {
         reviewer: "Aaron S.",
@@ -988,7 +982,7 @@ export const store_products = [
         date: "2025-10-29",
         comment: "Heavyweight fleece heaven.",
         recommend: true,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=37"],
       },
       {
         reviewer: "Eli J.",
@@ -1001,7 +995,7 @@ export const store_products = [
     ],
   },
   {
-    id: uuidv4(),
+    id: 17,
     name: "Fitted Tee - Dusty Rose",
     slug: "fitted-tee-dusty-rose",
     price: 199.99,
@@ -1034,7 +1028,7 @@ export const store_products = [
         date: "2025-11-04",
         comment: "Best fitting tee I’ve found. The color is unique.",
         recommend: true,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=38"],
       },
       {
         reviewer: "Hunter B.",
@@ -1050,12 +1044,12 @@ export const store_products = [
         date: "2025-10-06",
         comment: "Soft fabric, holds shape after washing.",
         recommend: true,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=39"],
       },
     ],
   },
   {
-    id: uuidv4(),
+    id: 18,
     name: "Piqué Polo - Black",
     slug: "pique-polo-black",
     price: 279.99,
@@ -1088,7 +1082,7 @@ export const store_products = [
         date: "2025-11-06",
         comment: "Classic black polo done perfectly. Crisp collar!",
         recommend: true,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=40"],
       },
       {
         reviewer: "Isaac T.",
@@ -1096,7 +1090,7 @@ export const store_products = [
         date: "2025-10-23",
         comment: "My work uniform now. Looks sharp every time.",
         recommend: true,
-        images: ["https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800"],
+        images: ["https://i.pravatar.cc/150?img=41"],
       },
       {
         reviewer: "Leo M.",
@@ -1104,7 +1098,7 @@ export const store_products = [
         date: "2025-10-09",
         comment: "Great quality, just slightly boxy fit.",
         recommend: true,
-        images: [],
+        images: ["https://i.pravatar.cc/150?img=42"],
       },
       {
         reviewer: "Josiah R.",

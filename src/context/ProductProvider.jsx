@@ -20,8 +20,12 @@ export const ProductProvider = ({ children }) => {
     loadProducts();
   }, []);
 
+  const getProductById = (id) => {
+    return products.find((product) => String(product.id) === String(id));
+  };
+
   return (
-    <ProductContext.Provider value={{ products, setProducts, loading }}>
+    <ProductContext.Provider value={{ products, loading, getProductById }}>
       {children}
     </ProductContext.Provider>
   );
