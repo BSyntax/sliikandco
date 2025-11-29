@@ -4,10 +4,12 @@ import RatingBreakdown from "../../components/ratingBreakDown/RatingBreakdown";
 import { RiStarFill, RiStarHalfFill, RiStarLine } from "react-icons/ri";
 import ReviewSort from "./ReviewSort";
 import ReviewList from "./ReviewList";
+import { useNavigate } from "react-router-dom";
 
 export default function Reviews({ product }) {
   const [averageRating, setAverageRating] = useState(0);
   const [ratingCounts, setRatingCounts] = useState([0, 0, 0, 0, 0]);
+  const navigate = useNavigate();
 
   const [sortValue, setSortValue] = useState("recent");
 
@@ -67,29 +69,35 @@ export default function Reviews({ product }) {
     return sorted;
   }, [product, sortValue]);
 
+  const handleShowReviewForm = () => {
+    navigate(`/review/${product.id}`);
+  };
+
   return (
-    <section className="reviews container">
-      <div className="reviews-header">
-        <h2>Reviews</h2>
-        <Button
-          type="button"
-          variant="primary"
-          text="Write Review"
-          onClick={() => {}}
-        />
-      </div>
-
-      <div className="overall-rating">
-        <div>
-          {renderStars(averageRating)}
-          <span>{averageRating.toFixed(1)} out of 5</span>
+    <>
+      <section className="reviews container">
+        <div className="reviews-header">
+          <h2>Reviews</h2>
+          <Button
+            type="button"
+            variant="primary"
+            text="Write Review"
+            onClick={handleShowReviewForm}
+          />
         </div>
-        <div>Based on {product.reviews.length} reviews</div>
-      </div>
 
-      <RatingBreakdown counts={ratingCounts} />
-      <ReviewSort sortValue={sortValue} onSortChange={setSortValue} />
-      <ReviewList reviews={sortedReviews} />
-    </section>
+        <div className="overall-rating">
+          <div>
+            {renderStars(averageRating)}
+            <span>{averageRating.toFixed(1)} out of 5</span>
+          </div>
+          <div>Based on {product.reviews.length} reviews</div>
+        </div>
+
+        <RatingBreakdown counts={ratingCounts} />
+        <ReviewSort sortValue={sortValue} onSortChange={setSortValue} />
+        <ReviewList reviews={sortedReviews} />
+      </section>
+    </>
   );
 }

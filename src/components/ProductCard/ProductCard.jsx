@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { LuHeart } from "react-icons/lu";
+import { TbHeartFilled } from "react-icons/tb";
+import { useWishlist } from "../../context/WishlistProvider";
 import PropTypes from "prop-types";
 import { useCart } from "../../context/CartProvider";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +12,11 @@ export default function ProductCard({ product, onProductClick }) {
   const [image, setImage] = useState(product.image);
   const { addCart } = useCart();
   const navigate = useNavigate();
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
+  const isInWishlist = (productId) => {
+    return wishlist.some((item) => item.id === productId);
+  };
+  const isProductInWishlist = isInWishlist(product.id);
 
   const finalPrice = product.isOnSale
     ? product.price * (1 - (product.discountPercent || 0) / 100)
@@ -31,6 +39,15 @@ export default function ProductCard({ product, onProductClick }) {
   const handleImageHover = () => {
     const newImg = product.gallery?.[1];
     if (newImg) setImage(newImg);
+  };
+
+  const handleWishlistToggle = (e) => {
+    e.stopPropagation(); 
+    if (isProductInWishlist) {
+      removeFromWishlist(product.id);
+    } else {
+      addToWishlist(product);
+    }
   };
 
   return (
@@ -57,6 +74,13 @@ export default function ProductCard({ product, onProductClick }) {
           onMouseLeave={() => setImage(product.image)}
           alt={product.name}
         />
+        <button className="wishlist-btn" onClick={handleWishlistToggle}>
+          {isProductInWishlist ? (
+            <TbHeartFilled size={20} />
+          ) : (
+            <LuHeart size={20} />
+          )}
+        </button>
       </div>
 
       <div className="product-info">

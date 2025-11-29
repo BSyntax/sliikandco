@@ -1,7 +1,11 @@
-import React from 'react'
+import React from "react";
+import BreadCrumb from "../components/wishitem/BreadCrumb";
 
 export default function ShopProducts() {
   return (
-    <div>ShopProducts</div>
-  )
+    <>
+      <BreadCrumb current={"shop"} />
+      <div>ShopProducts</div>{" "}
+    </>
+  );
 }

@@ -13,6 +13,7 @@ import ProductDetails from "../pages/ProductDetails";
 import ShopProducts from "../pages/ShopProducts";
 import Footer from "../components/footer/Footer";
 import TopButton from "../components/controls/TopButton";
+import ReviewPage from "../pages/ReviewPage";
 import ScrollToTop from "../components/controls/ScrollToTop";
 import "../scrollbar.css";
 
@@ -31,6 +32,7 @@ export default function AppRouter() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/shop" element={<ShopProducts />} />
+        <Route path="/review/:id" element={<ReviewPage />} />
         <Route path="/search" element={<Search />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
