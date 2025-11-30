@@ -224,7 +224,11 @@ export default function ProductDetails() {
         selectedGender={selectedGender}
         onGenderChange={setSelectedGender}
       />
-      <ProductGrid headerTitle="Best Sellers" gender={selectedGender} />
+      <ProductGrid
+        headerTitle="Best Sellers"
+        gender={selectedGender}
+        pageType="product-details"
+      />
       <WhyShopWithUs whyChooseUs={whyChooseUs} />
       <Newsletter />
     </>

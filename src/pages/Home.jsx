@@ -32,7 +32,11 @@ export default function Home() {
           selectedGender={selectedGender}
           onGenderChange={setSelectedGender}
         />
-        <ProductGrid headerTitle="New Arrivals" gender={selectedGender} />
+        <ProductGrid
+          headerTitle="New Arrivals"
+          gender={selectedGender}
+          pageType="/"
+        />
         <PromoBanner
           promoImage={promoBannerImage}
           promoCaption="CURATED"
@@ -53,7 +57,11 @@ export default function Home() {
           selectedGender={selectedGender}
           onGenderChange={setSelectedGender}
         />
-        <ProductGrid headerTitle="Best Sellers" gender={selectedGender} />
+        <ProductGrid
+          headerTitle="Best Sellers"
+          gender={selectedGender}
+          pageType="/"
+        />
         <NewsletterSignup />
         <div className="stay-connected container">
           <div className="stay-connected-content">

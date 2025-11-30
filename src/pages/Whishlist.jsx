@@ -9,13 +9,17 @@ import image from "../assets/images/shopping.webp";
 
 export default function Wishlist() {
   const { wishlist, removeFromWishlist, handleAddCart } = useWishlist();
-
+  const navigate = useNavigate();
   return (
     <>
       <div className="wishlist">
         <div className="wishlist-container">
           <BreadCrumb from="Home" current="Wishlist" />
-          <div className="wishlist-items container">
+          <div
+            className={`wishlist-items container ${
+              wishlist.length < 1 ? " no-items" : ""
+            }`}
+          >
             {wishlist.length > 0 ? (
               <>
                 <div className="wishlist-headers grid-columns-5">
@@ -43,7 +47,7 @@ export default function Wishlist() {
                   <p>Your wishlist is empty</p>
                   <Button
                     text="Continue Shopping"
-                    action={() => navigate("/")}
+                    onClick={() => navigate("/shop")}
                     type="button"
                   />
                 </div>

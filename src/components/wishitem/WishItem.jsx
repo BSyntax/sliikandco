@@ -6,7 +6,7 @@ export default function WishItem({
   handleAddCart,
   removeFromWishlist,
 }) {
-  const { name, price, dateAdded, stock, image } = product;
+  const { name, price, dateAdded, inStock, image } = product;
   const formattedDate = new Date(dateAdded).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
@@ -24,7 +24,7 @@ export default function WishItem({
       </div>
       <p className="wishitem-price">R{price}</p>
       <p className="wishitem-date">{formattedDate}</p>
-      <p className="wishitem-status">{stock}</p>
+      <p className="wishitem-status">{inStock ? "In Stock" : "Out of stock"}</p>
       <div className="wishitem-actions">
         <Button text="Add to Cart" onClick={handleAddCart} type="button" />
         <RiCloseFill className="cancel-icon" onClick={removeFromWishlist} />
