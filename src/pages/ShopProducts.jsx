@@ -4,26 +4,42 @@ import ProductGrid from "../components/productGrid/ProductGrid";
 import FilterEdit from "../components/filter/FilterEdit";
 import SideBar from "../components/sidebar/SideBar";
 import Pagination from "../components/pagination/Pagination";
-import { LuFacebook, LuInstagram, LuTwitter } from "react-icons/lu";
-import { Link } from "react-router-dom";
-
+import FollowUs from "../components/followUs/FollowUs";
 
 export default function ShopProducts() {
   const [selectedSort, setSelectedSort] = useState("");
   const [itemCount, setItemCount] = useState(0);
-  const [selectedFilter, setSelectedFilter] = useState(null);
+  const [selectedFilters, setSelectedFilters] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
+  const [priceRange, setPriceRange] = useState({ min: 0, max: 2000 });
 
   const productsPerPage = 12;
 
   const handleFilterChange = (type, value) => {
-    setSelectedFilter({ type, value });
-    setCurrentPage(1); // Reset to first page on new filter
+    setSelectedFilters((prev) => {
+      const previousValues = prev[type] || [];
+      const alreadySelected = previousValues.includes(value);
+
+      const updatedValues = alreadySelected
+        ? previousValues.filter((v) => v !== value)
+        : [...previousValues, value];
+
+      if (updatedValues.length === 0) {
+        const { [type]: _removed, ...rest } = prev;
+        return rest;
+      }
+
+      return {
+        ...prev,
+        [type]: updatedValues,
+      };
+    });
+    setCurrentPage(1);
   };
 
   const handleCleartFilter = () => {
-    setSelectedFilter(null);
-    setCurrentPage(1); // Reset to first page on clear
+    setSelectedFilters({});
+    setCurrentPage(1);
   };
 
   return (
@@ -33,18 +49,33 @@ export default function ShopProducts() {
         <SideBar
           onFilterChange={handleFilterChange}
           handleCleartFilter={handleCleartFilter}
-          selectedFilter={selectedFilter}
+          selectedFilter={selectedFilters}
+          minPrice={priceRange.min}
+          maxPrice={priceRange.max}
+          onPriceChange={(range) => {
+            setPriceRange(range);
+            setCurrentPage(1);
+          }}
         />
         <div className="shop-products">
-          <FilterEdit itemCount={itemCount} setSelectedSort={setSelectedSort} />
-          <ProductGrid
-            selectedSort={selectedSort}
-            selectedFilter={selectedFilter}
-            onCountChange={setItemCount}
-            pageType="shop"
-            currentPage={currentPage}
-            productsPerPage={productsPerPage}
-          />
+          <div className="shop-products-container">
+            <FilterEdit
+              itemCount={itemCount}
+              setSelectedSort={setSelectedSort}
+              initialText="Products Found"
+            />
+            <ProductGrid
+              selectedSort={selectedSort}
+              selectedFilter={selectedFilters}
+              minPrice={priceRange.min}
+              maxPrice={priceRange.max}
+              onCountChange={setItemCount}
+              pageType="shop"
+              currentPage={currentPage}
+              productsPerPage={productsPerPage}
+            />
+          </div>
+
           <Pagination
             productsPerPage={productsPerPage}
             totalProducts={itemCount}
@@ -53,45 +84,7 @@ export default function ShopProducts() {
           />
         </div>
       </div>
-      <div className="stay-connected container">
-        <div className="stay-connected-content">
-          <span className="stay-connected-caption">Follow Us</span>
-          <Link to="/" className="stay-connected-logo">
-            Sliik & Co.
-          </Link>
-          <p className="stay-connected-description">
-            Stay connected with us on social media for the latest updates,
-            exclusive offers, and style inspiration. Join our community and be
-            the first to know about new arrivals and special events.
-          </p>
-        </div>
-        <div className="stay-connected-icons">
-          <span className="stay-connected-icon">
-            <Link
-              to="https://facebook.com/sliikandco"
-              aria-label="Visit our Facebook page"
-            >
-              <LuFacebook />
-            </Link>
-          </span>
-          <span className="stay-connected-icon">
-            <Link
-              to="https://twitter.com/sliikandco"
-              aria-label="Visit our Twitter page"
-            >
-              <LuTwitter />
-            </Link>
-          </span>
-          <span className="stay-connected-icon">
-            <Link
-              to="https://instagram.com/sliikandco"
-              aria-label="Visit our Instagram page"
-            >
-              <LuInstagram />
-            </Link>
-          </span>
-        </div>
-      </div>
+      <FollowUs />
     </>
   );
 }

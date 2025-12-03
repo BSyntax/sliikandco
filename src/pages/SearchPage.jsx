@@ -14,7 +14,7 @@ export default function Search() {
     <>
       <BreadCrumb from="Home" current="Search" />
 
-      <FilterEdit itemCount={itemCount} setSelectedSort={setSelectedSort} />
+      <FilterEdit itemCount={itemCount} setSelectedSort={setSelectedSort} initialText="Items Found" />
 
       <section className="search-page container">
         <ProductGrid

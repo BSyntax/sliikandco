@@ -1,8 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { LuSlidersHorizontal } from "react-icons/lu";
 import { IoChevronDown } from "react-icons/io5";
+import PropTypes from "prop-types";
 
-export default function FilterEdit({ itemCount = 0, setSelectedSort }) {
+export default function FilterEdit({
+  itemCount = 0,
+  setSelectedSort,
+  initialText,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState("Sort By");
   const dropdownRef = useRef(null);
@@ -34,7 +39,7 @@ export default function FilterEdit({ itemCount = 0, setSelectedSort }) {
 
   return (
     <div className="filter-edit container">
-      <div className="item-count">{itemCount} Items Found</div>
+      <div className="item-count">{itemCount} {initialText}</div>
 
       <div className="filter-controls">
         <span className="filter-label">
@@ -64,3 +69,9 @@ export default function FilterEdit({ itemCount = 0, setSelectedSort }) {
     </div>
   );
 }
+
+FilterEdit.propTypes = {
+  itemCount: PropTypes.number.isRequired,
+  setSelectedSort: PropTypes.func.isRequired,
+  initialText: PropTypes.string.isRequired,
+};

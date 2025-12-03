@@ -14,6 +14,8 @@ export default function ProductGrid({
   onProductClick,
   currentPage,
   productsPerPage,
+  minPrice,
+  maxPrice,
 }) {
   const { products } = useProducts();
 
@@ -49,20 +51,45 @@ export default function ProductGrid({
       }
     }
 
-    // Apply sidebar filters if a filter is selected
-    if (pageType === "shop" && selectedFilter) {
-      const { type, value } = selectedFilter;
-      newFilteredProducts = newFilteredProducts.filter((p) => {
-        if (type === "color") {
-          return p.colors.some((c) => c.name === value);
-        }
-        if (type === "size") {
-          return p.sizesAvailable.includes(value);
-        }
-        // Ensure property exists before comparing
-        const prop = type.toLowerCase();
-        return p.hasOwnProperty(prop) && p[prop] === value;
-      });
+    // Apply sidebar filters: support multiple values per filter type
+    // selectedFilter shape: { category: ["Shoes"], gender: ["Men"], color: ["Black", "White"], ... }
+    if (pageType === "shop") {
+      if (selectedFilter && Object.keys(selectedFilter).length > 0) {
+        newFilteredProducts = newFilteredProducts.filter((p) => {
+          return Object.entries(selectedFilter).every(([type, values]) => {
+            if (!values || values.length === 0) return true;
+
+            if (type === "color") {
+              // Product matches if it has ANY of the selected colors
+              return values.some((value) =>
+                p.colors.some((c) => c.name === value)
+              );
+            }
+
+            if (type === "size") {
+              // Product matches if it has ANY of the selected sizes
+              return values.some((value) => p.sizesAvailable.includes(value));
+            }
+
+            const prop = type.toLowerCase();
+            if (!Object.prototype.hasOwnProperty.call(p, prop)) return true;
+
+            // For simple scalar props (category, brand, gender, etc.) match any selected value
+            return values.includes(p[prop]);
+          });
+        });
+      }
+
+      // Apply price range filter (minPrice & maxPrice from slider)
+      if (typeof minPrice === "number" || typeof maxPrice === "number") {
+        const min = typeof minPrice === "number" ? minPrice : 0;
+        const max =
+          typeof maxPrice === "number" ? maxPrice : Number.POSITIVE_INFINITY;
+
+        newFilteredProducts = newFilteredProducts.filter(
+          (p) => p.price >= min && p.price <= max
+        );
+      }
     }
 
     // Apply sorting
@@ -94,6 +121,8 @@ export default function ProductGrid({
     pageType,
     selectedSort,
     selectedFilter,
+    minPrice,
+    maxPrice,
   ]);
 
   useEffect(() => {
@@ -146,6 +175,8 @@ ProductGrid.propTypes = {
   onProductClick: PropTypes.func,
   currentPage: PropTypes.number,
   productsPerPage: PropTypes.number,
+  minPrice: PropTypes.number,
+  maxPrice: PropTypes.number,
 };
 
 ProductGrid.defaultProps = {
@@ -159,4 +190,6 @@ ProductGrid.defaultProps = {
   onProductClick: null,
   currentPage: 1,
   productsPerPage: 12,
+  minPrice: 0,
+  maxPrice: 2000,
 };

@@ -84,7 +84,7 @@ export default function ProductCard({ product, onProductClick }) {
       </div>
 
       <div className="product-info">
-        <span className="product-title">
+        <span className="product-title truncate-text">
           {product.name} {selectedColor}
         </span>
 
