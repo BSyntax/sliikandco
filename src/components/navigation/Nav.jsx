@@ -101,7 +101,10 @@ export default function Nav() {
                   onMouseEnter={handleDropdownEnter}
                   onMouseLeave={handleDropdownLeave}
                 >
-                  <DropDownModel type="shop" />
+                  <DropDownModel
+                    type="shop"
+                    closeDropdown={handleDropdownLeave}
+                  />
                 </div>
               )}
             </div>
@@ -125,7 +128,10 @@ export default function Nav() {
                   onMouseEnter={handleDropdownEnter}
                   onMouseLeave={handleDropdownLeave}
                 >
-                  <DropDownModel type="collection" />
+                  <DropDownModel
+                    type="collection"
+                    closeDropdown={handleDropdownLeave}
+                  />
                 </div>
               )}
             </div>

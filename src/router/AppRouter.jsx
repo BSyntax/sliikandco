@@ -14,7 +14,9 @@ import ShopProducts from "../pages/ShopProducts";
 import Footer from "../components/footer/Footer";
 import TopButton from "../components/controls/TopButton";
 import ReviewPage from "../pages/ReviewPage";
+import CheckoutForm from "../pages/CheckoutForm";
 import ScrollToTop from "../components/controls/ScrollToTop";
+import StripeCheckoutProvider from "../context/CheckoutProvider"; // Import the new provider
 import "../scrollbar.css";
 
 export default function AppRouter() {
@@ -33,6 +35,7 @@ export default function AppRouter() {
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/shop" element={<ShopProducts />} />
         <Route path="/review/:id" element={<ReviewPage />} />
+        <Route path="/checkout" element={<StripeCheckoutProvider><CheckoutForm /></StripeCheckoutProvider>} /> {/* Wrap CheckoutForm */}
         <Route path="/search" element={<Search />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

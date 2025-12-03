@@ -6,8 +6,10 @@ import Button from "../controls/Button";
 import CartItem from "./CartItem";
 import PropTypes from "prop-types";
 import { useCart } from "../../context/CartProvider";
+import { useNavigate } from "react-router-dom";
 
 export default function CartModel({ cartModalOpen, setCartModalOpen }) {
+  const navigate = useNavigate();
   const { cart, updateQuantity, removeCart } = useCart();
   useLockBodyScroll(cartModalOpen);
 
@@ -22,10 +24,6 @@ export default function CartModel({ cartModalOpen, setCartModalOpen }) {
     (id, quantity) => updateQuantity(id, quantity),
     [updateQuantity]
   );
-
-  const handleCheckout = () => {
-    console.log("Proceeding to checkout");
-  };
 
   const total = cart.reduce(
     (sum, item) => sum + item.price * (item.quantity ?? 1),
@@ -53,6 +51,7 @@ export default function CartModel({ cartModalOpen, setCartModalOpen }) {
                   item={item}
                   onQuantityChange={handleQuantityChange}
                   onDelete={handleDelete}
+                  onCloseCart={handleCloseCart}
                 />
               ))}
             </div>
@@ -73,14 +72,12 @@ export default function CartModel({ cartModalOpen, setCartModalOpen }) {
           </div>
 
           <div className="cart-model-checkout">
-            <Button text="Checkout" onClick={handleCheckout} />
-          </div>
-
-          <div className="cart-model-viewcart">
             <Button
-              text="View Cart"
-              onClick={() => setCartModalOpen(false)}
-              variant="secondary"
+              text="Checkout"
+              onClick={() => {
+                navigate("/checkout");
+                handleCloseCart();
+              }}
             />
           </div>
         </div>

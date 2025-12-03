@@ -1,10 +1,11 @@
 import { NavLink } from "react-router-dom";
 import MenuImage from "../../assets/images/hero-1.webp";
 
-export default function DropDownModel({ type }) {
+export default function DropDownModel({ type, closeDropdown }) {
   const content = {
     shop: {
       Men: [
+        { name: "Shop All", path: "/shop" },
         { name: "Tops", path: "/shop/men/tops" },
         { name: "Jackets & Coats", path: "/shop/men/jackets" },
         { name: "Pants & Jeans", path: "/shop/men/pants" },
@@ -38,7 +39,11 @@ export default function DropDownModel({ type }) {
             <li className="dropdown-category">{category}</li>
             {items.map((item, i) => (
               <li key={i}>
-                <NavLink to={item.path} className="dropdown-item">
+                <NavLink
+                  to={item.path}
+                  className="dropdown-item"
+                  onClick={closeDropdown}
+                >
                   {item.name}
                 </NavLink>
               </li>
@@ -59,7 +64,11 @@ export default function DropDownModel({ type }) {
           <li className="dropdown-category">{category}</li>
           {items.map((item, i) => (
             <li key={i}>
-              <NavLink to={item.path} className="dropdown-item">
+              <NavLink
+                to={item.path}
+                className="dropdown-item"
+                onClick={closeDropdown}
+              >
                 {item.name}
               </NavLink>
             </li>

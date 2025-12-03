@@ -1,8 +1,9 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
 import Button from "../controls/Button";
+import { Link } from "react-router-dom";
 
-const CartItem = memo(({ item, onQuantityChange, onDelete }) => {
+const CartItem = memo(({ item, onQuantityChange, onDelete, onCloseCart }) => {
   const handleDecrease = () => {
     if (item.quantity > 1) {
       onQuantityChange(item.id, item.quantity - 1);
@@ -22,7 +23,13 @@ const CartItem = memo(({ item, onQuantityChange, onDelete }) => {
       </div>
 
       <div className="item-center">
-        <h3 className="item-name">{item.name}</h3>
+        <Link
+          to={`/product/${item.id}`}
+          className="item-name"
+          onClick={onCloseCart}
+        >
+          {item.name}
+        </Link>
         <p className="item-size">
           {item.sizeType}: {item.size}
         </p>
