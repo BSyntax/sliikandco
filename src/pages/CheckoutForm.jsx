@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartProvider";
 import { useCheckout } from "../context/CheckoutProvider";
 import Button from "../components/controls/Button";
-import BreadCrum from '../components/wishitem/BreadCrumb'
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 export default function CheckoutForm() {
@@ -90,142 +89,146 @@ export default function CheckoutForm() {
   }
 
   return (
-     <>
-     <div className="checkout-form">
-      <h2 style={{ textAlign: "center", marginBottom: "30px" }}>
-        Secure Checkout
-      </h2>
+    <>
+      <div className="checkout-form">
+        <h2 style={{ textAlign: "center", marginBottom: "30px" }}>
+          Secure Checkout
+        </h2>
 
-      <div style={{ marginBottom: "20px", fontSize: "1.2rem" }}>
-        <strong>Total: R{total}</strong>
-      </div>
-
-      <form onSubmit={handleSubmit}>
-        {/* Custom Fields */}
-        <div style={{ marginBottom: "15px" }}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Full Name"
-            value={formData.name}
-            onChange={handleInputChange}
-            required
-            style={{
-              width: "100%",
-              padding: "10px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-            }}
-          />
-        </div>
-        <div style={{ marginBottom: "15px" }}>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-            style={{
-              width: "100%",
-              padding: "10px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-            }}
-          />
-        </div>
-        <div style={{ marginBottom: "15px" }}>
-          <input
-            type="text"
-            name="address"
-            placeholder="Address"
-            value={formData.address}
-            onChange={handleInputChange}
-            required
-            style={{
-              width: "100%",
-              padding: "10px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-            }}
-          />
-        </div>
-        <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
-          <input
-            type="text"
-            name="city"
-            placeholder="City"
-            value={formData.city}
-            onChange={handleInputChange}
-            required
-            style={{
-              flex: 1,
-              padding: "10px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-            }}
-          />
-          <input
-            type="text"
-            name="zip"
-            placeholder="ZIP Code"
-            value={formData.zip}
-            onChange={handleInputChange}
-            required
-            style={{
-              width: "100px",
-              padding: "10px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-            }}
-          />
+        <div style={{ marginBottom: "20px", fontSize: "1.2rem" }}>
+          <strong>Total: R{total}</strong>
         </div>
 
-        <div
-          style={{
-            border: "1px solid #ddd",
-            borderRadius: "8px",
-            padding: "16px",
-            marginBottom: "20px",
-            backgroundColor: "#fafafa",
-          }}
-        >
-          <CardElement
-            options={{
-              style: {
-                base: {
-                  fontSize: "18px",
-                  color: "#424770",
-                  "::placeholder": { color: "#aab7c4" },
-                },
-              },
-            }}
-          />
-        </div>
-
-        {error && (
-          <div
-            className="checkout-error-state"
-            style={{ padding: "10px", fontSize: "1rem", marginBottom: "16px" }}
-          >
-            {error}
+        <form onSubmit={handleSubmit}>
+          {/* Custom Fields */}
+          <div style={{ marginBottom: "15px" }}>
+            <input
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+              style={{
+                width: "100%",
+                padding: "10px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+              }}
+            />
           </div>
-        )}
+          <div style={{ marginBottom: "15px" }}>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+              style={{
+                width: "100%",
+                padding: "10px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+              }}
+            />
+          </div>
+          <div style={{ marginBottom: "15px" }}>
+            <input
+              type="text"
+              name="address"
+              placeholder="Address"
+              value={formData.address}
+              onChange={handleInputChange}
+              required
+              style={{
+                width: "100%",
+                padding: "10px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+              }}
+            />
+          </div>
+          <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
+            <input
+              type="text"
+              name="city"
+              placeholder="City"
+              value={formData.city}
+              onChange={handleInputChange}
+              required
+              style={{
+                flex: 1,
+                padding: "10px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+              }}
+            />
+            <input
+              type="text"
+              name="zip"
+              placeholder="ZIP Code"
+              value={formData.zip}
+              onChange={handleInputChange}
+              required
+              style={{
+                width: "100px",
+                padding: "10px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+              }}
+            />
+          </div>
 
-        <Button
-          text={processing ? "Processing..." : `Pay R${total}`}
-          type="submit"
-          disabled={!stripe || processing}
-          style={{ width: "100%", padding: "14px" }}
-        />
-      </form>
+          <div
+            style={{
+              border: "1px solid #ddd",
+              borderRadius: "8px",
+              padding: "16px",
+              marginBottom: "20px",
+              backgroundColor: "#fafafa",
+            }}
+          >
+            <CardElement
+              options={{
+                style: {
+                  base: {
+                    fontSize: "18px",
+                    color: "#424770",
+                    "::placeholder": { color: "#aab7c4" },
+                  },
+                },
+              }}
+            />
+          </div>
 
-      <div style={{ marginTop: "30px", fontSize: "14px", color: "#666" }}>
-        <strong>Test Card:</strong> 4242 4242 4242 4242
-        <br />
-        Any future date • Any 3-digit CVC • Any ZIP
+          {error && (
+            <div
+              className="checkout-error-state"
+              style={{
+                padding: "10px",
+                fontSize: "1rem",
+                marginBottom: "16px",
+              }}
+            >
+              {error}
+            </div>
+          )}
+
+          <Button
+            text={processing ? "Processing..." : `Pay R${total}`}
+            type="submit"
+            disabled={!stripe || processing}
+            style={{ width: "100%", padding: "14px" }}
+          />
+        </form>
+
+        <div style={{ marginTop: "30px", fontSize: "14px", color: "#666" }}>
+          <strong>Test Card:</strong> 4242 4242 4242 4242
+          <br />
+          Any future date • Any 3-digit CVC • Any ZIP
+        </div>
       </div>
-    </div>
-     </>
+    </>
   );
 }

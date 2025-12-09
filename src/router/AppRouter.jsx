@@ -15,7 +15,6 @@ import Footer from "../components/footer/Footer";
 import TopButton from "../components/controls/TopButton";
 import ReviewPage from "../pages/ReviewPage";
 import CheckoutForm from "../pages/CheckoutForm";
-import Completion from "../pages/Completion";
 import ScrollToTop from "../components/controls/ScrollToTop";
 import StripeCheckoutProvider from "../context/CheckoutProvider";
 
@@ -44,7 +43,6 @@ export default function AppRouter() {
           <Route path="/shop" element={<ShopProducts />} />
           <Route path="/review/:id" element={<ReviewPage />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/completion" element={<Completion />} />
 
           <Route
             path="/checkout"

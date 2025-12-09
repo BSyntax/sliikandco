@@ -157,7 +157,10 @@ export default function ProductDetails() {
 
   return (
     <>
-      <BreadCrumb current={product.name} />
+      <BreadCrumb
+        from={{ label: "Shop", path: "/shop" }}
+        current={product.name}
+      />
       <section className="product-details container">
         <div className="product-grid">
           <div className="grid-left">

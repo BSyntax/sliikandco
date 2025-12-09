@@ -44,7 +44,7 @@ export default function ShopProducts() {
 
   return (
     <>
-      <BreadCrumb current={"shop"} />
+      <BreadCrumb from="Home" current="Shop" />
       <div className="shop-page-flex container">
         <SideBar
           onFilterChange={handleFilterChange}

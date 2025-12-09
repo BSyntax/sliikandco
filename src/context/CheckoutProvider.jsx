@@ -2,6 +2,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useState, useEffect, createContext, useContext } from "react";
 import { useCart } from "./CartProvider";
+import BreadCrumb from "../components/wishitem/BreadCrumb";
 
 const stripePromise = loadStripe(
   import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY ||
@@ -62,7 +63,7 @@ export default function StripeCheckoutProvider({ children }) {
   if (cart.length > 0 && !clientSecret && !error) {
     return (
       <div className="checkout-page-wrapper">
-        <div className="checkout-loading-state">Loading secure payment...</div>
+        <p className="checkout-loading-state">Loading secure payment...</p>
       </div>
     );
   }
@@ -70,18 +71,21 @@ export default function StripeCheckoutProvider({ children }) {
   if (error) {
     return (
       <div className="checkout-page-wrapper">
-        <div className="checkout-error-state">{error}</div>
+        <p className="checkout-error-state">{error}</p>
       </div>
     );
   }
 
   return (
-    <CheckoutContext.Provider value={{ clientSecret }}>
-      <div className="checkout-page-wrapper container">
-        <Elements stripe={stripePromise} options={{ clientSecret }}>
-          {children}
-        </Elements>
-      </div>
-    </CheckoutContext.Provider>
+    <>
+      <BreadCrumb from={{ label: "Shop", path: "/shop" }} current="Checkout" />
+      <CheckoutContext.Provider value={{ clientSecret }}>
+        <div className="checkout-page-wrapper container">
+          <Elements stripe={stripePromise} options={{ clientSecret }}>
+            {children}
+          </Elements>
+        </div>
+      </CheckoutContext.Provider>
+    </>
   );
 }
