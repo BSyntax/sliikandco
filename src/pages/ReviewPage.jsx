@@ -6,7 +6,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import UploadPhoto from "../components/controls/UploadPhoto";
 import ItemRecommendation from "../components/controls/ItemRecommendation";
 import { useProducts } from "../context/ProductProvider";
-import AvatarPlaceholder from "../assets/images/avatar-placeholder.webp";
+import { toast } from "react-toastify";
+
 
 export default function ReviewPage() {
   const [rating, setRating] = useState(0);
@@ -55,6 +56,18 @@ export default function ReviewPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!product) return;
+    if (!rating || rating === 0) {
+      toast.error("Please select a star rating", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
+      return;
+    }
     const formData = {
       id: product.id,
       reviewer: fullName,

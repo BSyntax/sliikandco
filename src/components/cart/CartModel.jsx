@@ -74,9 +74,12 @@ export default function CartModel({ cartModalOpen, setCartModalOpen }) {
           <div className="cart-model-checkout">
             <Button
               text="Checkout"
+              disabled={cart.length === 0}
               onClick={() => {
-                navigate("/checkout");
-                handleCloseCart();
+                if (cart.length > 0) {
+                  navigate("/checkout");
+                  handleCloseCart();
+                }
               }}
             />
           </div>
