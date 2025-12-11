@@ -1,6 +1,12 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { useState, useEffect, createContext, useContext } from "react";
+import {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useMemo,
+} from "react";
 import { useCart } from "./CartProvider";
 import BreadCrumb from "../components/wishitem/BreadCrumb";
 
@@ -49,6 +55,8 @@ export default function StripeCheckoutProvider({ children }) {
       });
   }, [cart]);
 
+  const options = useMemo(() => ({ clientSecret }), [clientSecret]);
+
   if (cart.length === 0) {
     return (
       <div className="checkout-page-wrapper">
@@ -80,12 +88,15 @@ export default function StripeCheckoutProvider({ children }) {
     <>
       <BreadCrumb from={{ label: "Shop", path: "/shop" }} current="Checkout" />
       <CheckoutContext.Provider value={{ clientSecret }}>
-        <div className="checkout-page-wrapper container">
-          <Elements stripe={stripePromise} options={{ clientSecret }}>
-            {children}
-          </Elements>
+        <div className="checkout-page-wrapper">
+          {clientSecret && (
+            <Elements stripe={stripePromise} options={options}>
+              {children}
+            </Elements>
+          )}
         </div>
       </CheckoutContext.Provider>
     </>
   );
 }
+

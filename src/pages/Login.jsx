@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../components/controls/Button";
+import InputControl from "../components/controls/InputControl";
 
-import { LuEye, LuEyeOff } from "react-icons/lu";
+const PASSWORD_RULES = [
+  "At least 8 characters",
+  "Include one uppercase letter",
+  "Include one lowercase letter",
+  "Include one number",
+  "Include one special character (@$!%*?&)",
+];
 
 export default function Login() {
   const navigate = useNavigate();
@@ -10,21 +17,6 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-    setEmailError("");
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-    setPasswordError("");
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,19 +25,27 @@ export default function Login() {
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
+    let valid = true;
+
     if (!emailRegex.test(email)) {
-      setEmailError("Invalid email format");
+      setEmailError("Please enter a valid email address");
+      valid = false;
       return;
+    } else {
+      setEmailError("");
     }
-    setEmailError("");
 
     if (!passwordRegex.test(password)) {
       setPasswordError("Password does not meet requirements");
+      valid = false;
       return;
+    } else {
+      setPasswordError("");
     }
-    setPasswordError("");
 
-    navigate("/");
+    if (valid) {
+      navigate("/");
+    }
   };
 
   return (
@@ -54,50 +54,37 @@ export default function Login() {
         <div className="login">
           <h1>Login</h1>
           <form onSubmit={handleSubmit} autoComplete="off" noValidate>
-            <div className="form-control">
-              <div className="input-wrapper">
-                <input
-                  type="email"
-                  onChange={handleEmailChange}
-                  placeholder="Email*"
-                  value={email}
-                  autoFocus
-                />
-              </div>
-              {emailError && <p className="error">{emailError}</p>}
-            </div>
-            <div className="form-control password-container">
-              <div className="input-wrapper">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  onChange={handlePasswordChange}
-                  placeholder="Password*"
-                  value={password}
-                />
-                <div className="password-toggle">
-                  {showPassword ? (
-                    <LuEyeOff onClick={togglePasswordVisibility} />
-                  ) : (
-                    <LuEye onClick={togglePasswordVisibility} />
-                  )}
-                </div>
-              </div>
-              {passwordError && (
-                <div className="error-container">
-                  <ul className="error-details">
-                    <li>At least 8 characters</li>
-                    <li>Include one uppercase letter</li>
-                    <li>Include one lowercase letter</li>
-                    <li>Include one number</li>
-                    <li>Include one special character (@$!%*?&)</li>
-                  </ul>
-                </div>
-              )}
-            </div>
+            <InputControl
+              type="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setEmailError("");
+              }}
+              placeholder="Email*"
+              autoFocus={true}
+              error={emailError}
+              name="email"
+            />
+
+            <InputControl
+              type="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setPasswordError("");
+              }}
+              placeholder="Password*"
+              error={passwordError}
+              errorDetails={passwordError ? PASSWORD_RULES : null}
+              name="password"
+            />
+
             <div className="form-control">
               <Button text="Login" type="submit" />
             </div>
           </form>
+
           <div className="auth-links">
             <NavLink to="/register">
               Don't have an account? <span>Sign up</span>

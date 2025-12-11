@@ -138,7 +138,7 @@ export default function ProductGrid({
     indexOfFirstProduct,
     indexOfLastProduct
   );
-  console.log(currentProducts);
+
   return (
     <div
       className={`product-grid ${

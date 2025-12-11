@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../components/controls/Button";
+import InputControl from "../components/controls/InputControl";
 
 export default function ResetPassword() {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const navigate = useNavigate();
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-    setEmailError("");
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,24 +29,18 @@ export default function ResetPassword() {
             <p>Enter your email to get a reset link.</p>
           </div>
           <form onSubmit={handleSubmit} autoComplete="off" noValidate>
-            <div className="form-control">
-              <div className="input-wrapper">
-                <input
-                  type="email"
-                  onChange={handleEmailChange}
-                  placeholder="Email*"
-                  value={email}
-                  autoFocus
-                  aria-invalid={!!emailError}
-                  aria-describedby={emailError ? "email-error" : undefined}
-                />
-              </div>
-              {emailError && (
-                <p className="error" id="email-error">
-                  {emailError}
-                </p>
-              )}
-            </div>
+          <InputControl
+              type="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setEmailError("");
+              }}
+              placeholder="Email*"
+              autoFocus={true}
+              error={emailError}
+              name="email"
+            />
             <div className="form-control">
               <Button text="Submit" type="submit" />
             </div>
