@@ -23,7 +23,7 @@ export default function Hero() {
       </div>
 
       <div className="hero-text">
-        <h1>Minimal & Modern</h1>
+        <h1>Modern Essentials</h1>
         <p>
           Timeless silhouettes. Premium fabrics. Designed in Cape Town made
           for the world.

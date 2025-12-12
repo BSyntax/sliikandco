@@ -1,96 +1,51 @@
-# Sliik & Co. — Fashion E-Commerce Website
+# Sliik & Co. — Fashion E-Commerce Platform
 
+![Sliik & Co. Hero](/public/readme-assets/hero.png)
 
-Sliik & Co. is a modern, fully responsive e-commerce platform built with React, Express, Node.js, and MongoDB. It delivers a sleek and seamless online shopping experience for fashion enthusiasts who value both style and usability.
+Sliik & Co. is a modern, responsive fashion e-commerce platform built with React, Node.js, Express, and MongoDB. It delivers a clean, high-performance shopping experience designed for fashion-focused users who value seamless browsing, curated collections, and intuitive UI interaction.
 
-⚠️ This is a **demo e-commerce project** for job applications and showcasing my skill in React and Node.js, MongoDB. 
-All product images are used for **educational purposes only** and belong to their respective owners.
+**Note:**  
+This is a demo project created for learning, portfolio presentation, and job applications.  
+All product images are used strictly for educational purposes and remain the property of their respective owners.
+
+---
 
 ## Overview
 
-This project is designed as a full-featured fashion retail website. It focuses on clean design, smooth interaction, and efficient state management using React Context API. The application allows users to explore curated collections, manage shopping carts, create wishlists, and check out securely.
+Sliik & Co. showcases a fully functional retail experience with a strong emphasis on design and usability. Product data is dynamically served from the backend, while the frontend uses React Context API for centralized state management. Users can discover collections, manage carts, save wishlisted items, and navigate effortlessly across high-quality UI components.
+
+---
 
 ## Features
 
-* **Modern UI/UX** — A visually appealing and responsive design focused on simplicity and elegance.
-* **Product Management** — Displays products dynamically from the backend with filtering and searching functionality.
-* **Wishlist** — Users can save favorite items for later.
-* **Cart System** — Add, remove, and update products in the shopping cart.
-* **User-Friendly Navigation** — Clear and consistent layout with header, footer, and announcement bar.
-* **Newsletter Subscription** - Stay connected through email updates.
-* **Lookbook and About Sections** — Showcase brand identity and featured collections.
-* **Fully Responsive** — Works seamlessly on desktop, tablet, and mobile screens.
+### Frontend Experience
+- Elegant, modern UI/UX optimized for fashion retail.
+- Dynamic Product Display with filtering, categories, and search.
+- Wishlist Functionality for saving preferred items.
+- Cart System supporting add, remove, and quantity updates.
+- Responsive Layout across desktop, tablet, and mobile.
+- Lookbook + About Pages to showcase branding and storytelling.
+- Newsletter Subscription for user engagement.
+
+### Backend Capabilities
+- RESTful API Architecture
+- MongoDB Database with Mongoose models.
+- Secure product and state operations with Express middleware.
+- Scalable Node.js server structure
+
+---
 
 ## Tech Stack
 
-**Frontend:**
+### Frontend
+- React (JSX)
+- React Router
+- Context API
+- Custom CSS / CSS Modules
+- React Icons
 
-* React (with JSX)
-* React Router
-* Context API for global state management
-* CSS Modules / Custom styling
-* React Icons
-
-**Backend:**
-
-* Node.js
-* Express.js
-* MongoDB (Mongoose for data modeling)
-* RESTful API structure
-
-## Installation and Setup
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/BSyntax/sliikandco.git
-   ```
-
-2. Navigate into the project directory:
-
-   ```bash
-   cd sliikandco
-   ```
-
-3. Install dependencies for both client and server:
-
-   ```bash
-   cd client && npm install
-   cd ../server && npm install
-   ```
-
-4. Start the development servers:
-
-   ```bash
-   # In one terminal
-   cd server && npm run dev
-
-   # In another terminal
-   cd client && npm start
-   ```
-
-5. Open your browser and go to:
-
-   ```
-   http://localhost:3000
-   ```
-
-## Environment Variables
-
-Create a `.env` file in the `/server` directory and include:
-
-```
-MONGO_URI=my_mongodb_connection_string
-PORT=5000
-JWT_SECRET=my_secret_key
-```
-
-## Future Enhancements
-
-* Implement authentication and user profiles
-* Add payment integration (Stripe)
-
-## Author
-
-**Sliik & Co.** — Developed and designed by Muzuvukile Nqwiliso.
-A vision-driven e-commerce experience built to blend technology and style.
+### Backend
+- Node.js
+- Express.js
+- MongoDB + Mongoose
+- REST API structure
