@@ -909,6 +909,7 @@ header .nav-container {
   transform: translateY(-50%);
   cursor: pointer;
   color: var(--color-gray);
+  background-color: transparent;
 }
 
 .password-toggle > * {
