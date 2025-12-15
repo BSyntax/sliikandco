@@ -20,7 +20,8 @@ import Card2 from "../assets/cards/card-2.webp";
 import Card3 from "../assets/cards/card-3.webp";
 import Card4 from "../assets/cards/card-4.webp";
 
-const cards = [Card1, Card2, Card3, Card4];
+const cards = [Card3, Card4, Card1];
+const VAT = 15;
 
 export default function CheckoutForm() {
   const stripe = useStripe();
@@ -52,14 +53,25 @@ export default function CheckoutForm() {
     zip: "",
   });
 
+  // --- Proper total calculations (fixed) ---
+  const subtotal = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+  const vatAmount = subtotal * (VAT / 100);
+  const totalAmount = subtotal + vatAmount;
+  const formatPrice = (amount) => `R${amount.toFixed(2)}`;
+
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
-  const total = cart
-    .reduce((sum, item) => sum + item.price * item.quantity, 0)
-    .toFixed(2);
+  const handleCountryChange = (value) => {
+    setFormData((prev) => ({ ...prev, country: value }));
+    setErrors((prev) => ({ ...prev, country: "" }));
+  };
 
   const validateForm = () => {
     let valid = true;
@@ -69,28 +81,23 @@ export default function CheckoutForm() {
       newErrors.name = "Full name is required.";
       valid = false;
     }
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim() || !emailRegex.test(formData.email)) {
       newErrors.email = "Enter a valid email address.";
       valid = false;
     }
-
     if (!formData.address.trim()) {
       newErrors.address = "Address is required.";
       valid = false;
     }
-
     if (!formData.city.trim()) {
       newErrors.city = "City is required.";
       valid = false;
     }
-
     if (!formData.country.trim()) {
       newErrors.country = "Country is required.";
       valid = false;
     }
-
     if (!formData.zip.trim()) {
       newErrors.zip = "ZIP code is required.";
       valid = false;
@@ -102,14 +109,13 @@ export default function CheckoutForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!stripe || !elements || !clientSecret) return;
 
+    if (!stripe || !elements || !clientSecret) return;
     if (!validateForm()) return;
 
     setProcessing(true);
     setError(null);
 
-    // IMPORTANT: Use CardNumberElement for split fields
     const cardNumberElement = elements.getElement(CardNumberElement);
 
     const { error: stripeError, paymentIntent } =
@@ -117,13 +123,13 @@ export default function CheckoutForm() {
         payment_method: {
           card: cardNumberElement,
           billing_details: {
-            name: formData.name,
-            email: formData.email,
+            name: formData.name.trim(),
+            email: formData.email.trim(),
             address: {
-              line1: formData.address,
-              city: formData.city,
+              line1: formData.address.trim(),
+              city: formData.city.trim(),
               country: formData.country,
-              postal_code: formData.zip,
+              postal_code: formData.zip.trim(),
             },
           },
         },
@@ -133,14 +139,15 @@ export default function CheckoutForm() {
 
     if (stripeError) {
       setError(stripeError.message);
-    } else if (paymentIntent.status === "succeeded") {
+    } else if (paymentIntent?.status === "succeeded") {
       setSucceeded(true);
       clearCart();
-      setTimeout(() => navigate("/completion"), 2000);
+      setTimeout(() => navigate("/completion"), 3000);
     }
   };
 
   if (succeeded) {
+    cart = [];
     return (
       <div className="checkout-page-wrapper">
         <div className="checkout-empty-state">
@@ -150,8 +157,10 @@ export default function CheckoutForm() {
             autoplay
             loop
           />
-          <h2 className="sucess-payment">Payment Successful!</h2>
-          <p className="sucess-message">Thank you for your purchase.</p>
+          <h2 className="success-payment">Payment Successful!</h2>
+          <p className="success-message">
+            Thank you for your purchase. You will be redirected shortly.
+          </p>
         </div>
       </div>
     );
@@ -167,7 +176,7 @@ export default function CheckoutForm() {
         </div>
 
         <div className="checkout-header">
-          <h2>Contact Information</h2>
+          <h2>Billing Details</h2>
           <div className="login-account">
             <span>Already have an account? </span>
             <Link to="/login" className="login-link">
@@ -179,29 +188,29 @@ export default function CheckoutForm() {
         <form onSubmit={handleSubmit} className="checkout-form-fields">
           <InputControl
             type="text"
+            name="name"
             value={formData.name}
             onChange={handleInputChange}
             placeholder="Full Name*"
-            name="name"
             error={errors.name}
             autoFocus
           />
 
           <InputControl
             type="email"
+            name="email"
             value={formData.email}
             onChange={handleInputChange}
             placeholder="Email*"
-            name="email"
             error={errors.email}
           />
 
           <InputControl
             type="text"
+            name="address"
             value={formData.address}
             onChange={handleInputChange}
             placeholder="Address*"
-            name="address"
             error={errors.address}
           />
 
@@ -209,10 +218,10 @@ export default function CheckoutForm() {
             <div className="column">
               <InputControl
                 type="text"
+                name="city"
                 value={formData.city}
                 onChange={handleInputChange}
                 placeholder="City*"
-                name="city"
                 error={errors.city}
               />
             </div>
@@ -220,9 +229,7 @@ export default function CheckoutForm() {
             <div className="column">
               <CountryControl
                 value={formData.country}
-                onChange={(val) =>
-                  setFormData((prev) => ({ ...prev, country: val }))
-                }
+                onChange={handleCountryChange}
                 error={errors.country}
               />
             </div>
@@ -230,10 +237,10 @@ export default function CheckoutForm() {
             <div className="column">
               <InputControl
                 type="text"
+                name="zip"
                 value={formData.zip}
                 onChange={handleInputChange}
                 placeholder="ZIP Code*"
-                name="zip"
                 error={errors.zip}
               />
             </div>
@@ -260,40 +267,72 @@ export default function CheckoutForm() {
               ))}
             </div>
           </div>
+
           <PaymentCardForm />
+
+          <label htmlFor="save-details" className="save-details-label">
+            <input type="checkbox" id="save-details" name="saveDetails" />
+            Save my details for future purchases
+          </label>
+
+          {error && <div className="error-message general-error">{error}</div>}
+
           <Button
-            text={processing ? "Processing..." : "Pay Now"}
+            text={
+              processing
+                ? "Processing..."
+                : `Confirm Payment ${formatPrice(totalAmount)}`
+            }
             type="submit"
             variant="primary"
-            disabled={!stripe || processing}
+            disabled={!stripe || processing || !clientSecret}
             className="pay-btn"
           />
         </form>
       </div>
 
       <div className="checkout-right">
-        <h3>Checkout Summary</h3>
-
         <div className="summary-items">
           {cart.map((item) => (
             <div key={item.id} className="summary-item">
               <div className="item-image">
-                <img src={item.image} alt="" />
+                <img src={item.image} alt={item.name} />
               </div>
               <div className="item-info">
-                <span>{item.name}</span>
-                <p>Qty: {item.quantity}</p>
+                <div className="item-details">
+                  <NavLink to={`/product/${item.id}`} className="item-name">
+                    {item.name}
+                  </NavLink>
+                  <span className="item-color">
+                    Color: {item.selectedColor}
+                  </span>
+                  <span className="item-qty">Quantity: {item.quantity}</span>
+                </div>
                 <div className="item-price">
-                  R{(item.price * item.quantity).toFixed(2)}
+                  {formatPrice(item.price * item.quantity)}
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="summary-total">
-          <span>Total:</span>
-          <strong>R{total}</strong>
+        <div className="summary-breakdown">
+          <div className="summary-row">
+            <span>Subtotal</span>
+            <span>{formatPrice(subtotal)}</span>
+          </div>
+          <div className="summary-row">
+            <span>VAT ({VAT}%)</span>
+            <span>{formatPrice(vatAmount)}</span>
+          </div>
+          <div className="summary-row">
+            <span>Delivery</span>
+            <span>Free</span>
+          </div>
+          <div className="summary-row total">
+            <span>Total</span>
+            <span>{formatPrice(totalAmount)}</span>
+          </div>
         </div>
       </div>
     </div>
