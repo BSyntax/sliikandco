@@ -4,7 +4,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartProvider";
 import { useCheckout } from "../context/CheckoutProvider";
@@ -28,7 +28,7 @@ export default function CheckoutForm() {
   const elements = useElements();
   const navigate = useNavigate();
 
-  const { cart, clearCart } = useCart();
+  const { cart } = useCart();
   const { clientSecret } = useCheckout();
 
   const [processing, setProcessing] = useState(false);
@@ -63,6 +63,13 @@ export default function CheckoutForm() {
       ? subtotal + vatAmount
       : subtotal + vatAmount + DELIVERY_FEE;
   const formatPrice = (amount) => `R${amount.toFixed(2)}`;
+
+  useEffect(() => {
+    if (succeeded) {
+      const timer = setTimeout(() => navigate("/"), 20000);
+      return () => clearTimeout(timer);
+    }
+  }, [succeeded, navigate]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -142,9 +149,8 @@ export default function CheckoutForm() {
     if (stripeError) {
       setError(stripeError.message);
     } else if (paymentIntent?.status === "succeeded") {
+      cart.length = 0;
       setSucceeded(true);
-      clearCart();
-      setTimeout(() => navigate("/completion"), 3000);
     }
   };
 
@@ -155,14 +161,19 @@ export default function CheckoutForm() {
         <div className="checkout-empty-state">
           <DotLottieReact
             className="lottie-small"
-            src="https://lottie.host/6bea3a1b-64cb-4080-b7b1-94853cecf6ef/Wf4YfXiiym.lottie"
-            autoplay
-            loop
+            src="https://lottie.host/6d24bf4a-9000-41a9-af6c-95d340585af4/IttqWa2743.lottie"
+            autoplay={true}
+            loop={false}
           />
           <h2 className="success-payment">Payment Successful!</h2>
           <p className="success-message">
-            Thank you for your purchase. You will be redirected shortly.
+            Payment successful! Redirecting home…
           </p>
+          <Button
+            text="Return Home"
+            onClick={() => navigate("/")}
+            variant="primary"
+          />
         </div>
       </div>
     );

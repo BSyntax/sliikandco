@@ -958,7 +958,7 @@ header .nav-container {
 
 .form-control .error,
 .error-details > *,
-.payment-form .rror-message {
+.payment-form .error-message {
   font-size: var(--f-sm);
   font-family: "Jost", sans-serif;
   font-weight: 400;
@@ -967,7 +967,7 @@ header .nav-container {
 }
 
 .payment-form .error-message {
-  background-color: red;
+  color: var(--color-danger);
 }
 
 .form-control .error {
@@ -1025,7 +1025,7 @@ header .nav-container {
 .wishlist-items {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 
 .wishlist-items.no-items {
@@ -2404,7 +2404,7 @@ header .nav-container {
 }
 
 .hero-video-banner .video-heading {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 500;
   line-height: var(--l-normal);
   color: var(--color-white);
@@ -2419,7 +2419,7 @@ header .nav-container {
 }
 
 .video-button {
-  margin-top: 1.75rem;
+  margin-top: 1.5rem;
   padding: 0.9rem 2rem;
   font-size: var(--f-sm);
   background: var(--color-white);
@@ -3869,6 +3869,74 @@ header .nav-container {
 .min-max-price input:focus {
   outline: none;
   border-color: var(--color-gray);
+}
+
+.slider-root {
+  position: relative;
+  width: 100%;
+  height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.slider-track {
+  position: relative;
+  height: 6px;
+  width: 100%;
+  background: var(--color-light-gray);
+  border-radius: 3px;
+}
+
+.slider-range {
+  position: absolute;
+  height: 6px;
+  background: var(--color-dark);
+  border-radius: 3px;
+}
+
+.slider-thumb {
+  width: 16px;
+  height: 16px;
+  background: var(--color-dark);
+  border: 2px solid #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-price-range {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sidebar-price-range-header {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.min-max-price {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.min-max-price-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.min-max-price-input input {
+  width: 100px;
+  padding: 4px 6px;
+  border: 1px solid var(--color-gray);
+  border-radius: 2px;
+  font-size: 0.875rem;
+}
+
+.min-max-price-input input:focus {
+  outline: none;
+  border-color: var(--color-dark);
 }
 
 /* Checkout Page */
