@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "../controls/Button";
 import { RiCloseFill } from "react-icons/ri";
 
@@ -6,7 +7,7 @@ export default function WishItem({
   handleAddCart,
   removeFromWishlist,
 }) {
-  const { name, price, dateAdded, inStock, image } = product;
+  const { name, price, dateAdded, inStock, image, id } = product;
   const formattedDate = new Date(dateAdded).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
@@ -19,7 +20,9 @@ export default function WishItem({
           <img src={image} alt={name} />
         </div>
         <div className="product-name">
-          <p>{name}</p>
+          <Link to={`/product/${id}`} className="wishlist-item-name">
+            {name}
+          </Link>
         </div>
       </div>
       <p className="wishitem-price">R{price}</p>

@@ -147,7 +147,6 @@ img {
   border: none;
 }
 
-
 .lottie-small {
   width: 230px;
   height: 300px;
@@ -1026,7 +1025,7 @@ header .nav-container {
 .wishlist-items {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: .5rem;
 }
 
 .wishlist-items.no-items {
@@ -1117,6 +1116,10 @@ header .nav-container {
   justify-content: start;
   border-bottom: 1px solid var(--color-light-gray);
   padding-bottom: 1rem;
+
+  &:nth-child(even) {
+    background-color: var(--color-secondary);
+  }
 }
 
 .wishitem .cancel-icon {
@@ -1164,13 +1167,22 @@ header .nav-container {
 .wishitem .wishitem-price,
 .wishitem .wishitem-date,
 .wishitem .wishitem-status,
-.wishitem .product-name p {
+.wishitem .product-name .wishlist-item-name {
   width: 100%;
   text-align: center;
   font-size: var(--f-sm);
   font-weight: 400;
   color: var(--text-color);
   line-height: var(--l-normal);
+}
+
+.wishitem .product-name .wishlist-item-name {
+  width: 173px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: start;
 }
 
 .wishitem .wishitem-status {
