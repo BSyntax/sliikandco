@@ -21,6 +21,7 @@ import Card4 from "../assets/cards/card-4.webp";
 
 const cards = [Card3, Card4, Card1];
 const VAT = 15;
+const DELIVERY_FEE = 50;
 
 export default function CheckoutForm() {
   const stripe = useStripe();
@@ -57,7 +58,10 @@ export default function CheckoutForm() {
     0
   );
   const vatAmount = subtotal * (VAT / 100);
-  const totalAmount = subtotal + vatAmount;
+  const totalAmount =
+    subtotal + vatAmount >= 500
+      ? subtotal + vatAmount
+      : subtotal + vatAmount + DELIVERY_FEE;
   const formatPrice = (amount) => `R${amount.toFixed(2)}`;
 
   const handleInputChange = (e) => {
@@ -276,7 +280,7 @@ export default function CheckoutForm() {
           {error && <div className="error-message general-error">{error}</div>}
           <div className="btn-container">
             <Button
-              text="Back"
+              text="Continue shopping"
               onClick={() => navigate(-1)}
               variant="secondary"
               className="back-to-cart-btn"
@@ -332,7 +336,9 @@ export default function CheckoutForm() {
           </div>
           <div className="summary-row">
             <span>Delivery</span>
-            <span>Free</span>
+            <span>
+              {totalAmount > 500 ? "Free" : `R${DELIVERY_FEE.toFixed(2)}`}
+            </span>
           </div>
           <div className="summary-row total">
             <span>Total</span>

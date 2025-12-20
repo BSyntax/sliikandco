@@ -49,6 +49,7 @@ export default function ProductCard({ product, onProductClick }) {
       addToWishlist(product);
     }
   };
+  
 
   return (
     <article className="product-card">
@@ -85,7 +86,7 @@ export default function ProductCard({ product, onProductClick }) {
 
       <div className="product-info">
         <span className="product-title truncate-text">
-          {product.name} {selectedColor}
+          {product.name}
         </span>
 
         <div className="product-price">
