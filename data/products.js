@@ -55,7 +55,8 @@ export const store_products = [
         reviewer: "Liam K.",
         rating: 5,
         date: "2025-11-12",
-        comment: "Perfect fit and the clay color is even better in person. Super breathable!",
+        comment:
+          "Perfect fit and the clay color is even better in person. Super breathable!",
         recommend: true,
         images: ["https://i.pravatar.cc/150?img=1"],
       },
@@ -63,7 +64,8 @@ export const store_products = [
         reviewer: "Noah R.",
         rating: 4,
         date: "2025-10-28",
-        comment: "Great quality polo, runs slightly slim but still comfortable.",
+        comment:
+          "Great quality polo, runs slightly slim but still comfortable.",
         recommend: true,
         images: [],
       },
@@ -73,7 +75,10 @@ export const store_products = [
         date: "2025-10-15",
         comment: "Bought two colors. Already my go-to weekend shirt.",
         recommend: true,
-        images: ["https://i.pravatar.cc/150?img=2", "https://i.pravatar.cc/150?img=3"],
+        images: [
+          "https://i.pravatar.cc/150?img=2",
+          "https://i.pravatar.cc/150?img=3",
+        ],
       },
     ],
   },
@@ -417,7 +422,8 @@ export const store_products = [
         reviewer: "Grace T.",
         rating: 5,
         date: "2025-11-15",
-        comment: "So soft and the ribbing is perfect. Already bought another color.",
+        comment:
+          "So soft and the ribbing is perfect. Already bought another color.",
         recommend: true,
         images: ["https://i.pravatar.cc/150?img=15"],
       },
@@ -473,7 +479,8 @@ export const store_products = [
         reviewer: "Victoria P.",
         rating: 5,
         date: "2025-11-19",
-        comment: "So comfy right out of the box! Wore them all day with no blisters.",
+        comment:
+          "So comfy right out of the box! Wore them all day with no blisters.",
         recommend: true,
         images: ["https://i.pravatar.cc/150?img=17"],
       },
@@ -1003,9 +1010,7 @@ export const store_products = [
     size: "M",
     sizeType: "Size",
     sizesAvailable: ["XS", "S", "M", "L", "XL"],
-    colors: [
-      { hex: "#D4A5A5", name: "Dusty Rose" },
-    ],
+    colors: [{ hex: "#D4A5A5", name: "Dusty Rose" }],
     selectedColor: "#D4A5A5",
     category: "T-Shirts",
     gender: "Men",
@@ -1057,9 +1062,7 @@ export const store_products = [
     size: "M",
     sizeType: "Size",
     sizesAvailable: ["S", "M", "L", "XL"],
-    colors: [
-      { hex: "#1C1C1E", name: "Black" },
-    ],
+    colors: [{ hex: "#1C1C1E", name: "Black" }],
     selectedColor: "#1C1C1E",
     category: "Polos",
     gender: "Men",

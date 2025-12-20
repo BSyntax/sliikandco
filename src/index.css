@@ -121,16 +121,8 @@ img {
   margin-top: calc(var(--announcement-height) + var(--header-height));
 }
 
-.button-primary {
-  font-size: var(--f-sm);
-  font-weight: 400;
-  padding: 0.5rem 0.75rem;
-  color: var(--color-white);
-  background-color: var(--color-dark);
-}
-
 .button-secondary,
-.button-primary.back-btn {
+.button-primary {
   font-size: var(--f-sm);
   font-weight: 400;
   padding: 0.5rem 0.75rem;
@@ -145,6 +137,16 @@ img {
   border-radius: 12px;
   padding: 1rem 1.5rem;
 }
+
+.button-primary {
+  font-size: var(--f-sm);
+  font-weight: 400;
+  padding: 0.5rem 0.75rem;
+  color: var(--color-white);
+  background-color: var(--color-dark);
+  border: none;
+}
+
 
 .lottie-small {
   width: 230px;
@@ -965,7 +967,7 @@ header .nav-container {
   text-align: start;
 }
 
-.payment-form .rror-message {
+.payment-form .error-message {
   background-color: red;
 }
 
@@ -973,7 +975,7 @@ header .nav-container {
   margin: 0.2rem 0;
 }
 
-.error-container .error-details {
+.error-details {
   padding-left: 1.125rem;
   margin: 0.2rem 0 0;
 }
@@ -4248,4 +4250,28 @@ header .nav-container {
   font-weight: 500;
   font-size: var(--f-sm);
   color: var(--color-dark);
+}
+
+.checkout-left .btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.checkout-left .back-to-cart-btn {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  font-size: var(--f-sm);
+  font-weight: 400;
+  padding: 0.5rem 0.75rem;
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--color-gray);
+}
+
+.checkout-left .proceed-to-pay-btn {
+  flex: 2;
 }

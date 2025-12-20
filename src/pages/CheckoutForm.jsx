@@ -16,7 +16,6 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import PaymentCardForm from "../components/paymentForm/PaymentCardForm";
 
 import Card1 from "../assets/cards/card-1.webp";
-import Card2 from "../assets/cards/card-2.webp";
 import Card3 from "../assets/cards/card-3.webp";
 import Card4 from "../assets/cards/card-4.webp";
 
@@ -53,7 +52,6 @@ export default function CheckoutForm() {
     zip: "",
   });
 
-  // --- Proper total calculations (fixed) ---
   const subtotal = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
@@ -147,7 +145,7 @@ export default function CheckoutForm() {
   };
 
   if (succeeded) {
-    cart = [];
+    cart.length = 0;
     return (
       <div className="checkout-page-wrapper">
         <div className="checkout-empty-state">
@@ -276,18 +274,25 @@ export default function CheckoutForm() {
           </label>
 
           {error && <div className="error-message general-error">{error}</div>}
-
-          <Button
-            text={
-              processing
-                ? "Processing..."
-                : `Confirm Payment ${formatPrice(totalAmount)}`
-            }
-            type="submit"
-            variant="primary"
-            disabled={!stripe || processing || !clientSecret}
-            className="pay-btn"
-          />
+          <div className="btn-container">
+            <Button
+              text="Back"
+              onClick={() => navigate(-1)}
+              variant="secondary"
+              className="back-to-cart-btn"
+            />
+            <Button
+              text={
+                processing
+                  ? "Processing..."
+                  : `Confirm Payment ${formatPrice(totalAmount)}`
+              }
+              type="submit"
+              variant="primary"
+              disabled={!stripe || processing || !clientSecret}
+              className="pay-btn proceed-to-pay-btn"
+            />
+          </div>
         </form>
       </div>
 

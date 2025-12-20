@@ -21,7 +21,6 @@ export default function SideBar({
     [products]
   );
 
-  // Map color name -> hex value from the products data
   const colorMap = useMemo(() => {
     const map = {};
     products.forEach((product) => {
@@ -36,7 +35,7 @@ export default function SideBar({
     return map;
   }, [products]);
 
-  // Brand counts by brand & category (respecting any selected category filters)
+ 
   const brandCounts = useMemo(() => {
     const counts = {};
 
