@@ -1,25 +1,4 @@
 // products.js
-import poloOrangeImg from "../src/assets/products/slim-polo.webp";
-import sweatshortsImg from "../src/assets/products/sweatshorts.webp";
-import golferGreenImg from "../src/assets/products/knitted-golfer.webp";
-import poloStripeImg from "../src/assets/products/striped-polo.webp";
-import poloStripeImg2 from "../src/assets/products/striped-polo-2.webp";
-import shirtBeigeImg from "../src/assets/products/shirt-concha.webp";
-import golferAquaImg from "../src/assets/products/color-golfer.webp";
-import crewSweatImg from "../src/assets/products/crew-sweatshirt.webp";
-import nswHoodieImg from "../src/assets/products/hoodie-fleece.webp";
-import piquePoloNavyImg from "../src/assets/products/pique-polo-navy.webp";
-
-import miniSkirtImg from "../src/assets/products/mini-skirt.webp";
-import wrapSkortImg from "../src/assets/products/wrap-skort.webp";
-import henleyNavyImg from "../src/assets/products/long-sleeve.webp";
-import braidedSandalsImg from "../src/assets/products/braided-sandals.webp";
-import crossoverSandalsImg from "../src/assets/products/crossover-sandals.webp";
-import croppedHoodieImg from "../src/assets/products/cropped-hoodie.webp";
-import croppedWashedImg from "../src/assets/products/cropped-hoodie-1.webp";
-import offShoulderImg from "../src/assets/products/off-shoulder.webp";
-import fittedTeePinkImg from "../src/assets/products/fitted-tee-pink.webp";
-
 export const store_products = [
   {
     id: 1,
@@ -47,8 +26,11 @@ export const store_products = [
     inStock: true,
     rating: 4.5,
     sku: "SKU-9472",
-    image: poloOrangeImg,
-    gallery: [poloOrangeImg],
+    image:
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617430/slim-polo_ycqthh.webp",
+    gallery: [
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617430/slim-polo_ycqthh.webp",
+    ],
     tags: ["polo", "casual", "cotton"],
     reviews: [
       {
@@ -106,8 +88,11 @@ export const store_products = [
     inStock: true,
     rating: 4.8,
     sku: "SKU-8364",
-    image: sweatshortsImg,
-    gallery: [sweatshortsImg],
+    image:
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617436/sweatshorts_bpjh0w.webp",
+    gallery: [
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617436/sweatshorts_bpjh0w.webp",
+    ],
     tags: ["shorts", "casual", "comfy"],
     reviews: [
       {
@@ -169,8 +154,11 @@ export const store_products = [
     inStock: true,
     rating: 4.7,
     sku: "SKU-1093",
-    image: golferGreenImg,
-    gallery: [golferGreenImg],
+    image:
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617428/knitted-golfer_mluxms.webp",
+    gallery: [
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617428/knitted-golfer_mluxms.webp",
+    ],
     tags: ["golfer", "knit", "textured"],
     reviews: [
       {
@@ -224,8 +212,11 @@ export const store_products = [
     inStock: true,
     rating: 4.6,
     sku: "SKU-5582",
-    image: offShoulderImg,
-    gallery: [offShoulderImg],
+    image:
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617429/off-shoulder_cfxici.webp",
+    gallery: [
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617429/off-shoulder_cfxici.webp",
+    ],
     tags: ["off-shoulder", "sweatshirt", "cozy", "washed"],
     reviews: [
       {
@@ -287,8 +278,11 @@ export const store_products = [
     inStock: true,
     rating: 4.4,
     sku: "SKU-7261",
-    image: miniSkirtImg,
-    gallery: [miniSkirtImg],
+    image:
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617430/mini-skirt_kpjty3.webp",
+    gallery: [
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617430/mini-skirt_kpjty3.webp",
+    ],
     tags: ["mini", "summer", "chic"],
     reviews: [
       {
@@ -343,8 +337,11 @@ export const store_products = [
     inStock: true,
     rating: 4.9,
     sku: "SKU-3498",
-    image: wrapSkortImg,
-    gallery: [wrapSkortImg],
+    image:
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617437/wrap-skort_pgmhdl.webp",
+    gallery: [
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617437/wrap-skort_pgmhdl.webp",
+    ],
     tags: ["skort", "active", "wrap"],
     reviews: [
       {
@@ -414,8 +411,11 @@ export const store_products = [
     inStock: true,
     rating: 4.8,
     sku: "SKU-1254",
-    image: henleyNavyImg,
-    gallery: [henleyNavyImg],
+    image:
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617429/long-sleeve_qt2kvv.webp",
+    gallery: [
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617429/long-sleeve_qt2kvv.webp",
+    ],
     tags: ["henley", "long-sleeve", "casual"],
     reviews: [
       {
@@ -471,8 +471,11 @@ export const store_products = [
     inStock: true,
     rating: 4.7,
     sku: "SKU-8876",
-    image: crossoverSandalsImg,
-    gallery: [crossoverSandalsImg],
+    image:
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617429/crossover-sandals_qvtkzx.webp",
+    gallery: [
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617429/crossover-sandals_qvtkzx.webp",
+    ],
     tags: ["sandals", "strappy", "summer"],
     reviews: [
       {
@@ -535,8 +538,11 @@ export const store_products = [
     inStock: true,
     rating: 4.5,
     sku: "SKU-9901",
-    image: croppedHoodieImg,
-    gallery: [croppedHoodieImg],
+    image:
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617429/cropped-hoodie_x2ixre.webp",
+    gallery: [
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617429/cropped-hoodie_x2ixre.webp",
+    ],
     tags: ["cropped", "hoodie", "zip-up"],
     reviews: [
       {
@@ -590,8 +596,11 @@ export const store_products = [
     inStock: true,
     rating: 4.9,
     sku: "SKU-3412",
-    image: braidedSandalsImg,
-    gallery: [braidedSandalsImg],
+    image:
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617428/braided-sandals_ro0ule.webp",
+    gallery: [
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617428/braided-sandals_ro0ule.webp",
+    ],
     tags: ["sandals", "leather", "braided"],
     reviews: [
       {
@@ -653,8 +662,12 @@ export const store_products = [
     inStock: true,
     rating: 4.6,
     sku: "SKU-5899",
-    image: poloStripeImg,
-    gallery: [poloStripeImg, poloStripeImg2],
+    image:
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617430/striped-polo_ec7ii9.webp",
+    gallery: [
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617430/striped-polo_ec7ii9.webp",
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617431/striped-polo-2_kclgfw.webp",
+    ],
     tags: ["polo", "striped", "knit"],
     reviews: [
       {
@@ -707,8 +720,11 @@ export const store_products = [
     inStock: true,
     rating: 4.8,
     sku: "SKU-2345",
-    image: shirtBeigeImg,
-    gallery: [shirtBeigeImg],
+    image:
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617429/shirt-concha_okopsk.webp",
+    gallery: [
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617429/shirt-concha_okopsk.webp",
+    ],
     tags: ["jacket", "wool", "shearling"],
     reviews: [
       {
@@ -771,8 +787,11 @@ export const store_products = [
     inStock: true,
     rating: 4.9,
     sku: "SKU-1123",
-    image: golferAquaImg,
-    gallery: [golferAquaImg],
+    image:
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617429/color-golfer_pkscya.webp",
+    gallery: [
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617429/color-golfer_pkscya.webp",
+    ],
     tags: ["golfer", "stripes", "knit"],
     reviews: [
       {
@@ -826,8 +845,11 @@ export const store_products = [
     inStock: true,
     rating: 4.7,
     sku: "SKU-7890",
-    image: croppedWashedImg,
-    gallery: [croppedWashedImg],
+    image:
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617429/cropped-hoodie-1_iq5vng.webp",
+    gallery: [
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617429/cropped-hoodie-1_iq5vng.webp",
+    ],
     tags: ["dress", "maxi", "summer"],
     reviews: [
       {
@@ -891,8 +913,11 @@ export const store_products = [
     inStock: true,
     rating: 4.9,
     sku: "SKU-1290",
-    image: crewSweatImg,
-    gallery: [crewSweatImg],
+    image:
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617427/crew-sweatshirt_vvsqpv.webp",
+    gallery: [
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617427/crew-sweatshirt_vvsqpv.webp",
+    ],
     tags: ["sweatshirt", "casual", "fleece"],
     reviews: [
       {
@@ -963,8 +988,11 @@ export const store_products = [
     inStock: true,
     rating: 5.0,
     sku: "SKU-4567",
-    image: nswHoodieImg,
-    gallery: [nswHoodieImg],
+    image:
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617428/hoodie-fleece_lgtbzm.webp",
+    gallery: [
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617428/hoodie-fleece_lgtbzm.webp",
+    ],
     tags: ["hoodie", "streetwear", "minimal"],
     reviews: [
       {
@@ -1023,8 +1051,11 @@ export const store_products = [
     inStock: true,
     rating: 4.3,
     sku: "SKU-8901",
-    image: fittedTeePinkImg,
-    gallery: [fittedTeePinkImg],
+    image:
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617427/fitted-tee-pink_vlib7o.webp",
+    gallery: [
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617427/fitted-tee-pink_vlib7o.webp",
+    ],
     tags: ["t-shirt", "fitted", "essentials", "basics"],
     reviews: [
       {
@@ -1075,8 +1106,11 @@ export const store_products = [
     inStock: true,
     rating: 4.8,
     sku: "SKU-2341",
-    image: piquePoloNavyImg,
-    gallery: [piquePoloNavyImg],
+    image:
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617429/pique-polo-navy_qlbovr.webp",
+    gallery: [
+      "https://res.cloudinary.com/dmvrtwdp0/image/upload/v1766617429/pique-polo-navy_qlbovr.webp",
+    ],
     tags: ["polo", "smart-casual", "essentials"],
     reviews: [
       {
