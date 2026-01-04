@@ -958,7 +958,8 @@ header .nav-container {
 
 .form-control .error,
 .error-details > *,
-.payment-form .error-message {
+.payment-form .error-message,
+.card-error {
   font-size: var(--f-sm);
   font-family: "Jost", sans-serif;
   font-weight: 400;
@@ -1143,7 +1144,7 @@ header .nav-container {
   height: 80;
   border-radius: 4px;
   overflow: hidden;
-  background-color:#f6f6f6 ;
+  background-color: #f6f6f6;
 }
 
 .wishitem-image img {

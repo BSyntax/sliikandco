@@ -288,7 +288,6 @@ export default function CheckoutForm() {
             Save my details for future purchases
           </label>
 
-          {error && <div className="error-message general-error">{error}</div>}
           <div className="btn-container">
             <Button
               text="Continue shopping"
