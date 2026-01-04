@@ -16,7 +16,7 @@ export default function About() {
         <div className="about-container container">
           <div className="about-content">
             <div className="about-text">
-              <h2 className="about-title">Our Story</h2>
+              <h2 className="about-title">About Us</h2>
               <p className="about-description">
                 At Sliik & Co, fashion isn’t just about what you wear it’s about
                 confidence, creativity, and expression. Our journey began with a

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Button from "../controls/Button";
-import { RiCloseFill } from "react-icons/ri";
+import { RiCloseFill, RiDeleteBinLine } from "react-icons/ri";
+import { RiDeleteBinFill } from "react-icons/ri";
 
 export default function WishItem({
   product,
@@ -30,7 +31,7 @@ export default function WishItem({
       <p className="wishitem-status">{inStock ? "In Stock" : "Out of stock"}</p>
       <div className="wishitem-actions">
         <Button text="Add to Cart" onClick={handleAddCart} type="button" />
-        <RiCloseFill className="cancel-icon" onClick={removeFromWishlist} />
+        <RiDeleteBinFill className="cancel-icon" onClick={removeFromWishlist} />
       </div>
     </div>
   );

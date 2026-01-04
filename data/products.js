@@ -1,4 +1,3 @@
-// products.js
 export const store_products = [
   {
     id: 1,
