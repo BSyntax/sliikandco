@@ -3,6 +3,8 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 2rem;
+  padding-top: 2rem;
+  padding-bottom: 1.5rem;
 }
 
 .filter-edit .item-count {

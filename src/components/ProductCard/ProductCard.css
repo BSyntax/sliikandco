@@ -93,14 +93,16 @@
   gap: 0.5rem;
 }
 
-.product-card .size-group {
+.product-card .size-group,
+.product-details .size-group {
   display: flex;
   justify-content: start;
   align-items: start;
   gap: 1rem;
 }
 
-.product-card .size-button {
+.product-card .size-button,
+.product-details .size-button {
   background: transparent;
   font-size: var(--f-xs);
   font-weight: 400;
@@ -112,7 +114,8 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.product-card .size-button:hover {
+.product-card .size-button:hover,
+.product-details .size-button:hover {
   background-color: var(--color-gray);
   color: var(--color-white);
 }

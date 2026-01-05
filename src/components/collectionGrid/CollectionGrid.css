@@ -53,6 +53,9 @@
   line-height: var(--l-normal);
   cursor: pointer;
   position: relative;
+  border: none;
+  padding-left: 0;
+  padding-bottom: 0;
 }
 
 .collection-button::after {
