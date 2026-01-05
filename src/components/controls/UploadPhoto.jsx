@@ -1,4 +1,5 @@
 import React from "react";
+import "./UploadPhoto.css";
 import { RiCloseFill } from "react-icons/ri";
 
 export default function UploadPhoto({

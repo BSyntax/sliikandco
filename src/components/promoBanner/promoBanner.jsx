@@ -1,4 +1,5 @@
 import React from "react";
+import "./PromoBanner.css";
 import PropTypes from "prop-types";
 import Button from "../controls/Button";
 import { useNavigate } from "react-router-dom";

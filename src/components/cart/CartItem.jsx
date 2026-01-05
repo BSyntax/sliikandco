@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import "./CartItem.css";
 import PropTypes from "prop-types";
 import Button from "../controls/Button";
 import { Link } from "react-router-dom";

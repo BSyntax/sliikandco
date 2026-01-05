@@ -1,0 +1,39 @@
+.newsletter {
+  width: 100%;
+  padding-block: 5rem;
+}
+
+.newsletter .container {
+  display: grid;
+  place-content: center;
+}
+
+.newsletter h3 {
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-dark);
+  line-height: var(--l-normal);
+  text-align: center;
+}
+
+.newsletter p {
+  text-align: center;
+  font-size: var(--f-sm);
+  font-weight: 400;
+  color: var(--text-color);
+  line-height: var(--l-loose);
+  margin-block: 0.5rem;
+}
+
+.newsletter .newsletter-form {
+  width: 400px;
+  place-self: center;
+}
+
+.main-section .newsletter {
+  background-color: var(--color-secondary);
+  height: 50vh;
+  display: grid;
+  margin-top: 5rem;
+}

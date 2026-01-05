@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./TopButton.css";
 import { LuChevronUp } from "react-icons/lu";
 
 export default function TopButton() {

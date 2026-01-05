@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import "./FilterEdit.css";
 import { LuSlidersHorizontal } from "react-icons/lu";
 import { IoChevronDown } from "react-icons/io5";
 import PropTypes from "prop-types";

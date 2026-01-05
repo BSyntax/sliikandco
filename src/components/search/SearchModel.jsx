@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./SearchModel.css";
 import { RiCloseLine } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
 import ProductGrid from "../productGrid/ProductGrid";

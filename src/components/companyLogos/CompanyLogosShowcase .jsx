@@ -1,4 +1,5 @@
 import React from "react";
+import "./CompanyLogosShowcase.css";
 
 import Logo1 from "../../assets/logos/logo-1.webp";
 import Logo2 from "../../assets/logos/logo-2.webp";

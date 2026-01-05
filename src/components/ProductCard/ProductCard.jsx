@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./ProductCard.css";
 import { LuHeart } from "react-icons/lu";
 import { TbHeartFilled } from "react-icons/tb";
 import { useWishlist } from "../../context/WishlistProvider";

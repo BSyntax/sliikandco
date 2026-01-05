@@ -1,4 +1,5 @@
 import React from "react";
+import "./Footer.css";
 import { NavLink } from "react-router-dom";
 import { LuFacebook, LuInstagram, LuTwitter } from "react-icons/lu";
 

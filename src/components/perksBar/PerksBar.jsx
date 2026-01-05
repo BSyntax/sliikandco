@@ -1,4 +1,5 @@
 import React from "react";
+import "./PerksBar.css";
 import {
   LuTruck,
   LuPackage,

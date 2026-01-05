@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./CollectionHeader.css";
 import PropTypes from "prop-types";
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../controls/Button";

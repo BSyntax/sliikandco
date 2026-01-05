@@ -1,0 +1,31 @@
+.top-button {
+  width: 50px;
+  height: 50px;
+  background: var(--color-secondary);
+  position: fixed;
+  bottom: 50px;
+  right: 80px;
+  cursor: pointer;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  box-shadow: var(--shadow-lg);
+  transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.3s ease;
+  z-index: 999;
+}
+
+.top-button.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.top-button span {
+  font-size: 1.5rem;
+  color: var(--color-dark);
+  line-height: 0;
+}

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import "../../index.css";
+import "./Navigation.css";
 import { NavLink } from "react-router-dom";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { LuUser, LuSearch, LuHeart } from "react-icons/lu";

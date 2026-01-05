@@ -1,0 +1,18 @@
+.button-secondary,
+.button-primary {
+  font-size: var(--f-sm);
+  font-weight: 400;
+  padding: 0.5rem 0.75rem;
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--color-gray);
+}
+
+.button-primary {
+  font-size: var(--f-sm);
+  font-weight: 400;
+  padding: 0.5rem 0.75rem;
+  color: var(--color-white);
+  background-color: var(--color-dark);
+  border: none;
+}

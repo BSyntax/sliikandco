@@ -1,4 +1,5 @@
 import React from "react";
+import "./TeamSection.css";
 import Alex from "../../assets/images/team-alex.webp";
 import Jamie from "../../assets/images/team-jamie.webp";
 import Sam from "../../assets/images/team-sam.webp";

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./NewsletterSignup.css";
 import Button from "../controls/Button";
 import { useNavigate } from "react-router-dom";
 

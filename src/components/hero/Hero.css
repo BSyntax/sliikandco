@@ -1,0 +1,90 @@
+/* hero */
+
+.hero {
+  width: 100%;
+  height: calc(100vh - 80px - 34px);
+  overflow: hidden;
+  position: relative;
+  margin-top: calc(var(--header-height) + var(--announcement-height));
+}
+
+.hero::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.hero .hero-image {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.image-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+}
+
+.women-container img {
+  object-fit: cover;
+  object-position: center 20%;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.men-container img {
+  object-fit: cover;
+  object-position: top center;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hero .hero-text {
+  width: 40%;
+  text-align: center;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 70%;
+  left: 50%;
+  z-index: 10;
+}
+
+.hero-text h1 {
+  font-size: var(--f-4xl);
+  font-weight: 500;
+  color: var(--color-white);
+  line-height: var(--l-loose);
+}
+
+.hero p {
+  font-size: var(--f-md);
+  font-weight: 400;
+  color: var(--color-white);
+  line-height: var(--l-normal);
+}
+
+.hero-text button {
+  padding: 1.125rem 2rem;
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--color-white);
+  font-weight: 400;
+  font-size: var(--f-sm);
+  font-family: "Jost", sans-serif;
+  background-color: var(--color-dark);
+  cursor: pointer;
+}

@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import "./CartModel.css";
 import { RiCloseFill } from "react-icons/ri";
 import ShoppingBag from "../../assets/images/shopping-bag.webp";
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";

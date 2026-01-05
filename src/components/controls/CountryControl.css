@@ -1,0 +1,93 @@
+.filter-select-container {
+  width: 180px;
+  display: inline-block;
+  background-color: var(--color-white);
+  border: 1px solid #cccccc;
+  border-radius: 2px;
+  transition: all 0.5s ease;
+  position: relative;
+  font-size: var(--f-sm);
+  color: var(--text-clr);
+  text-align: left;
+}
+
+.country-control .filter-select-container {
+  width: 100%;
+}
+
+.filter-select-box {
+  cursor: pointer;
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter-selected {
+  font-size: var(--sml-s);
+  font-weight: 400;
+  color: var(--text-clr);
+  line-height: var(--line-height);
+}
+
+/* Arrow */
+.filter-select-arrow {
+  font-size: 13px;
+  color: #888;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  float: right;
+  line-height: 20px;
+}
+
+/* Active */
+.filter-select-container:active {
+  background-color: #f8f9fa;
+}
+
+/* When opened */
+.filter-select-container.filter-active {
+  border-radius: 2px 2px 0 0;
+  background-color: #f8f9fa;
+}
+
+/* .filter-select-container.filter-active .filter-select-arrow {
+  transform: rotate(180deg);
+} */
+
+/* Options panel */
+.filter-options {
+  position: absolute;
+  background-color: #fff;
+  width: 100%;
+  left: 0;
+  margin-top: 1px;
+  box-shadow: 0 1px 2px #cccccc;
+  border-radius: 0 1px 2px 2px;
+  overflow: hidden;
+  max-height: 0;
+  overflow-y: auto;
+  z-index: 9;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.filter-select-container.filter-active .filter-options {
+  max-height: 144px;
+}
+
+/* Option item */
+.filter-options li {
+  padding: 5px 0.625rem;
+  font-size: var(--sml-s);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  list-style: none;
+}
+
+.filter-options li:hover {
+  background-color: #f2f2f2;
+}
+
+.filter-options li:active {
+  background-color: #e2e2e2;
+}

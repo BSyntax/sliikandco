@@ -1,4 +1,5 @@
 import ProductCard from "../ProductCard/ProductCard";
+import "./ProductGrid.css";
 import { useProducts } from "../../context/ProductProvider";
 import PropTypes from "prop-types";
 import { useEffect, useMemo } from "react";

@@ -1,4 +1,5 @@
 import React from "react";
+import "./Hero.css";
 import heroMen from "../../assets/images/hero-men.webp";
 import heroWomen from "../../assets/images/women.webp";
 import Button from "../controls/Button";
@@ -25,8 +26,8 @@ export default function Hero() {
       <div className="hero-text">
         <h1>Modern Essentials</h1>
         <p>
-          Timeless silhouettes. Premium fabrics. Designed in Cape Town made
-          for the world.
+          Timeless silhouettes. Premium fabrics. Designed in Cape Town made for
+          the world.
         </p>
         <Button text="Explore Now" onClick={handleExplore} variant="primary" />
       </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import "./CollectionGrid.css";
 import { NavLink } from "react-router-dom";
 import { LuArrowUpRight } from "react-icons/lu";
 

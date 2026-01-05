@@ -1,4 +1,5 @@
 import React from "react";
+import "./LookbookGallery.css";
 import Lookbook1 from "../../assets/images/lookup-gallery-1.webp";
 import Lookbook2 from "../../assets/images/lookup-gallery-2.webp";
 import Lookbook3 from "../../assets/images/lookup-gallery-3.webp";

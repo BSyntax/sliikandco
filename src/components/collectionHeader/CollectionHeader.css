@@ -1,0 +1,79 @@
+.header-title {
+  font-size: var(--f-3xl);
+  font-weight: 400;
+  font-family: "jost", sans-serif;
+  text-transform: capitalize;
+  color: var(--color-dark);
+  line-height: var(--l-normal);
+  padding-block: 1rem;
+}
+
+.section-header {
+  padding-top: 3rem;
+}
+
+.section-header .header-actions.with-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.section-header .header-actions {
+  text-align: end;
+}
+
+.header-top.no-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-actions .toggle-group {
+  flex: 1;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 2rem;
+}
+
+.toggle-group .toggle-link {
+  font-size: var(--f-lg);
+  font-weight: 400;
+  color: var(--text-color);
+  line-height: var(--l-normal);
+  text-transform: capitalize;
+  cursor: pointer;
+  position: relative;
+}
+
+.toggle-group .toggle-link::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 1px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+.toggle-group .toggle-link:hover::after {
+  width: 100%;
+}
+
+.toggle-group .toggle-link.active::after {
+  width: 100%;
+}
+
+.collection-button {
+  font-size: var(--f-sm);
+  font-weight: 400;
+  color: var(--text-color);
+  line-height: var(--l-normal);
+  cursor: pointer;
+  position: relative;
+  border: 1px solid var(--color-gray);
+  padding: 0.5rem 0.75rem;
+}
