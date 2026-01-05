@@ -17,6 +17,16 @@
   background-color: #f6f6f6;
 }
 
+.shop-products .product-card .product-image {
+  height: 320px;
+}
+
+@media (max-width: 1023px) {
+  .shop-products .product-card .product-image {
+    height: 400px;
+  }
+}
+
 .product-card .wishlist-btn {
   position: absolute;
   top: 10px;

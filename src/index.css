@@ -2087,17 +2087,25 @@ img {
   border: 1px solid #f5c6cb;
 }
 
-.checkout-page-wrapper .sucess-payment {
+.checkout-page-wrapper h2 {
   font-size: var(--f-2xl);
   font-weight: 500;
   color: var(--color-dark);
   line-height: var(--l-normal);
 }
 
-.checkout-page-wrapper .sucess-message {
+.checkout-page-wrapper .success-message {
   font-size: var(--f-normal);
   font-weight: 400;
   color: var(--text-color);
+}
+
+.checkout-page-wrapper .success-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }
 
 .checkout-form {
@@ -2459,6 +2467,7 @@ img {
 
 .profile {
   width: 100%;
+  margin-bottom: 4rem;
 }
 
 .profile .profile-content {

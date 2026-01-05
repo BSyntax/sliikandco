@@ -66,7 +66,7 @@ export default function CheckoutForm() {
 
   useEffect(() => {
     if (succeeded) {
-      const timer = setTimeout(() => navigate("/"), 20000);
+      const timer = setTimeout(() => navigate("/"), 15000);
       return () => clearTimeout(timer);
     }
   }, [succeeded, navigate]);
@@ -156,6 +156,7 @@ export default function CheckoutForm() {
 
   if (succeeded) {
     cart.length = 0;
+
     return (
       <div className="checkout-page-wrapper">
         <div className="checkout-empty-state">
@@ -165,15 +166,24 @@ export default function CheckoutForm() {
             autoplay={true}
             loop={false}
           />
-          <h2 className="success-payment">Payment Successful!</h2>
+
+          <h2 className="success-payment">You're all set!</h2>
           <p className="success-message">
-            Payment successful! Redirecting home…
+            A confirmation email has been sent to you.
           </p>
-          <Button
-            text="Return Home"
-            onClick={() => navigate("/")}
-            variant="primary"
-          />
+
+          <div className="success-actions">
+            <Button
+              text="Track Your Order"
+              onClick={() => navigate("/account/orders")}
+              variant="primary"
+            />
+            <Button
+              text="Continue Shopping"
+              onClick={() => navigate("/shop")}
+              variant="secondary"
+            />
+          </div>
         </div>
       </div>
     );
