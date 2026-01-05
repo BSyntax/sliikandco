@@ -85,7 +85,6 @@ img {
   object-position: center center;
 }
 
-
 .breadcrumb-container {
   margin-top: calc(var(--announcement-height) + var(--header-height));
 }
@@ -2454,4 +2453,54 @@ img {
 
 .checkout-left .proceed-to-pay-btn {
   flex: 2;
+}
+
+/* Profile Page */
+
+.profile {
+  width: 100%;
+}
+
+.profile .profile-content {
+  min-height: 80vh;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 4rem;
+}
+
+.profile .profile-header,
+.profile-main .main-title {
+  font-size: var(--f-2xl);
+  font-weight: 500;
+  line-height: var(--l-normal);
+  color: var(--color-dark);
+  margin-bottom: 1.5rem;
+}
+
+.profile-main .main-title {
+  text-align: start;
+  text-transform: capitalize;
+  font-size: var(--f-xl);
+}
+
+.profile .header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 3rem;
+  padding-bottom: 1rem;
+}
+
+.profile .profile-header {
+  flex: 1;
+}
+
+.profile .header-container button {
+  width: 100px;
+  display: grid;
+  place-content: center;
+  background-color: transparent;
+  color: var(--text-color);
+  transition: all 0.3s ease;
 }

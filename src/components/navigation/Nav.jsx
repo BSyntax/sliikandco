@@ -9,6 +9,7 @@ import CartModel from "../cart/CartModel";
 import { useCart } from "../../context/CartProvider";
 import { useWishlist } from "../../context/WishlistProvider.jsx";
 import AnnouncementBar from "./AnnouncementBar";
+import { useAuth } from "../../context/AuthProvider.jsx";
 
 export default function Nav() {
   const [dropdownType, setDropdownType] = useState(null);
@@ -18,6 +19,7 @@ export default function Nav() {
   const dropdownTimeoutRef = useRef(null);
   const cart = useCart();
   const wishlist = useWishlist();
+  const { user } = useAuth();
   const cartCount = cart.cart.reduce((acc, item) => acc + item.quantity, 0);
   const wishlistCount = wishlist.wishlist.length;
 
@@ -148,7 +150,7 @@ export default function Nav() {
             <NavLink to="/search" onClick={handleSearch} className="nav-link">
               <LuSearch />
             </NavLink>
-            <NavLink to="/login" className="nav-link">
+            <NavLink to="/profile" className="nav-link">
               <LuUser />
             </NavLink>
             <NavLink to="/wishlist" className="nav-link wishlist-icon">
