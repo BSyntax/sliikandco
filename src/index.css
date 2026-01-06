@@ -447,7 +447,7 @@ img {
   padding: 0.5rem 1rem;
   background-color: var(--color-dark);
   color: var(--color-white);
-  font-weight: 500;
+  font-weight: 400;
   font-size: var(--f-sm);
   text-transform: capitalize;
   font-family: "Jost", sans-serif;
@@ -2203,9 +2203,6 @@ img {
   color: var(--color-dark);
 }
 
-/* .checkout-page .checkout-right {
-  background-color: var(--color-secondary);
-} */
 
 .payment-method-card {
   width: 100%;

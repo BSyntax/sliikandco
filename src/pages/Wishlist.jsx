@@ -49,6 +49,7 @@ export default function Wishlist() {
                     text="Continue Shopping"
                     onClick={() => navigate("/shop")}
                     type="button"
+                    className="continue-shop"
                   />
                 </div>
               </div>

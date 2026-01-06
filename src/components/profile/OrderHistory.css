@@ -1,0 +1,41 @@
+.order-history-container {
+    width: 100%;
+  }
+  
+  .no-orders {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    border: 1px solid #eee;
+    border-radius: 4px;
+  }
+  
+  .no-orders h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .no-orders p {
+    margin-bottom: 2rem;
+    color: #555;
+  }
+  
+  .order-list-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr auto;
+    font-weight: 600;
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  @media (max-width: 768px) {
+    .order-list-header {
+      display: none;
+    }
+  }
+  
