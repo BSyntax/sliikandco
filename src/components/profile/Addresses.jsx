@@ -1,133 +1,266 @@
 import React, { useState } from "react";
 import Button from "../controls/Button.jsx";
 import Input from "../controls/InputControl.jsx";
+import "./Addresses.css";
+import { IoAdd } from "react-icons/io5";
 
 export default function Addresses() {
-  const [isEditing, setIsEditing] = useState(false);
+  const [addresses, setAddresses] = useState([
+    {
+      id: 1,
+      name: "Mateusz Wierzbicki",
+      street: "ul. Przykładowa 123/45",
+      city: "00-000 Warszawa",
+      country: "Poland",
+      phone: "+48 123 456 789",
+      isDefault: true,
+    },
+    {
+      id: 2,
+      name: "John Doe",
+      street: "123 Maple Street",
+      city: "Springfield, IL 62704",
+      country: "United States",
+      phone: "+1 555 123 4567",
+      isDefault: false,
+    },
+  ]);
 
-  const [address, setAddress] = useState({
-    name: "Mateusz Wierzbicki",
-    street: "ul. Przykładowa 123/45",
-    city: "00-000 Warszawa",
-    country: "Poland",
-    phone: "+48 123 456 789",
+  const [editingId, setEditingId] = useState(null);
+  const [isAdding, setIsAdding] = useState(false);
+
+  // Form State
+  const [formData, setFormData] = useState({
+    name: "",
+    street: "",
+    city: "",
+    country: "",
+    phone: "",
+    isDefault: false,
   });
+
+  const handleEdit = (address) => {
+    setFormData(address);
+    setEditingId(address.id);
+    setIsAdding(false);
+  };
+
+  const handleAdd = () => {
+    setFormData({
+      name: "",
+      street: "",
+      city: "",
+      country: "",
+      phone: "",
+      isDefault: addresses.length === 0, // Default if first address
+    });
+    setIsAdding(true);
+    setEditingId(null);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setAddress((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSave = () => {
-    // later: API call
-    setIsEditing(false);
+  const handleSave = (e) => {
+    e.preventDefault();
+    if (isAdding) {
+      const newAddress = { ...formData, id: Date.now() };
+      if (newAddress.isDefault) {
+        setAddresses((prev) =>
+          prev.map((addr) => ({ ...addr, isDefault: false }))
+        );
+      }
+      setAddresses((prev) => [...prev, newAddress]);
+      setIsAdding(false);
+    } else {
+      setAddresses((prev) =>
+        prev.map((addr) =>
+          addr.id === editingId
+            ? { ...formData }
+            : formData.isDefault
+            ? { ...addr, isDefault: false }
+            : addr
+        )
+      );
+      // Re-run to ensure only one default if current is set to default?
+      // The logic above: if current edited isDefault=true, set all others false.
+      if (formData.isDefault) {
+        setAddresses((prev) =>
+          prev.map((addr) =>
+            addr.id === editingId ? formData : { ...addr, isDefault: false }
+          )
+        );
+      } else {
+        setAddresses((prev) =>
+          prev.map((addr) => (addr.id === editingId ? formData : addr))
+        );
+      }
+
+      setEditingId(null);
+    }
   };
 
   const handleCancel = () => {
-    setIsEditing(false);
+    setIsAdding(false);
+    setEditingId(null);
   };
+
+  const handleRemove = (id) => {
+    setAddresses((prev) => prev.filter((addr) => addr.id !== id));
+  };
+
+  const handleSetDefault = (id) => {
+    setAddresses((prev) =>
+      prev.map((addr) => ({
+        ...addr,
+        isDefault: addr.id === id,
+      }))
+    );
+  };
+
+  const AddressForm = () => (
+    <div className="address-card address-form-card">
+      <form onSubmit={handleSave} className="address-form">
+        <h3>{isAdding ? "Add a new address" : "Edit address"}</h3>
+
+        <div className="form-group">
+          <label htmlFor="country">Country/Region</label>
+          <Input
+            id="country"
+            name="country"
+            value={formData.country}
+            onChange={handleChange}
+            placeholder="Country"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="name">Full name (First and Last name)</label>
+          <Input
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Full name"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="phone">Phone number</label>
+          <Input
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="Phone number"
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="street">Street address</label>
+          <Input
+            id="street"
+            name="street"
+            value={formData.street}
+            onChange={handleChange}
+            placeholder="Street address, P.O. box, company name, c/o"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="city">City / Postal code</label>
+          <Input
+            id="city"
+            name="city"
+            value={formData.city}
+            onChange={handleChange}
+            placeholder="City / Postal code"
+            required
+          />
+        </div>
+
+        <div className="form-actions">
+          <Button text="Save Address" variant="primary" type="submit" />
+          <Button
+            text="Cancel"
+            variant="secondary"
+            onClick={handleCancel}
+            type="button"
+          />
+        </div>
+      </form>
+    </div>
+  );
 
   return (
     <div className="addresses-page">
-      <div className="addresses-content">
-        <div className="address-list">
-          <div className="address-item">
-            <form action="#">
-              <div className="address-details login">
-                {isEditing ? (
-                  <>
-                    <label htmlFor="name">Full name</label>
-                    <Input
-                      id="name"
-                      name="name"
-                      value={address.name}
-                      onChange={handleChange}
-                      placeholder="Full name"
-                      autoFocus
-                    />
+      <div className="addresses-header">
+        <h1>Your Addresses</h1>
+      </div>
 
-                    <label htmlFor="street">Street address</label>
-                    <Input
-                      id="street"
-                      name="street"
-                      value={address.street}
-                      onChange={handleChange}
-                      placeholder="Street address"
-                    />
+      <div className="addresses-grid">
+        {/* Add Address Card (or Form) */}
+        {isAdding ? (
+          <AddressForm />
+        ) : (
+          <div className="add-address-card" onClick={handleAdd}>
+            <IoAdd className="add-icon" />
+            <span className="add-text">Add Address</span>
+          </div>
+        )}
 
-                    <label htmlFor="city">City / Postal code</label>
-                    <Input
-                      id="city"
-                      name="city"
-                      value={address.city}
-                      onChange={handleChange}
-                      placeholder="City / Postal code"
-                    />
+        {/* List of Addresses */}
+        {addresses.map((addr) =>
+          editingId === addr.id ? (
+            <AddressForm key={addr.id} />
+          ) : (
+            <div
+              key={addr.id}
+              className={`address-card ${addr.isDefault ? "default" : ""}`}
+            >
+              {addr.isDefault && <div className="default-badge">Default</div>}
 
-                    <label htmlFor="country">Country</label>
-                    <Input
-                      id="country"
-                      name="country"
-                      value={address.country}
-                      onChange={handleChange}
-                      placeholder="Country"
-                    />
-
-                    <label htmlFor="phone">Phone number</label>
-                    <Input
-                      id="phone"
-                      name="phone"
-                      value={address.phone}
-                      onChange={handleChange}
-                      placeholder="Phone number"
-                    />
-                  </>
-                ) : (
-                  <>
-                    <h4>{address.name}</h4>
-                    <p>{address.street}</p>
-                    <p>{address.city}</p>
-                    <p>{address.country}</p>
-                    <p>Phone: {address.phone}</p>
-                  </>
-                )}
+              <div className="address-content">
+                <h4>{addr.name}</h4>
+                <p>{addr.street}</p>
+                <p>{addr.city}</p>
+                <p>{addr.country}</p>
+                <p>Phone: {addr.phone}</p>
               </div>
-            </form>
 
-            <div className="address-actions">
-              {isEditing ? (
-                <>
-                  <button className="link-edit" onClick={handleSave}>
-                    Save
-                  </button>
-                  <span className="separator">|</span>
-                  <button className="link-delete" onClick={handleCancel}>
-                    Cancel
-                  </button>
-                </>
-              ) : (
-                <>
+              <div className="address-actions">
+                <div className="actions-row">
                   <button
-                    className="link-edit"
-                    onClick={() => setIsEditing(true)}
+                    className="action-link"
+                    onClick={() => handleEdit(addr)}
                   >
                     Edit
                   </button>
                   <span className="separator">|</span>
-                  <button className="link-delete">Delete</button>
-                </>
-              )}
+                  <button
+                    className="action-link"
+                    onClick={() => handleRemove(addr.id)}
+                  >
+                    Remove
+                  </button>
+                </div>
+                {!addr.isDefault && (
+                  <button
+                    className="action-link set-default-btn"
+                    onClick={() => handleSetDefault(addr.id)}
+                  >
+                    Set as Default
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
-        </div>
-
-        <div className="add-address">
-          <Button
-            text="Add new address"
-            variant="primary"
-            className="add-address-button"
-          />
-        </div>
+          )
+        )}
       </div>
     </div>
   );
