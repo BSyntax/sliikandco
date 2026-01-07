@@ -15,11 +15,10 @@ export default function Wishlist() {
     <div className="wishlist-container">
       {wishlist.length === 0 ? (
         <div className="wishlist-empty">
-          <div className="wishlist-empty-image">
-            <img src={image} alt="wishlist empty" />
-          </div>
+          <h3 className="wishlist-empty-heading">Your Wishlist is Empty</h3>
+
           <div className="wishlist-empty-content">
-            <p>Your wishlist is empty</p>
+            <p>Start adding items you love!</p>
             <Button
               text="Continue Shopping"
               onClick={() => navigate("/shop")}

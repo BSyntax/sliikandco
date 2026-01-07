@@ -72,7 +72,9 @@ const OrderItem = ({ order }) => {
             {order.items.map((item) => (
               <div key={item.id} className="order-product-item">
                 <div className="product-image-container">
-                  <img src={item.image} alt={item.name} />
+                  <div className="product-image-bg">
+                    <img src={item.image} alt={item.name} />
+                  </div>
                 </div>
 
                 <div className="product-details">

@@ -10,4 +10,19 @@
 
 .wishlist-container .wishlist-empty{
   margin-bottom: 2rem;
+  gap: .5rem;
+}
+
+.wishlist-empty .wishlist-empty-heading {
+  font-size: var(--f-lg);
+  font-weight: 500;
+  color: var(--color-dark);
+}
+
+.wishlist-empty .wishlist-empty-content p {
+  font-size: var(--f-sm);
+  font-weight: 400;
+  line-height: normal;
+  color: var(--text-color);
+  margin-bottom: 1rem;
 }
