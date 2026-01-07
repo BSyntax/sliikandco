@@ -26,6 +26,10 @@
   text-transform: capitalize;
 }
 
+.profile .sidebar ul li:hover {
+  background-color: var(--color-light-gray);
+}
+
 .profile .sidebar ul li.active {
   background-color: var(--color-dark);
 }

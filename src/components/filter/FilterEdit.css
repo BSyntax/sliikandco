@@ -7,6 +7,8 @@
   padding-bottom: 1.5rem;
 }
 
+
+
 .filter-edit .item-count {
   font-size: var(--f-sm);
   font-weight: 400;
@@ -96,10 +98,6 @@
   border-radius: 2px 2px 0 0;
   background-color: #f8f9fa;
 }
-
-/* .filter-select-container.filter-active .filter-select-arrow {
-  transform: rotate(180deg);
-} */
 
 /* Options panel */
 .filter-options {

@@ -84,8 +84,7 @@ export default function Addresses() {
             : addr
         )
       );
-      // Re-run to ensure only one default if current is set to default?
-      // The logic above: if current edited isDefault=true, set all others false.
+
       if (formData.isDefault) {
         setAddresses((prev) =>
           prev.map((addr) =>
@@ -199,12 +198,7 @@ export default function Addresses() {
 
   return (
     <div className="addresses-page">
-      <div className="addresses-header">
-        <h1>Your Addresses</h1>
-      </div>
-
       <div className="addresses-grid">
-        {/* Add Address Card (or Form) */}
         {isAdding ? (
           <AddressForm />
         ) : (
@@ -214,7 +208,6 @@ export default function Addresses() {
           </div>
         )}
 
-        {/* List of Addresses */}
         {addresses.map((addr) =>
           editingId === addr.id ? (
             <AddressForm key={addr.id} />

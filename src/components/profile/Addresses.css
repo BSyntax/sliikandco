@@ -37,7 +37,7 @@
 
 .address-card.default {
   border-color: var(--color-primary);
-  background-color: #fafbfb;
+  background-color: rgba(244, 243, 238, 0.3);
 }
 
 .default-badge {
@@ -45,9 +45,9 @@
   top: 1rem;
   right: 1rem;
   font-size: 0.75rem;
-  color: var(--color-success);
+  color: #b08968;
   font-weight: 500;
-  background-color: rgba(64, 145, 108, 0.1);
+  background-color: rgba(244, 243, 238, 0.5);
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
 }
@@ -64,7 +64,7 @@
 
 .address-content h4 {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-dark);
   margin-bottom: 0.5rem;
 }

@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 export default function DateFilter({
   itemCount = 0,
   setSelectedDateFilter,
-  initialText = "orders", // e.g., "128 orders"
+  initialText = "orders",
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState("All Time");

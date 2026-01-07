@@ -18,7 +18,6 @@ const OrderItem = ({ order }) => {
     year: "numeric",
   });
 
-  // Calculate return window (e.g., 30 days from order date)
   const returnDate = new Date(order.date);
   returnDate.setDate(returnDate.getDate() + 30);
   const formattedReturnDate = returnDate.toLocaleDateString("en-US", {
