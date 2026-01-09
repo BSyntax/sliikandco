@@ -52,7 +52,7 @@ export default function Addresses() {
       city: "",
       country: "",
       phone: "",
-      isDefault: addresses.length === 0, // Default if first address
+      isDefault: addresses.length === 0, 
     });
     setIsAdding(true);
     setEditingId(null);
