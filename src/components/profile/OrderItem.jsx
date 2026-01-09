@@ -8,6 +8,7 @@ import {
   IoChevronDown,
   IoChevronUp,
 } from "react-icons/io5";
+import { encryptId } from "../../utils/idUtils";
 
 const OrderItem = ({ order }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -78,7 +79,10 @@ const OrderItem = ({ order }) => {
                 </div>
 
                 <div className="product-details">
-                  <Link to={`/product/${item.id}`} className="product-name">
+                  <Link
+                    to={`/product/${encryptId(item.id)}`}
+                    className="product-name"
+                  >
                     {item.name}
                   </Link>
                   <p className="return-window">

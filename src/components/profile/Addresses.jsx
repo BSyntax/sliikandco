@@ -4,27 +4,16 @@ import Input from "../controls/InputControl.jsx";
 import "./Addresses.css";
 import { IoAdd } from "react-icons/io5";
 
+import { useAuth } from "../../context/AuthProvider";
+
 export default function Addresses() {
-  const [addresses, setAddresses] = useState([
-    {
-      id: 1,
-      name: "Mateusz Wierzbicki",
-      street: "ul. Przykładowa 123/45",
-      city: "00-000 Warszawa",
-      country: "Poland",
-      phone: "+48 123 456 789",
-      isDefault: true,
-    },
-    {
-      id: 2,
-      name: "John Doe",
-      street: "123 Maple Street",
-      city: "Springfield, IL 62704",
-      country: "United States",
-      phone: "+1 555 123 4567",
-      isDefault: false,
-    },
-  ]);
+  const {
+    addresses,
+    addAddress,
+    editAddress,
+    deleteAddress,
+    setDefaultAddress,
+  } = useAuth();
 
   const [editingId, setEditingId] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
@@ -52,7 +41,7 @@ export default function Addresses() {
       city: "",
       country: "",
       phone: "",
-      isDefault: addresses.length === 0, 
+      isDefault: addresses.length === 0,
     });
     setIsAdding(true);
     setEditingId(null);
@@ -66,37 +55,10 @@ export default function Addresses() {
   const handleSave = (e) => {
     e.preventDefault();
     if (isAdding) {
-      const newAddress = { ...formData, id: Date.now() };
-      if (newAddress.isDefault) {
-        setAddresses((prev) =>
-          prev.map((addr) => ({ ...addr, isDefault: false }))
-        );
-      }
-      setAddresses((prev) => [...prev, newAddress]);
+      addAddress(formData);
       setIsAdding(false);
     } else {
-      setAddresses((prev) =>
-        prev.map((addr) =>
-          addr.id === editingId
-            ? { ...formData }
-            : formData.isDefault
-            ? { ...addr, isDefault: false }
-            : addr
-        )
-      );
-
-      if (formData.isDefault) {
-        setAddresses((prev) =>
-          prev.map((addr) =>
-            addr.id === editingId ? formData : { ...addr, isDefault: false }
-          )
-        );
-      } else {
-        setAddresses((prev) =>
-          prev.map((addr) => (addr.id === editingId ? formData : addr))
-        );
-      }
-
+      editAddress(editingId, formData);
       setEditingId(null);
     }
   };
@@ -107,16 +69,11 @@ export default function Addresses() {
   };
 
   const handleRemove = (id) => {
-    setAddresses((prev) => prev.filter((addr) => addr.id !== id));
+    deleteAddress(id);
   };
 
   const handleSetDefault = (id) => {
-    setAddresses((prev) =>
-      prev.map((addr) => ({
-        ...addr,
-        isDefault: addr.id === id,
-      }))
-    );
+    setDefaultAddress(id);
   };
 
   const AddressForm = () => (

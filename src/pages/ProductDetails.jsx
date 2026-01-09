@@ -18,6 +18,7 @@ import Reviews from "../components/reviews/Reviews";
 import ProductColors from "../components/product/ProductColors";
 import CollectionHeader from "../components/collectionHeader/CollectionHeader";
 import ProductGrid from "../components/productGrid/ProductGrid";
+import { decryptId } from "../utils/idUtils";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -35,7 +36,8 @@ export default function ProductDetails() {
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
-    const foundProduct = getProductById(id);
+    const originalId = decryptId(id);
+    const foundProduct = getProductById(originalId);
     setProduct(foundProduct);
   }, [id, getProductById]);
 

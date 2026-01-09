@@ -3,6 +3,7 @@ import "./CartItem.css";
 import PropTypes from "prop-types";
 import Button from "../controls/Button";
 import { Link } from "react-router-dom";
+import { encryptId } from "../../utils/idUtils";
 
 const CartItem = memo(({ item, onQuantityChange, onDelete, onCloseCart }) => {
   const handleDecrease = () => {
@@ -25,7 +26,7 @@ const CartItem = memo(({ item, onQuantityChange, onDelete, onCloseCart }) => {
 
       <div className="item-center">
         <Link
-          to={`/product/${item.id}`}
+          to={`/product/${encryptId(item.id)}`}
           className="item-name"
           onClick={onCloseCart}
         >

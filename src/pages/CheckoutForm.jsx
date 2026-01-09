@@ -8,16 +8,20 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartProvider";
 import { useCheckout } from "../context/CheckoutProvider";
+import { useAuth } from "../context/AuthProvider"; // Added useAuth
 
 import Button from "../components/controls/Button";
 import InputControl from "../components/controls/InputControl";
 import CountryControl from "../components/controls/CountryControl";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import PaymentCardForm from "../components/paymentForm/PaymentCardForm";
+import ShippingAddressSelector from "../components/checkout/ShippingAddressSelector"; // Added
 
 import Card1 from "../assets/cards/card-1.webp";
 import Card3 from "../assets/cards/card-3.webp";
 import Card4 from "../assets/cards/card-4.webp";
+
+import { encryptId } from "../utils/idUtils"; // Added encryptId
 
 const cards = [Card3, Card4, Card1];
 const VAT = 15;
@@ -30,10 +34,15 @@ export default function CheckoutForm() {
 
   const { cart } = useCart();
   const { clientSecret } = useCheckout();
+  const { user, addAddress } = useAuth(); // Consume user and addAddress
 
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(null);
   const [succeeded, setSucceeded] = useState(false);
+
+  // Address Management State
+  const [isAddingNewAddress, setIsAddingNewAddress] = useState(false);
+  const [saveAddress, setSaveAddress] = useState(true);
 
   const [errors, setErrors] = useState({
     name: "",
@@ -42,6 +51,7 @@ export default function CheckoutForm() {
     city: "",
     country: "",
     zip: "",
+    phone: "", // Added phone
   });
 
   const [formData, setFormData] = useState({
@@ -51,7 +61,26 @@ export default function CheckoutForm() {
     city: "",
     country: "",
     zip: "",
+    phone: "", // Added phone
   });
+
+  // Effect to pre-fill email if user is logged in
+  useEffect(() => {
+    if (user && user.email) {
+      setFormData((prev) => ({ ...prev, email: user.email }));
+    }
+  }, [user]);
+
+  // Effect: if not logged in, ensure we are in "adding new address" mode (which is default form view)
+  useEffect(() => {
+    if (!user) {
+      setIsAddingNewAddress(true);
+    } else {
+      // If logged in, initially distinct form hidden unless no addresses exist (handled by Selector usually)
+      // But we start false to show Selector
+      setIsAddingNewAddress(false);
+    }
+  }, [user]);
 
   const subtotal = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -80,6 +109,36 @@ export default function CheckoutForm() {
   const handleCountryChange = (value) => {
     setFormData((prev) => ({ ...prev, country: value }));
     setErrors((prev) => ({ ...prev, country: "" }));
+  };
+
+  const handleAddressSelect = (address) => {
+    // When an address is selected from the list, populate the form data
+    // This allows the payment submission to use the same logic
+    setFormData((prev) => ({
+      ...prev,
+      name: address.name,
+      address: address.street, // Mapping street -> address field name
+      city: address.city,
+      country: address.country,
+      zip: address.postalCode || address.zip || "", // Handle variety
+      phone: address.phone || "",
+    }));
+    // Clear errors as we assume saved addresses are valid
+    setErrors({});
+  };
+
+  const handleAddNewAddressClick = () => {
+    setIsAddingNewAddress(true);
+    // Clear form except email if user exists
+    setFormData({
+      name: "",
+      email: user?.email || "",
+      address: "",
+      city: "",
+      country: "",
+      zip: "",
+      phone: "",
+    });
   };
 
   const validateForm = () => {
@@ -125,6 +184,19 @@ export default function CheckoutForm() {
     setProcessing(true);
     setError(null);
 
+    // Save address if requested and user is logged in and we are in "Add New" mode
+    if (user && isAddingNewAddress && saveAddress) {
+      addAddress({
+        name: formData.name,
+        street: formData.address,
+        city: formData.city,
+        country: formData.country,
+        postalCode: formData.zip,
+        phone: formData.phone,
+        isDefault: false, // By default, don't force it to default unless we want to
+      });
+    }
+
     const cardNumberElement = elements.getElement(CardNumberElement);
 
     const { error: stripeError, paymentIntent } =
@@ -134,6 +206,7 @@ export default function CheckoutForm() {
           billing_details: {
             name: formData.name.trim(),
             email: formData.email.trim(),
+            phone: formData.phone?.trim() || null,
             address: {
               line1: formData.address.trim(),
               city: formData.city.trim(),
@@ -189,6 +262,79 @@ export default function CheckoutForm() {
     );
   }
 
+  const renderFormFields = () => (
+    <>
+      <InputControl
+        type="text"
+        name="name"
+        value={formData.name}
+        onChange={handleInputChange}
+        placeholder="Full Name*"
+        error={errors.name}
+      />
+
+      <InputControl
+        type="email"
+        name="email"
+        value={formData.email}
+        onChange={handleInputChange}
+        placeholder="Email*"
+        error={errors.email}
+        // If logged in, email might be read-only or editable? Usually editable but pre-filled.
+      />
+
+      <InputControl
+        type="text"
+        name="address"
+        value={formData.address}
+        onChange={handleInputChange}
+        placeholder="Address (Street, House No.)*"
+        error={errors.address}
+      />
+
+      <div className="row">
+        <div className="column">
+          <InputControl
+            type="text"
+            name="city"
+            value={formData.city}
+            onChange={handleInputChange}
+            placeholder="City*"
+            error={errors.city}
+          />
+        </div>
+
+        <div className="column">
+          <CountryControl
+            value={formData.country}
+            onChange={handleCountryChange}
+            error={errors.country}
+          />
+        </div>
+
+        <div className="column">
+          <InputControl
+            type="text"
+            name="zip"
+            value={formData.zip}
+            onChange={handleInputChange}
+            placeholder="ZIP Code*"
+            error={errors.zip}
+          />
+        </div>
+      </div>
+
+      <InputControl
+        type="text"
+        name="phone"
+        value={formData.phone}
+        onChange={handleInputChange}
+        placeholder="Phone Number (Optional)"
+        error={errors.phone}
+      />
+    </>
+  );
+
   return (
     <div className="checkout-page">
       <div className="checkout-left login">
@@ -199,77 +345,73 @@ export default function CheckoutForm() {
         </div>
 
         <div className="checkout-header">
-          <h2>Billing Details</h2>
-          <div className="login-account">
-            <span>Already have an account? </span>
-            <Link to="/login" className="login-link">
-              Login
-            </Link>
-          </div>
+          <h2>Shipping & Billing</h2>
+          {!user && (
+            <div className="login-account">
+              <span>Already have an account? </span>
+              <Link to="/login" className="login-link">
+                Login
+              </Link>
+            </div>
+          )}
         </div>
 
         <form onSubmit={handleSubmit} className="checkout-form-fields">
-          <InputControl
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            placeholder="Full Name*"
-            error={errors.name}
-            autoFocus
-          />
+          {/* Section 1: Address Selection for Logged In Users */}
+          {user && !isAddingNewAddress && (
+            <ShippingAddressSelector
+              onAddressSelect={handleAddressSelect}
+              onAddNew={handleAddNewAddressClick}
+            />
+          )}
 
-          <InputControl
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            placeholder="Email*"
-            error={errors.email}
-          />
+          {/* Section 2: Address Form (For Guests OR Adding New) */}
+          {isAddingNewAddress && (
+            <div className="address-form-section">
+              {user && (
+                <div className="section-header">
+                  <h3>Add New Address</h3>
+                  <button
+                    type="button"
+                    className="text-btn cancel-add-btn"
+                    onClick={() => setIsAddingNewAddress(false)}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      textDecoration: "underline",
+                      cursor: "pointer",
+                      marginBottom: "1rem",
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              )}
 
-          <InputControl
-            type="text"
-            name="address"
-            value={formData.address}
-            onChange={handleInputChange}
-            placeholder="Address*"
-            error={errors.address}
-          />
+              {renderFormFields()}
 
-          <div className="row">
-            <div className="column">
-              <InputControl
-                type="text"
-                name="city"
-                value={formData.city}
-                onChange={handleInputChange}
-                placeholder="City*"
-                error={errors.city}
-              />
+              {user && (
+                <label
+                  htmlFor="save-details"
+                  className="save-details-label"
+                  style={{ marginTop: "1rem", display: "flex", gap: "0.5rem" }}
+                >
+                  <input
+                    type="checkbox"
+                    id="save-details"
+                    name="saveDetails"
+                    checked={saveAddress}
+                    onChange={(e) => setSaveAddress(e.target.checked)}
+                  />
+                  Save this address for future purchases
+                </label>
+              )}
             </div>
+          )}
 
-            <div className="column">
-              <CountryControl
-                value={formData.country}
-                onChange={handleCountryChange}
-                error={errors.country}
-              />
-            </div>
-
-            <div className="column">
-              <InputControl
-                type="text"
-                name="zip"
-                value={formData.zip}
-                onChange={handleInputChange}
-                placeholder="ZIP Code*"
-                error={errors.zip}
-              />
-            </div>
-          </div>
-
-          <h2 className="payment-details-info">Payment Details</h2>
+          <h2 className="payment-details-info" style={{ marginTop: "2rem" }}>
+            Payment Details
+          </h2>
 
           <div className="payment-method-card">
             <div className="radio-btn-container">
@@ -293,10 +435,7 @@ export default function CheckoutForm() {
 
           <PaymentCardForm />
 
-          <label htmlFor="save-details" className="save-details-label">
-            <input type="checkbox" id="save-details" name="saveDetails" />
-            Save my details for future purchases
-          </label>
+          {/* Note: Removed generic "Save my details" checkbox as it's now context-specific to address */}
 
           <div className="btn-container">
             <Button
@@ -304,6 +443,7 @@ export default function CheckoutForm() {
               onClick={() => navigate(-1)}
               variant="secondary"
               className="back-to-cart-btn"
+              type="button"
             />
             <Button
               text={
@@ -319,7 +459,6 @@ export default function CheckoutForm() {
           </div>
         </form>
       </div>
-
       <div className="checkout-right">
         <div className="summary-items">
           {cart.map((item) => (
@@ -329,7 +468,10 @@ export default function CheckoutForm() {
               </div>
               <div className="item-info">
                 <div className="item-details">
-                  <NavLink to={`/product/${item.id}`} className="item-name">
+                  <NavLink
+                    to={`/product/${encryptId(item.id)}`}
+                    className="item-name"
+                  >
                     {item.name}
                   </NavLink>
                   <span className="item-color">

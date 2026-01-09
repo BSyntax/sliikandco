@@ -6,6 +6,7 @@ import { useWishlist } from "../../context/WishlistProvider";
 import PropTypes from "prop-types";
 import { useCart } from "../../context/CartProvider";
 import { useNavigate } from "react-router-dom";
+import { encryptId } from "../../utils/idUtils";
 
 export default function ProductCard({ product, onProductClick }) {
   const [selectedSize, setSelectedSize] = useState(null);
@@ -43,14 +44,13 @@ export default function ProductCard({ product, onProductClick }) {
   };
 
   const handleWishlistToggle = (e) => {
-    e.stopPropagation(); 
+    e.stopPropagation();
     if (isProductInWishlist) {
       removeFromWishlist(product.id);
     } else {
       addToWishlist(product);
     }
   };
-  
 
   return (
     <article className="product-card">
@@ -62,12 +62,12 @@ export default function ProductCard({ product, onProductClick }) {
         className="product-image"
         onClick={() => {
           onProductClick && onProductClick();
-          navigate(`/product/${product.id}`);
+          navigate(`/product/${encryptId(product.id)}`);
         }}
         role="button"
         tabIndex={0}
         onKeyDown={(e) =>
-          e.key === "Enter" && navigate(`/product/${product.id}`)
+          e.key === "Enter" && navigate(`/product/${encryptId(product.id)}`)
         }
       >
         <img
@@ -86,9 +86,7 @@ export default function ProductCard({ product, onProductClick }) {
       </div>
 
       <div className="product-info">
-        <span className="product-title truncate-text">
-          {product.name}
-        </span>
+        <span className="product-title truncate-text">{product.name}</span>
 
         <div className="product-price">
           {product.isOnSale ? (

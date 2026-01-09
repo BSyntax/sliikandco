@@ -1,0 +1,76 @@
+.shipping-address-selector {
+  margin-bottom: 2rem;
+}
+
+.saved-addresses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.saved-address-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.saved-address-item:hover {
+  border-color: #000;
+}
+
+.saved-address-item.selected {
+  border-color: #000;
+  background-color: #f9f9f9;
+}
+
+.address-radio {
+  padding-top: 2px;
+}
+
+.address-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.address-name {
+  font-weight: 600;
+  color: #000;
+}
+
+.address-phone {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
+.default-tag {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: #f0f0f0;
+  color: #666;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.add-new-address-action {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.add-new-btn {
+  font-size: 0.9rem;
+}
