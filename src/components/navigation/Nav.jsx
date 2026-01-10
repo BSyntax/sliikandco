@@ -19,7 +19,7 @@ export default function Nav() {
   const dropdownTimeoutRef = useRef(null);
   const cart = useCart();
   const wishlist = useWishlist();
-  const { user } = useAuth();
+  const { user, login } = useAuth();
   const cartCount = cart.cart.reduce((acc, item) => acc + item.quantity, 0);
   const wishlistCount = wishlist.wishlist.length;
 
@@ -150,7 +150,10 @@ export default function Nav() {
             <NavLink to="/search" onClick={handleSearch} className="nav-link">
               <LuSearch />
             </NavLink>
-            <NavLink to="/profile" className="nav-link">
+            <NavLink
+              to={`${user === null ? "/login" : "/profile"}`}
+              className="nav-link"
+            >
               <LuUser />
             </NavLink>
             <NavLink to="/wishlist" className="nav-link wishlist-icon">

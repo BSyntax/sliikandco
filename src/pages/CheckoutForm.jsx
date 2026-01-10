@@ -8,20 +8,20 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartProvider";
 import { useCheckout } from "../context/CheckoutProvider";
-import { useAuth } from "../context/AuthProvider"; // Added useAuth
+import { useAuth } from "../context/AuthProvider";
 
 import Button from "../components/controls/Button";
 import InputControl from "../components/controls/InputControl";
 import CountryControl from "../components/controls/CountryControl";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import PaymentCardForm from "../components/paymentForm/PaymentCardForm";
-import ShippingAddressSelector from "../components/checkout/ShippingAddressSelector"; // Added
+import ShippingAddressSelector from "../components/checkout/ShippingAddressSelector";
 
 import Card1 from "../assets/cards/card-1.webp";
 import Card3 from "../assets/cards/card-3.webp";
 import Card4 from "../assets/cards/card-4.webp";
 
-import { encryptId } from "../utils/idUtils"; // Added encryptId
+import { encryptId } from "../utils/idUtils";
 
 const cards = [Card3, Card4, Card1];
 const VAT = 15;
@@ -34,13 +34,12 @@ export default function CheckoutForm() {
 
   const { cart } = useCart();
   const { clientSecret } = useCheckout();
-  const { user, addAddress } = useAuth(); // Consume user and addAddress
+  const { user, addAddress } = useAuth();
 
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(null);
   const [succeeded, setSucceeded] = useState(false);
 
-  // Address Management State
   const [isAddingNewAddress, setIsAddingNewAddress] = useState(false);
   const [saveAddress, setSaveAddress] = useState(true);
 
@@ -51,7 +50,7 @@ export default function CheckoutForm() {
     city: "",
     country: "",
     zip: "",
-    phone: "", // Added phone
+    phone: "",
   });
 
   const [formData, setFormData] = useState({
@@ -61,23 +60,19 @@ export default function CheckoutForm() {
     city: "",
     country: "",
     zip: "",
-    phone: "", // Added phone
+    phone: "",
   });
 
-  // Effect to pre-fill email if user is logged in
   useEffect(() => {
     if (user && user.email) {
       setFormData((prev) => ({ ...prev, email: user.email }));
     }
   }, [user]);
 
-  // Effect: if not logged in, ensure we are in "adding new address" mode (which is default form view)
   useEffect(() => {
     if (!user) {
       setIsAddingNewAddress(true);
     } else {
-      // If logged in, initially distinct form hidden unless no addresses exist (handled by Selector usually)
-      // But we start false to show Selector
       setIsAddingNewAddress(false);
     }
   }, [user]);
@@ -280,7 +275,6 @@ export default function CheckoutForm() {
         onChange={handleInputChange}
         placeholder="Email*"
         error={errors.email}
-        // If logged in, email might be read-only or editable? Usually editable but pre-filled.
       />
 
       <InputControl
@@ -345,19 +339,35 @@ export default function CheckoutForm() {
         </div>
 
         <div className="checkout-header">
-          <h2>Shipping & Billing</h2>
-          {!user && (
+          <h2>Shipping Address</h2>
+          {user == null ? (
             <div className="login-account">
               <span>Already have an account? </span>
               <Link to="/login" className="login-link">
                 Login
               </Link>
             </div>
+          ) : (
+            isAddingNewAddress && (
+              <button
+                type="button"
+                className="text-btn cancel-add-btn"
+                onClick={() => setIsAddingNewAddress(false)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                  marginBottom: "1rem",
+                }}
+              >
+                Cancel
+              </button>
+            )
           )}
         </div>
 
         <form onSubmit={handleSubmit} className="checkout-form-fields">
-          {/* Section 1: Address Selection for Logged In Users */}
           {user && !isAddingNewAddress && (
             <ShippingAddressSelector
               onAddressSelect={handleAddressSelect}
@@ -365,29 +375,8 @@ export default function CheckoutForm() {
             />
           )}
 
-          {/* Section 2: Address Form (For Guests OR Adding New) */}
           {isAddingNewAddress && (
             <div className="address-form-section">
-              {user && (
-                <div className="section-header">
-                  <h3>Add New Address</h3>
-                  <button
-                    type="button"
-                    className="text-btn cancel-add-btn"
-                    onClick={() => setIsAddingNewAddress(false)}
-                    style={{
-                      background: "none",
-                      border: "none",
-                      textDecoration: "underline",
-                      cursor: "pointer",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              )}
-
               {renderFormFields()}
 
               {user && (
@@ -435,7 +424,6 @@ export default function CheckoutForm() {
 
           <PaymentCardForm />
 
-          {/* Note: Removed generic "Save my details" checkbox as it's now context-specific to address */}
 
           <div className="btn-container">
             <Button

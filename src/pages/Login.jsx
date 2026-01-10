@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../components/controls/Button";
 import InputControl from "../components/controls/InputControl";
+import { useAuth } from "../context/AuthProvider";
 
 const PASSWORD_RULES = [
   "At least 8 characters",
@@ -17,6 +18,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const { login, user } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,10 +43,6 @@ export default function Login() {
       return;
     } else {
       setPasswordError("");
-    }
-
-    if (valid) {
-      navigate("/");
     }
   };
 
@@ -81,7 +79,7 @@ export default function Login() {
             />
 
             <div className="form-control">
-              <Button text="Login" type="submit" />
+              <Button text="Login" type="submit" onClick={login} />
             </div>
           </form>
 

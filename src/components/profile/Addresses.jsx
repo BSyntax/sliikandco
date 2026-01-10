@@ -81,7 +81,7 @@ export default function Addresses() {
       <form onSubmit={handleSave} className="address-form">
         <h3>{isAdding ? "Add a new address" : "Edit address"}</h3>
 
-        <div className="form-group">
+        <div className="form-group login">
           <label htmlFor="country">Country/Region</label>
           <Input
             id="country"
@@ -93,7 +93,7 @@ export default function Addresses() {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group login">
           <label htmlFor="name">Full name (First and Last name)</label>
           <Input
             id="name"
@@ -105,7 +105,7 @@ export default function Addresses() {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group login">
           <label htmlFor="phone">Phone number</label>
           <Input
             id="phone"
@@ -116,7 +116,7 @@ export default function Addresses() {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group login">
           <label htmlFor="street">Street address</label>
           <Input
             id="street"
@@ -128,7 +128,7 @@ export default function Addresses() {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group login">
           <label htmlFor="city">City / Postal code</label>
           <Input
             id="city"

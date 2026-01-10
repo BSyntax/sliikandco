@@ -2181,8 +2181,22 @@ img {
   flex: 1;
 }
 
-.checkout-page .payment-details-info {
+.checkout-page .checkout-form-fields {
   width: 100%;
+}
+
+.checkout-page .address-form-section {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.checkout-page .payment-details-info{
+  width: 100%;
+  text-align: start;
 }
 
 .checkout-page .checkout-header .login-account {

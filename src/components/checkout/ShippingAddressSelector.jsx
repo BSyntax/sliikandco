@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthProvider";
-import Button from "../controls/Button";
 import "./ShippingAddressSelector.css";
+import { IoAdd } from "react-icons/io5";
 // Note: I will need to create this CSS file or add styles to a parent CSS
 
 export default function ShippingAddressSelector({ onAddressSelect, onAddNew }) {
@@ -28,7 +28,6 @@ export default function ShippingAddressSelector({ onAddressSelect, onAddNew }) {
 
   return (
     <div className="shipping-address-selector">
-      <h3>Shipping Address</h3>
       <div className="saved-addresses-list">
         {addresses.map((addr) => (
           <div
@@ -59,16 +58,12 @@ export default function ShippingAddressSelector({ onAddressSelect, onAddNew }) {
             {addr.isDefault && <span className="default-tag">Default</span>}
           </div>
         ))}
-      </div>
-
-      <div className="add-new-address-action">
-        <Button
-          text="+ Add New Address"
-          variant="secondary"
-          onClick={onAddNew}
-          type="button"
-          className="add-new-btn"
-        />
+        <div className="add-new-address-action">
+          <div className="add-address-card" onClick={onAddNew}>
+            <IoAdd className="add-icon" />
+            <span className="add-text">Add Address</span>
+          </div>
+        </div>
       </div>
     </div>
   );

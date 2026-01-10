@@ -31,12 +31,21 @@ const CVVIcon = () => (
 const PaymentCardForm = () => {
   const [cardError, setCardError] = useState(null);
   const [cvcError, setCvcError] = useState(null);
+  const [expiryError, setExpiryError] = useState(null);
 
-  const handleCardChange = (event) => {
+  const handleCardNumberChange = (event) => {
     if (event.error) {
       setCardError(event.error.message);
     } else {
       setCardError(null);
+    }
+  };
+
+  const handleExpiryChange = (event) => {
+    if (event.error) {
+      setExpiryError(event.error.message);
+    } else {
+      setExpiryError(null);
     }
   };
 
@@ -67,21 +76,19 @@ const PaymentCardForm = () => {
       <div className="card-input-box">
         <CardNumberElement
           options={cardElementOptions}
-          onChange={handleCardChange}
+          onChange={handleCardNumberChange}
         />
       </div>
-
       {cardError && <div className="error-message">{cardError}</div>}
-      {cvcError && <div className="error-message">{cvcError}</div>}
-
       <div className="row card-cv-expiry">
         <div className="column">
           <div className="card-input-box">
             <CardExpiryElement
               options={cardElementOptions}
-              onChange={handleCardChange}
+              onChange={handleExpiryChange}
             />
           </div>
+          {expiryError && <div className="error-message">{expiryError}</div>}
         </div>
 
         <div className="column">
@@ -94,6 +101,7 @@ const PaymentCardForm = () => {
               <CVVIcon />
             </div>
           </div>
+          {cvcError && <div className="error-message">{cvcError}</div>}
         </div>
       </div>
     </div>

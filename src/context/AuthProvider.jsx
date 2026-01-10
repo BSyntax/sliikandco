@@ -1,8 +1,10 @@
 import { createContext, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     name: "Mateusz Wierzbicki",
     email: "test@example.com",
@@ -31,10 +33,14 @@ export const AuthProvider = ({ children }) => {
 
   const login = (userData) => {
     setUser(userData);
+    setAddresses(addresses);
+    navigate("/profile");
   };
 
   const logout = () => {
     setUser(null);
+    // setAddresses([]);
+    navigate("/");
   };
 
   const addAddress = (newAddress) => {

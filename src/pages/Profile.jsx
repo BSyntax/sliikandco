@@ -8,9 +8,11 @@ import OrderHistory from "../components/profile/OrderHistory.jsx";
 import Wishlist from "../components/profile/Wishlist.jsx";
 import Addresses from "../components/profile/Addresses.jsx";
 import Button from "../components/controls/Button.jsx";
+import { useAuth } from "../context/AuthProvider.jsx";
 
 export default function Profile({}) {
   const [mainTitle, setMainTitle] = useState("Personal Information");
+  const { logout } = useAuth();
   const renderMainContent = () => {
     switch (mainTitle) {
       case "Personal Information":
@@ -35,6 +37,7 @@ export default function Profile({}) {
           variant="secondary"
           className="logout-button"
           type="button"
+          onClick={logout}
         />
       </div>
       <div className="profile-content container">
