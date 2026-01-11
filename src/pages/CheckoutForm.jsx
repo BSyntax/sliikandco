@@ -4,7 +4,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartProvider";
 import { useCheckout } from "../context/CheckoutProvider";
@@ -106,23 +106,26 @@ export default function CheckoutForm() {
     setErrors((prev) => ({ ...prev, country: "" }));
   };
 
-  const handleAddressSelect = (address) => {
+  const handleAddressSelect = useCallback((address) => {
     // When an address is selected from the list, populate the form data
     // This allows the payment submission to use the same logic
+    const normalizedCountry =
+      address.country === "South Africa" ? "ZA" : address.country;
+
     setFormData((prev) => ({
       ...prev,
-      name: address.name,
-      address: address.street, // Mapping street -> address field name
-      city: address.city,
-      country: address.country,
-      zip: address.postalCode || address.zip || "", // Handle variety
-      phone: address.phone || "",
+      name: address.name || prev.name || "",
+      address: address.street || prev.address || "", // Mapping street -> address field name
+      city: address.city || prev.city || "",
+      country: normalizedCountry || prev.country || "ZA", // Default/Fallback to ZA
+      zip: address.postalCode || address.zip || prev.zip || "", // Handle variety
+      phone: address.phone || prev.phone || "",
     }));
     // Clear errors as we assume saved addresses are valid
     setErrors({});
-  };
+  }, []);
 
-  const handleAddNewAddressClick = () => {
+  const handleAddNewAddressClick = useCallback(() => {
     setIsAddingNewAddress(true);
     // Clear form except email if user exists
     setFormData({
@@ -134,7 +137,7 @@ export default function CheckoutForm() {
       zip: "",
       phone: "",
     });
-  };
+  }, [user]);
 
   const validateForm = () => {
     let valid = true;
@@ -423,7 +426,6 @@ export default function CheckoutForm() {
           </div>
 
           <PaymentCardForm />
-
 
           <div className="btn-container">
             <Button

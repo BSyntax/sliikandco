@@ -1,12 +1,6 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import {
-  useState,
-  useEffect,
-  createContext,
-  useContext,
-  useMemo,
-} from "react";
+import { useState, useEffect, createContext, useContext, useMemo } from "react";
 import { useCart } from "./CartProvider";
 import BreadCrumb from "../components/wishitem/BreadCrumb";
 
@@ -30,7 +24,7 @@ export default function StripeCheckoutProvider({ children }) {
       return;
     }
 
-    fetch("http://localhost:4242/create-checkout-session", {
+    fetch("http://127.0.0.1:5000/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -99,4 +93,3 @@ export default function StripeCheckoutProvider({ children }) {
     </>
   );
 }
-
