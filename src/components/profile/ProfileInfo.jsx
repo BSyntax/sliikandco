@@ -1,16 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../controls/Button.jsx";
 import InputControl from "../controls/InputControl.jsx";
+import { useAuth } from "../../context/AuthProvider.jsx";
+import ConfirmationModal from "../common/ConfirmationModal.jsx";
 
 export default function ProfileInfo() {
+  const { user, updateProfile, deleteAccount } = useAuth();
   const [formData, setFormData] = useState({
-    firstName: "Mateusz",
-    secondName: "Wierzbicki",
+    firstName: "",
+    secondName: "",
     birthDate: "",
-    phoneNumber: "+27 123456789",
-    email: "email@example.pl",
-    password: "password123",
+    phoneNumber: "",
+    email: "",
+    password: "",
   });
+  const [message, setMessage] = useState("");
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      const nameParts = user.name ? user.name.split(" ") : ["", ""];
+      setFormData((prev) => ({
+        ...prev,
+        firstName: nameParts[0] || "",
+        secondName: nameParts.slice(1).join(" ") || "",
+        email: user.email || "",
+        phoneNumber: user.phone || "",
+        birthDate: user.birthDate ? user.birthDate.split("T")[0] : "",
+      }));
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,9 +39,42 @@ export default function ProfileInfo() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Saved data:", formData);
+    setMessage("");
+
+    const payload = {
+      name: `${formData.firstName} ${formData.secondName}`.trim(),
+      email: formData.email,
+    };
+
+    if (formData.phoneNumber) payload.phone = formData.phoneNumber;
+    if (formData.birthDate) payload.birthDate = formData.birthDate;
+
+    // Only send password if it's not empty
+    if (formData.password) {
+      payload.password = formData.password;
+    }
+
+    const { success, message } = await updateProfile(payload);
+    setMessage(message);
+
+    // Clear password field after update for security
+    if (success) {
+      setFormData((prev) => ({ ...prev, password: "" }));
+    }
+  };
+  const handleDeleteClick = (e) => {
+    e.preventDefault();
+    setIsDeleteModalOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    const { success, message } = await deleteAccount();
+    if (!success) {
+      setMessage(message);
+      setIsDeleteModalOpen(false);
+    }
   };
 
   return (
@@ -120,17 +172,38 @@ export default function ProfileInfo() {
             type="submit"
           />
         </div>
-
+        {message && (
+          <div
+            className={
+              message.includes("success") ? "success-msg" : "error-msg"
+            }
+          >
+            {message}
+          </div>
+        )}
         <div className="section">
           <h3 className="section-title">Manage Account</h3>
           <Button
+            onClick={handleDeleteClick}
             text="Delete Account"
             variant="secondary"
             className="delete-button"
-            type="submit"
+            type="button"
+            style={{
+              backgroundColor: "#dc3545",
+              color: "white",
+              width: "auto",
+            }}
           />
         </div>
       </form>
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={confirmDelete}
+        title="Delete Account"
+        message="Are you sure you want to delete your account? This action cannot be undone."
+      />
     </div>
   );
 }

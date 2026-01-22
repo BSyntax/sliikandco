@@ -74,6 +74,24 @@
   border: 1px solid var(--color-white);
 }
 
+.profile-info .success-msg {
+  width: 100%;
+  padding-top: 0.5rem;
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  text-align: start;
+  color: var(--color-success);
+}
+
+.profile-info .error-msg {
+  width: 100%;
+  padding-top: 0.5rem;
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  text-align: start;
+  color: var(--color-danger);
+}
+
 /* Address */
 .addresses-page {
   width: 100%;

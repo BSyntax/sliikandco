@@ -15,6 +15,7 @@ const orderItemSchema = new mongoose.Schema(
 
     image: {
       type: String,
+      required: true,
     },
 
     price: {
@@ -26,8 +27,7 @@ const orderItemSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-  },
-  { _id: false }
+  }
 );
 
 const orderSchema = new mongoose.Schema(
@@ -41,38 +41,57 @@ const orderSchema = new mongoose.Schema(
     orderItems: [orderItemSchema],
 
     shippingAddress: {
-      fullName: String,
-      street: String,
-      city: String,
-      country: String,
-      phone: String,
-    },
-
-    itemsPrice: {
-      type: Number,
-      required: true,
-    },
-
-    shippingPrice: {
-      type: Number,
-      default: 0,
-    },
-
-    totalPrice: {
-      type: Number,
-      required: true,
+      fullName: { type: String, required: true },
+      street: { type: String, required: true },
+      city: { type: String, required: true },
+      country: { type: String, required: true },
+      phone: { type: String, required: true },
     },
 
     paymentMethod: {
       type: String,
+      required: true,
+    },
+    paymentResult: {
+      id: { type: String },
+      status: { type: String },
+      update_time: { type: String },
+      email_address: { type: String },
+    },
+    taxPrice: {
+      type: Number,
+      required: true,
+      default: 0.0,
+    },
+    shippingPrice: {
+      type: Number,
+      required: true,
+      default: 0.0,
+    },
+    totalPrice: {
+      type: Number,
+      required: true,
+      default: 0.0,
     },
 
     isPaid: {
       type: Boolean,
+      required: true,
       default: false,
     },
 
-    paidAt: Date,
+    paidAt: {
+      type: Date,
+    },
+
+    isDelivered: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    deliveredAt: {
+      type: Date,
+    },
 
     status: {
       type: String,

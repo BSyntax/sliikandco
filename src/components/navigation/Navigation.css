@@ -71,7 +71,7 @@ header.sticky {
 }
 
 header .nav-container {
-  padding: 1rem 0;
+  padding: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -84,6 +84,7 @@ header .nav-container {
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
+  height: 100%;
 }
 
 .nav-links .nav-link {
@@ -241,9 +242,9 @@ header .nav-container {
   }
 
   header .nav-container {
-    padding: 0.5rem 0; 
-    justify-content: space-between; 
-    position: relative; 
+    padding: 0.5rem 0;
+    justify-content: space-between;
+    position: relative;
   }
 
   .nav-container .nav-logo {
@@ -312,6 +313,9 @@ header .nav-container {
 .nav-item-with-dropdown {
   position: static;
   cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .menu-dropdown {
@@ -329,10 +333,14 @@ header .nav-container {
   opacity: 0;
   visibility: hidden;
   transform: translateX(-50%) translateY(20px);
-  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.4s;
+  transition:
+    opacity 0.3s ease,
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s linear 0.4s;
   pointer-events: none;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 }
 
@@ -341,8 +349,11 @@ header .nav-container {
   visibility: visible;
   max-height: 400px;
   transform: translateX(-50%) translateY(0);
-  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0s;
+  transition:
+    opacity 0.3s ease,
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s linear 0s;
   pointer-events: all;
 }
 

@@ -74,6 +74,7 @@ const CartItem = memo(({ item, onQuantityChange, onDelete, onCloseCart }) => {
           onClick={handleRemove}
           variant="secondary"
           className="delete-btn"
+          style ={{backgroundColor:"transparent"}}
         />
       </div>
     </div>

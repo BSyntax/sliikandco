@@ -135,4 +135,5 @@
 
 .item-right .delete-btn {
   padding-left: 0;
+  background-color: transparent;
 }

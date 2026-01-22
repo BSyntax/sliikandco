@@ -18,9 +18,10 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { login, user } = useAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -43,6 +44,20 @@ export default function Login() {
       return;
     } else {
       setPasswordError("");
+    }
+
+    setIsLoading(true);
+    // Wait for minimum 1.5s for UX
+    const [result] = await Promise.all([
+      login(email, password),
+      new Promise((resolve) => setTimeout(resolve, 1500)),
+    ]);
+
+    const { success, message } = result;
+
+    if (!success) {
+      setEmailError(message); // Or handle general error
+      setIsLoading(false);
     }
   };
 
@@ -79,7 +94,7 @@ export default function Login() {
             />
 
             <div className="form-control">
-              <Button text="Login" type="submit" onClick={login} />
+              <Button text="Login" type="submit" isLoading={isLoading} />
             </div>
           </form>
 

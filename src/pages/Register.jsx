@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../components/controls/Button";
 import InputControl from "../components/controls/InputControl";
+import { useAuth } from "../context/AuthProvider";
 
 const PASSWORD_RULES = [
   "At least 8 characters",
@@ -13,6 +14,7 @@ const PASSWORD_RULES = [
 
 export default function Register() {
   const navigate = useNavigate();
+  const { register } = useAuth();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,8 +23,9 @@ export default function Register() {
   const [lastNameError, setLastNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setFirstNameError("");
@@ -53,8 +56,19 @@ export default function Register() {
       return;
     }
 
-    console.log("Registering:", { firstName, lastName, email, password });
-    navigate("/login");
+    setIsLoading(true);
+    // Wait for minimum 1.5s for UX
+    const [result] = await Promise.all([
+      register(`${firstName} ${lastName}`, email, password),
+      new Promise((resolve) => setTimeout(resolve, 1500)),
+    ]);
+
+    const { success, message } = result;
+
+    if (!success) {
+      setEmailError(message); // Or handle general error
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -117,7 +131,11 @@ export default function Register() {
             />
 
             <div className="form-control">
-              <Button text="Create Account" type="submit" />
+              <Button
+                text="Create Account"
+                type="submit"
+                isLoading={isLoading}
+              />
             </div>
           </form>
           <div className="auth-links">

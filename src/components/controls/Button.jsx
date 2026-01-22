@@ -1,6 +1,7 @@
 import React from "react";
 import "./Button.css";
 import PropTypes from "prop-types";
+import { ClipLoader } from "react-spinners";
 
 export default function Button({
   text,
@@ -8,6 +9,8 @@ export default function Button({
   variant = "primary",
   type = "button",
   className = "",
+  isLoading = false,
+  disabled = false,
 }) {
   return (
     <button
@@ -16,8 +19,9 @@ export default function Button({
       } ${className}`}
       type={type}
       onClick={onClick}
+      disabled={disabled || isLoading}
     >
-      {text}
+      {isLoading ? "Loading..." : text}
     </button>
   );
 }
@@ -28,4 +32,6 @@ Button.propTypes = {
   variant: PropTypes.oneOf(["primary", "secondary"]),
   type: PropTypes.oneOf(["button", "submit", "reset"]),
   className: PropTypes.string,
+  isLoading: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
