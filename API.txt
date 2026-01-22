@@ -1,0 +1,102 @@
+API Implementation Plan
+The goal is to make all APIs functional. Currently, most controllers and routes are placeholders.
+
+User Review Required
+IMPORTANT
+
+The 
+Contact
+, Review, and Wishlist models are currently placeholders. I will implement basic schemas for them. auth, order, and product controllers are largely empty and will be implemented from scratch based on standard e-commerce practices and existing models.
+
+Proposed Changes
+Backend Models
+[MODIFY] 
+Contact.js
+Implement schema with name, email, subject, message.
+[MODIFY] 
+Review.js
+Implement schema with user, product, rating, comment.
+[MODIFY] 
+Wishlist.js
+Implement schema with user and array of product IDs.
+Backend Controllers
+[MODIFY] 
+authController.js
+Implement 
+registerUser
+ (hash password, create user).
+Implement 
+loginUser
+ (verify password, sign JWT).
+Implement 
+getUserProfile
+.
+[MODIFY] 
+productController.js
+Implement 
+getProducts
+ (with pagination/search).
+Implement getProductById.
+Implement 
+createProduct
+, 
+updateProduct
+, 
+deleteProduct
+.
+[MODIFY] 
+orderController.js
+Implement 
+placeOrder
+ (create order, validate items).
+Implement 
+getOrderHistory
+ (find orders by user).
+Implement 
+getOrderDetails
+.
+[MODIFY] 
+contactController.js
+Implement 
+submitContactForm
+.
+[MODIFY] 
+reviewController.js
+Implement addReview, getProductReviews.
+[MODIFY] 
+wishlistController.js
+Implement addToWishlist, removeFromWishlist, getWishlist.
+Backend Routes
+[MODIFY] 
+authRoutes.js
+[MODIFY] 
+productRoutes.js
+[MODIFY] 
+orderRoutes.js
+[MODIFY] 
+contactRoutes.js
+[MODIFY] 
+reviewRoutes.js
+[MODIFY] 
+wishlistRoutes.js
+Define Express routes mapping to the respective controllers.
+Server Entry Point
+[MODIFY] 
+server.js
+Import and use all the above routes.
+Middleware
+[NEW] 
+authMiddleware.js
+Create middleware to verify JWT tokens for protected routes.
+Verification Plan
+Automated Tests
+I will create a script scripts/test-api.js to run against the local server.
+It will:
+Register a new user.
+Login to get a token.
+Create a product (admin/public).
+Place an order.
+Check order history.
+Run node scripts/test-api.js.
+Manual Verification
+N/A (Automated script is preferred for API testing).

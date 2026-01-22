@@ -107,8 +107,6 @@ export default function CheckoutForm() {
   };
 
   const handleAddressSelect = useCallback((address) => {
-    // When an address is selected from the list, populate the form data
-    // This allows the payment submission to use the same logic
     const normalizedCountry =
       address.country === "South Africa" ? "ZA" : address.country;
 
@@ -401,7 +399,7 @@ export default function CheckoutForm() {
             </div>
           )}
 
-          <h2 className="payment-details-info" style={{ marginTop: "2rem" }}>
+          <h2 className="payment-details-info" style={{ marginTop: "1rem" }}>
             Payment Details
           </h2>
 

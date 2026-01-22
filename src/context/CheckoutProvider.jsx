@@ -3,6 +3,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useState, useEffect, createContext, useContext, useMemo } from "react";
 import { useCart } from "./CartProvider";
 import BreadCrumb from "../components/wishitem/BreadCrumb";
+import Button from "../components/controls/Button";
+import { useNavigate } from "react-router-dom";
 
 const stripePromise = loadStripe(
   import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY ||
@@ -17,6 +19,7 @@ export default function StripeCheckoutProvider({ children }) {
   const [clientSecret, setClientSecret] = useState("");
   const [error, setError] = useState(null);
   const { cart } = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (cart.length === 0) {
@@ -57,6 +60,12 @@ export default function StripeCheckoutProvider({ children }) {
         <div className="checkout-empty-state">
           <h2>Your cart is empty</h2>
           <p>Please add items to your cart before checking out.</p>
+          <Button
+            className="empty-cart-btn"
+            variant="primary"
+            text="Continue Shopping"
+            onClick={() => navigate("/shop")}
+          />
         </div>
       </div>
     );

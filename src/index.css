@@ -52,6 +52,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  margin: 0;
 }
 
 body {
@@ -83,6 +84,18 @@ textarea {
 img {
   object-fit: cover;
   object-position: center center;
+}
+
+@media (max-width: 374px) {
+  .container {
+    width: 90%;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
+  .container {
+    width: 90%;
+  }
 }
 
 .breadcrumb-container {
@@ -147,8 +160,6 @@ img {
   left: 0;
   background: rgba(0, 0, 0, 0.1);
 }
-
-/* Footer styles moved to src/components/footer/Footer.css */
 
 /* login */
 
@@ -2080,6 +2091,13 @@ img {
   color: var(--text-clr);
 }
 
+.checkout-page-wrapper .checkout-empty-state p {
+  font-size: var(--f-normal);
+  font-weight: 400;
+  line-height: var(--l-normal);
+  color: var(--text-clr);
+}
+
 .checkout-error-state {
   font-size: var(--f-lg);
   color: var(--color-danger);
@@ -2194,7 +2212,7 @@ img {
   gap: 1rem;
 }
 
-.checkout-page .payment-details-info{
+.checkout-page .payment-details-info {
   width: 100%;
   text-align: start;
 }
@@ -2456,7 +2474,7 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   gap: 1rem;
 }
 

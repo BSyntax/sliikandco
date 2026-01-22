@@ -1,7 +1,7 @@
-const Stripe = require("stripe");
+import Stripe from "stripe";
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
-const createPaymentIntent = async (req, res) => {
+export const createPaymentIntent = async (req, res) => {
   try {
     const { items } = req.body;
 
@@ -45,5 +45,3 @@ const createPaymentIntent = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-module.exports = { createPaymentIntent };
