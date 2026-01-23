@@ -73,3 +73,65 @@
 .collection-button:hover::after {
   width: 100%;
 }
+
+@media (max-width: 374px) {
+  .collections-section {
+    width: 100%;
+
+    .collections-wrapper {
+      grid-template-columns: 1fr;
+      row-gap: 0.125rem;
+    }
+
+    .collection-card {
+      height: 400px;
+    }
+
+    .collection-content {
+      padding: 1rem 0.75rem;
+    }
+
+    .collection-title {
+      font-size: var(--f-sm);
+    }
+
+    .collection-button {
+      font-size: var(--f-xs);
+    }
+  }
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
+  .collections-section {
+    width: 100%;
+
+    .collections-wrapper {
+      grid-template-columns: 1fr;
+      row-gap: 0.125rem;
+    }
+
+    .collection-card {
+      height: 400px;
+    }
+
+    .collection-content {
+      padding: 1rem 0.75rem;
+    }
+
+    .collection-title {
+      font-size: var(--f-sm);
+    }
+
+    .collection-button {
+      font-size: var(--f-xs);
+    }
+  }
+
+  .collections-section .collection-title {
+    font-size: var(--f-sm);
+  }
+
+  .collections-section .collection-button {
+    font-size: var(--f-xs);
+  }
+}

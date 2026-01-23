@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
-import { RiCloseFill } from "react-icons/ri";
+import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
 export default function SidePanel({ open, onClose, children }) {
+  useLockBodyScroll(open);
   return (
     <>
       <div className={`mobile-menu ${open ? "open" : ""}`}>{children}</div>

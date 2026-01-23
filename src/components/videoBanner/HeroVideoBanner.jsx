@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../controls/Button";
 import PropTypes from "prop-types";
+import "./VideoBanner.css";
 
 export default function HeroVideoBanner({
   videoSrc,

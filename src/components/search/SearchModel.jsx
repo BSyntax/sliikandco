@@ -35,7 +35,7 @@ export default function SearchModel({ setSearchModel, visible = true }) {
         <div className="view-searched">
           <NavLink
             to={`/search?query=${encodeURIComponent(text)}`}
-            className="search-link"
+            className="close-search"
             onClick={handleClose}
           >
             View all results for "{text}"

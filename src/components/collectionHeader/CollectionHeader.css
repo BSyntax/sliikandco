@@ -78,3 +78,61 @@
   border: 1px solid var(--color-gray);
   padding: 0.5rem 0.75rem;
 }
+
+@media (max-width: 374px) {
+  .section-header {
+    padding-top: 2rem;
+
+    .header-title {
+      font-size: var(--f-xl);
+      padding-block: 0.5rem;
+    }
+
+    .header-title.best-sellers,
+    .collection-button.best-sellers {
+      margin-bottom: 1rem;
+    }
+
+    .header-actions .toggle-group {
+      gap: 1.5rem;
+    }
+
+    .toggle-group .toggle-link {
+      font-size: var(--f-base);
+    }
+
+    .collection-button {
+      font-size: var(--f-xs);
+      padding: 0.4rem 0.6rem;
+    }
+  }
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
+  .section-header {
+    padding-top: 2rem;
+
+    .header-title {
+      font-size: var(--f-xl);
+      padding-block: 0.5rem;
+    }
+
+    .header-title.best-sellers,
+    .collection-button.best-sellers {
+      margin-bottom: 1rem;
+    }
+
+    .header-actions .toggle-group {
+      gap: 1.5rem;
+    }
+
+    .toggle-group .toggle-link {
+      font-size: var(--f-base);
+    }
+
+    .collection-button {
+      font-size: var(--f-xs);
+      padding: 0.4rem 0.6rem;
+    }
+  }
+}

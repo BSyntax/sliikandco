@@ -121,7 +121,9 @@
   width: 25px;
   height: 25px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .product-card .size-button:hover,
@@ -142,4 +144,114 @@
   border-radius: 2px;
   text-transform: uppercase;
   z-index: 10;
+}
+
+@media (max-width: 374px) {
+  .product-card .product-title {
+    width: 100%;
+    font-size: var(--f-xs);
+    line-height: var(--l-normal);
+    font-weight: 400;
+  }
+
+  .product-card .product-info {
+    gap: 0.1875rem;
+  }
+
+  .product-card .size-group,
+  .product-details .size-group {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    gap: 0.5rem;
+  }
+
+  .product-card .size-button,
+  .product-details .size-button {
+    width: 20px;
+    height: 20px;
+  }
+
+  .product-card .size-button:hover,
+  .product-details .size-button:hover {
+    background-color: var(--color-gray);
+    color: var(--color-white);
+  }
+
+  .product-card .product-image {
+    height: 250px;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .product-card .sale-badge {
+    top: 5px;
+    left: 5px;
+    padding: 0.125rem 0.25rem;
+  }
+
+  .product-card .wishlist-btn {
+    top: 5px;
+    right: 5px;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
+  .product-card .product-title {
+    width: 100%;
+    font-size: var(--f-xs);
+    line-height: var(--l-normal);
+    font-weight: 400;
+  }
+
+  .product-card .product-info {
+    gap: 0.1875rem;
+  }
+
+  .product-card .size-group,
+  .product-details .size-group {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    gap: 0.5rem;
+  }
+
+  .product-card .size-button,
+  .product-details .size-button {
+    width: 20px;
+    height: 20px;
+  }
+
+  .product-card .size-button:hover,
+  .product-details .size-button:hover {
+    background-color: var(--color-gray);
+    color: var(--color-white);
+  }
+
+  .product-card .product-image {
+    height: 250px;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .product-card .sale-badge {
+    top: 5px;
+    left: 5px;
+    padding: 0.125rem 0.25rem;
+  }
+
+  .product-card .wishlist-btn {
+    top: 5px;
+    right: 5px;
+  }
 }

@@ -1,0 +1,129 @@
+/* Video Banner */
+
+.hero-video-banner {
+  position: relative;
+  width: 99vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-video-banner .video-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-video-banner .hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-video-banner .video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 2;
+}
+
+.hero-video-banner .video-content {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.hero-video-banner .video-heading {
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: var(--l-normal);
+  color: var(--color-white);
+}
+
+.hero-video-banner .video-subheading {
+  font-size: var(--f-lg);
+  font-weight: 400;
+  line-height: var(--l-normal);
+  color: var(--color-white);
+  margin-top: 0.5rem;
+}
+
+.video-button {
+  margin-top: 1.5rem;
+  padding: 0.9rem 2rem;
+  font-size: var(--f-sm);
+  background: var(--color-white);
+  color: var(--text-color);
+  transition: 0.2s ease;
+}
+
+.video-button:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 374px) {
+  .hero-video-banner {
+    width: 100%;
+    height: 500px;
+
+    & .video-content {
+      width: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      padding: 0 1rem;
+
+      & .video-heading {
+        font-size: var(--f-3xl);
+      }
+
+      & .video-subheading {
+        font-size: var(--f-sm);
+        margin-top: 0;
+      }
+
+      .video-button {
+        padding: 0.5rem 1rem;
+        font-size: var(--f-sm);
+      }
+    }
+  }
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
+  .hero-video-banner {
+    width: 100%;
+    height: 500px;
+
+    & .video-content {
+      width: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      padding: 0 1rem;
+
+      & .video-heading {
+        font-size: var(--f-3xl);
+      }
+
+      & .video-subheading {
+        font-size: var(--f-sm);
+        margin-top: 0;
+      }
+
+      .video-button {
+        padding: 0.5rem 1rem;
+        font-size: var(--f-sm);
+      }
+    }
+  }
+}

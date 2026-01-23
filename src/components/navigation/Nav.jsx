@@ -3,8 +3,7 @@ import "./Navigation.css";
 import { NavLink } from "react-router-dom";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { LuUser, LuSearch, LuHeart } from "react-icons/lu";
-import { RiMenuFill } from "react-icons/ri";
-import { RiMenu2Fill } from "react-icons/ri";
+import { RiMenu2Fill, RiAddLine, RiCloseLine } from "react-icons/ri";
 
 import DropDownModel from "./DropDownModel";
 import SearchModel from "../search/SearchModel";
@@ -114,7 +113,7 @@ export default function Nav() {
 
           <div className="nav-icons desktop-only">
             <NavLink
-              to="/search"
+              to="#"
               onClick={() => setSearchModel("open")}
               className="nav-link"
             >
@@ -144,7 +143,7 @@ export default function Nav() {
 
           <div className="nav-icons mobile-only">
             <NavLink
-              to="/search"
+              to="#"
               onClick={() => setSearchModel("open")}
               className="nav-link"
             >
@@ -163,6 +162,15 @@ export default function Nav() {
         </nav>
 
         <SidePanel open={isMobileMenuOpen} onClose={closeMobileMenu}>
+          <div className="mobile-menu-header">
+            <NavLink to="/" className="nav-logo">
+              Sliik & Co.
+            </NavLink>
+
+            <button className="close-menu" onClick={closeMobileMenu}>
+              <RiCloseLine size={18} />
+            </button>
+          </div>
           <div className="nav-links">
             <NavLink to="/" className="nav-link" onClick={closeMobileMenu}>
               Home
@@ -174,7 +182,7 @@ export default function Nav() {
                 setMobileDropdown(mobileDropdown === "shop" ? null : "shop")
               }
             >
-              Shop
+              <span>Shop</span> <RiAddLine size={16} />
             </button>
             {mobileDropdown === "shop" && <DropDownModel type="shop" />}
 
@@ -182,11 +190,11 @@ export default function Nav() {
               className="nav-link"
               onClick={() =>
                 setMobileDropdown(
-                  mobileDropdown === "collection" ? null : "collection"
+                  mobileDropdown === "collection" ? null : "collection",
                 )
               }
             >
-              Collections
+              <span>Collections</span> <RiAddLine size={16} />
             </button>
             {mobileDropdown === "collection" && (
               <DropDownModel type="collection" />
@@ -206,41 +214,21 @@ export default function Nav() {
 
           <div className="nav-icons">
             <NavLink
-              to="/search"
-              onClick={() => {
-                setSearchModel("open");
-                closeMobileMenu();
-              }}
+              to={user ? "/profile" : "/login"}
               className="nav-link"
+              onClick={closeMobileMenu}
             >
-              <LuSearch />
+              Sign In
             </NavLink>
-
-            <NavLink to={user ? "/profile" : "/login"} className="nav-link">
-              <LuUser />
-            </NavLink>
-
-            <NavLink to="/wishlist" className="nav-link wishlist-icon">
-              <LuHeart />
-              {wishlistCount > 0 && (
-                <span className="wishlist-count">{wishlistCount}</span>
-              )}
-            </NavLink>
-
             <NavLink
-              to="/cart"
-              onClick={() => {
-                setCartModalOpen(true);
-                closeMobileMenu();
-              }}
-              className="nav-link cart-icon"
+              to={user ? "/profile" : "/register"}
+              className="nav-link"
+              onClick={closeMobileMenu}
             >
-              <HiOutlineShoppingBag />
-              {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+              Register
             </NavLink>
           </div>
         </SidePanel>
-
         {searchModel === "open" && (
           <SearchModel setSearchModel={setSearchModel} />
         )}

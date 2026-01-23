@@ -18,7 +18,11 @@ export default function CollectionHeader({
           showGenderToggle ? "header-top" : "header-top no-toggle"
         }`}
       >
-        <h2 className="header-title">{title}</h2>
+        <h2
+          className={`header-title ${title === "Best Sellers" ? "best-sellers" : ""}`}
+        >
+          {title}
+        </h2>
 
         {showGenderToggle && title === "New Arrivals" && (
           <div
@@ -73,7 +77,7 @@ export default function CollectionHeader({
             }}
             variant="secondary"
             type="button"
-            className="collection-button"
+            className={`collection-button ${title === "Best Sellers" ? "best-sellers" : ""}`}
           />
         )}
       </div>

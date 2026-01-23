@@ -23,12 +23,11 @@ export default function ProductGrid({
   const filteredProducts = useMemo(() => {
     let newFilteredProducts = [];
 
-    // Initial product list based on page type
     if (pageType === "shop") {
       newFilteredProducts = [...products];
     } else if (searchText) {
       newFilteredProducts = products.filter((p) =>
-        p.name.toLowerCase().includes(searchText.toLowerCase())
+        p.name.toLowerCase().includes(searchText.toLowerCase()),
       );
     }
 
@@ -52,8 +51,6 @@ export default function ProductGrid({
       }
     }
 
-    // Apply sidebar filters: support multiple values per filter type
-    // selectedFilter shape: { category: ["Shoes"], gender: ["Men"], color: ["Black", "White"], ... }
     if (pageType === "shop") {
       if (selectedFilter && Object.keys(selectedFilter).length > 0) {
         newFilteredProducts = newFilteredProducts.filter((p) => {
@@ -63,19 +60,17 @@ export default function ProductGrid({
             if (type === "color") {
               // Product matches if it has ANY of the selected colors
               return values.some((value) =>
-                p.colors.some((c) => c.name === value)
+                p.colors.some((c) => c.name === value),
               );
             }
 
             if (type === "size") {
-              // Product matches if it has ANY of the selected sizes
               return values.some((value) => p.sizesAvailable.includes(value));
             }
 
             const prop = type.toLowerCase();
             if (!Object.prototype.hasOwnProperty.call(p, prop)) return true;
 
-            // For simple scalar props (category, brand, gender, etc.) match any selected value
             return values.includes(p[prop]);
           });
         });
@@ -88,7 +83,7 @@ export default function ProductGrid({
           typeof maxPrice === "number" ? maxPrice : Number.POSITIVE_INFINITY;
 
         newFilteredProducts = newFilteredProducts.filter(
-          (p) => p.price >= min && p.price <= max
+          (p) => p.price >= min && p.price <= max,
         );
       }
     }
@@ -132,12 +127,11 @@ export default function ProductGrid({
     }
   }, [filteredProducts, onCountChange]);
 
-  // Calculate products for the current page
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(
     indexOfFirstProduct,
-    indexOfLastProduct
+    indexOfLastProduct,
   );
 
   return (

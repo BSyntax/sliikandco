@@ -61,7 +61,11 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (min-width: 375px) and (max-width: 768px) {
+  .logos-section {
+    padding-block: 2rem;
+  }
+
   .logos-section .logo-item {
     width: 140px;
     padding: 0 1.5rem;
@@ -70,9 +74,16 @@
     max-height: 50px;
   }
 }
-@media (max-width: 480px) {
+@media (max-width: 374px) {
+  .logos-section {
+    padding-block: 2rem;
+  }
+
   .logos-section .logo-item {
     width: 120px;
     padding: 0 1rem;
+  }
+  .logos-section .logo-image {
+    max-height: 40px;
   }
 }
