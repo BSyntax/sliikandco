@@ -1,0 +1,41 @@
+/* Mobile Filter Toggle Button - Hidden by default (Desktop) */
+.mobile-filter-toggle {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  background-color: var(--color-white);
+  color: var(--text-color);
+  font-size: var(--f-md);
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  width: fit-content;
+  margin-top: 2rem;
+}
+
+.mobile-sidebar-content {
+  padding: 1rem;
+  padding-bottom: 5rem;
+}
+
+@media (max-width: 1024px) {
+  .shop-page-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .desktop-sidebar {
+    display: none;
+  }
+
+  .mobile-filter-toggle {
+    display: inline-flex;
+  }
+
+  .shop-page-flex .shop-sidebar {
+    padding: 0;
+  }
+}

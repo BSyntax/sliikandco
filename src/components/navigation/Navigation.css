@@ -188,6 +188,7 @@ header .nav-container {
   flex-direction: column;
   padding: 2rem;
   gap: 1.5rem;
+  overflow-y: auto; /* Allow vertical scrolling */
 }
 
 .mobile-menu-overlay {

@@ -137,8 +137,8 @@ export default function ProductGrid({
   return (
     <div
       className={`product-grid ${
-        pageType === "shop" ? "product-grid--shop" : ""
-      } ${searchText ? "product-grid--search" : ""} container`}
+        pageType === "shop" ? "product-grid--shop" : "container"
+      } ${searchText ? "product-grid--search" : ""}`}
     >
       {currentProducts.length > 0 && pageType == "shop"
         ? currentProducts.map((product) => (
