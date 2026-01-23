@@ -66,3 +66,65 @@
 .perk-item .perk-button:hover::after {
   width: 100%;
 }
+
+@media (max-width: 374px) {
+  .perks-bar .container {
+    width: 100%;
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 2rem;
+
+    .perk-item {
+      padding-inline: 1rem;
+      flex-direction: column;
+      gap: 0.5rem;
+      justify-content: center;
+
+      .perk-icon {
+        font-size: 1.125rem;
+      }
+
+      .perk-title {
+        font-size: var(--f-sm);
+      }
+
+      p {
+        font-size: var(--f-xs);
+      }
+
+      .perk-button {
+        font-size: var(--f-xs);
+      }
+    }
+  }
+}
+
+@media (min-width: 375px) and (max-width: 768px) {
+  .perks-bar .container {
+    width: 100%;
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 2rem;
+
+    .perk-item {
+      padding-inline: 1rem;
+      flex-direction: column;
+      gap: 0.5rem;
+      justify-content: center;
+
+      .perk-icon {
+        font-size: 1.125rem;
+      }
+
+      .perk-title {
+        font-size: var(--f-sm);
+      }
+
+      p {
+        font-size: var(--f-xs);
+      }
+
+      .perk-button {
+        font-size: var(--f-xs);
+      }
+    }
+  }
+}

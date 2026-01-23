@@ -19,6 +19,7 @@ import ProductColors from "../components/product/ProductColors";
 import CollectionHeader from "../components/collectionHeader/CollectionHeader";
 import ProductGrid from "../components/productGrid/ProductGrid";
 import { decryptId } from "../utils/idUtils";
+import "../components/product/ProductDetails.css";
 
 export default function ProductDetails() {
   const { id } = useParams();

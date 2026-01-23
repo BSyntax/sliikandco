@@ -163,6 +163,10 @@
   .brand-info .company-info {
     flex: 1;
   }
+
+  h3 {
+    font-size: var(--f-sm) !important;
+  }
 }
 
 @media (min-width: 375px) and (max-width: 767px) {
@@ -212,5 +216,9 @@
 
   .brand-info .company-info {
     flex: 1;
+  }
+
+  h3 {
+    font-size: var(--f-sm) !important;
   }
 }

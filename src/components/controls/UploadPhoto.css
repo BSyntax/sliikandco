@@ -19,7 +19,9 @@
   background-color: #f8f9fa;
   border-radius: 2px;
   cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
   font-size: var(--f-sm);
 }
 
@@ -61,4 +63,32 @@
   display: grid;
   place-content: center;
   background-color: #eef0f2;
+}
+
+@media (max-width: 374px) {
+  .photo-file-chooser .chosen-file-display {
+    font-size: var(--f-xs);
+  }
+
+  .photo-file-chooser .upload-button-label {
+    font-size: var(--f-xs);
+  }
+
+  .photo-file-chooser {
+    padding-right: 1rem;
+  }
+}
+
+@media (min-width: 374px) and (max-width: 768px) {
+  .photo-file-chooser .chosen-file-display {
+    font-size: var(--f-xs);
+  }
+
+  .photo-file-chooser .upload-button-label {
+    font-size: var(--f-xs);
+  }
+
+  .photo-file-chooser {
+    padding-right: 1rem;
+  }
 }

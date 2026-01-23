@@ -137,3 +137,15 @@
   padding-left: 0;
   background-color: transparent;
 }
+
+@media (max-width: 374px) {
+  .cart-item {
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 768px) {
+  .cart-item {
+    padding: 0.5rem 1rem;
+  }
+}

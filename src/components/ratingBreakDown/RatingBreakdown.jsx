@@ -38,6 +38,7 @@ export default function RatingBreakdown({ counts }) {
                 borderRadius: "5px",
                 overflow: "hidden",
               }}
+              className="rating-breakdown-bar"
             >
               <div
                 style={{

@@ -74,3 +74,73 @@
   line-height: var(--l-normal);
   color: #6c757d;
 }
+
+@media (max-width: 374px) {
+  .team-section .team-header {
+    margin-bottom: 40px;
+  }
+
+  .team-section .team-title {
+    font-size: var(--f-2xl) !important;
+  }
+
+  .team-section .team-subtitle {
+    font-size: var(--f-sm) !important;
+  }
+
+  .team-section .team-grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+
+    .team-card {
+      height: 300px;
+
+      &:not(:first-child) {
+        margin-top: 2rem;
+      }
+
+      & .team-name {
+        font-size: var(--f-md) !important;
+      }
+
+      & .team-role {
+        font-size: var(--f-sm) !important;
+      }
+    }
+  }
+}
+
+@media (min-width: 375px) and (max-width: 768px) {
+  .team-section .team-header {
+    margin-bottom: 40px;
+  }
+
+  .team-section .team-title {
+    font-size: var(--f-2xl) !important;
+  }
+
+  .team-section .team-subtitle {
+    font-size: var(--f-sm) !important;
+  }
+
+  .team-section .team-grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+
+    .team-card {
+      height: 300px;
+
+      &:not(:first-child) {
+        margin-top: 2rem;
+      }
+
+      & .team-name {
+        font-size: var(--f-md) !important;
+      }
+
+      & .team-role {
+        font-size: var(--f-sm) !important;
+      }
+    }
+  }
+}

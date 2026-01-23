@@ -1,9 +1,9 @@
 import React from "react";
+import "./WhyUs.css";
 
 export default function WhyShopWithUs({ whyChooseUs }) {
   return (
     <section className="why-shop">
-      <h2 className="why-shop-header container"></h2>
       <div className="why-shop-list">
         {whyChooseUs &&
           whyChooseUs.map((item, index) => (
