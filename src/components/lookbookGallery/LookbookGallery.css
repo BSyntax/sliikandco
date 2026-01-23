@@ -45,3 +45,23 @@
 .lookbook-gallery.home-page {
   padding-top: 1rem;
 }
+
+@media (max-width: 374px) {
+  .lookbook-gallery {
+    padding-top: 1rem;
+
+    & .lookbook-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
+  .lookbook-gallery {
+    padding-top: 1rem;
+
+    & .lookbook-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}

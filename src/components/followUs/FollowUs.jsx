@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { LuFacebook, LuTwitter, LuInstagram } from "react-icons/lu";
+import './FollowUs.css'
 
 export default function FollowUs() {
   return (
