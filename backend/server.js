@@ -25,6 +25,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "https://sliikandco.vercel.app",
   "https://sliikco.store",
+  "https://www.sliikco.store",
 ].filter(Boolean);
 
 app.use(
