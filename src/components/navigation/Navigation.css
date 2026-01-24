@@ -209,7 +209,7 @@ header .nav-container {
 .mobile-menu .nav-icons {
   display: flex;
   justify-content: space-between;
-  /* margin-top: auto; */
+  margin-top: auto;
   gap: 1rem;
 }
 
@@ -312,8 +312,7 @@ header .nav-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: auto;
-      margin-bottom: 0.625rem;
+      margin-bottom: 1rem;
       border-top: solid 1px #f1f0e9;
 
       & > * {
