@@ -16,6 +16,7 @@ export default function ProfileInfo() {
   });
   const [message, setMessage] = useState("");
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -42,6 +43,7 @@ export default function ProfileInfo() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
+    setLoading(true);
 
     const payload = {
       name: `${formData.firstName} ${formData.secondName}`.trim(),
@@ -58,6 +60,7 @@ export default function ProfileInfo() {
 
     const { success, message } = await updateProfile(payload);
     setMessage(message);
+    setLoading(false);
 
     // Clear password field after update for security
     if (success) {
@@ -166,10 +169,11 @@ export default function ProfileInfo() {
 
         <div className="actions">
           <Button
-            text="Save"
+            text={loading ? "Loading..." : "Save"}
             variant="primary"
             className="save-button"
             type="submit"
+            disabled={loading}
           />
         </div>
         {message && (

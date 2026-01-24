@@ -313,7 +313,7 @@ header .nav-container {
       justify-content: space-between;
       align-items: center;
       margin-top: auto;
-      margin-bottom: 1rem;
+      margin-bottom: 0.625rem;
       border-top: solid 1px #f1f0e9;
 
       & > * {

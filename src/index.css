@@ -1640,7 +1640,7 @@ img {
     .review-page-form
     .form-group-item
     input[type="text"]::placeholder {
-    color: var(--color-gray) !important;
+    color: var(--text-color) !important;
     font-size: var(--f-sm) !important;
     font-weight: 400 !important;
     line-height: var(--l-normal) !important;

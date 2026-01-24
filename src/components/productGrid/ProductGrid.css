@@ -27,7 +27,7 @@
 }
 
 .no-products-content p {
-  font-size: var(--f-sm);
+  font-size: var(--f-xs);
   font-weight: 400;
   line-height: var(--l-normal);
 }

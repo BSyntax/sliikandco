@@ -105,34 +105,72 @@ export default function CheckoutForm() {
     setErrors((prev) => ({ ...prev, country: "" }));
   };
 
-  const handleAddressSelect = useCallback((address) => {
-    const countryMap = {
-      "South Africa": "ZA",
-      "United States": "US",
-      Poland: "PL",
-    };
-    const normalizedCountry = countryMap[address.country] || address.country;
+  const handleAddressSelect = useCallback(
+    (address) => {
+      console.log("Address selected:", address);
+      console.log("Address country value:", address.country);
 
-    setFormData((prev) => ({
-      ...prev,
-      name: address.name || prev.name || "",
-      address: address.street || prev.address || "", // Mapping street -> address field name
-      city: address.city || prev.city || "",
-      country: normalizedCountry || prev.country || "ZA", // Default/Fallback to ZA
-      zip: address.postalCode || address.zip || prev.zip || "", // Handle variety
-      phone: address.phone || prev.phone || "",
-    }));
-    // Clear errors as we assume saved addresses are valid
-    // However, we must ensure zip is actually present to satisfy validation
-    setErrors((prev) => ({
-      ...prev,
-      name: "",
-      address: "",
-      city: "",
-      country: "",
-      zip: "",
-    }));
-  }, []);
+      // Comprehensive country mapping - handles both full names and codes
+      const countryMap = {
+        "South Africa": "ZA",
+        "United States": "US",
+        "United Kingdom": "GB",
+        Poland: "PL",
+        // Add reverse mappings for safety
+        ZA: "ZA",
+        US: "US",
+        GB: "GB",
+        PL: "PL",
+      };
+
+      let normalizedCountry = address.country;
+
+      // First try direct mapping
+      if (countryMap[address.country]) {
+        normalizedCountry = countryMap[address.country];
+      }
+      // If it's already a 2-letter code, keep it
+      else if (address.country && address.country.length === 2) {
+        normalizedCountry = address.country.toUpperCase();
+      }
+      // Default to ZA if nothing matches
+      else {
+        normalizedCountry = "ZA";
+      }
+
+      console.log("Normalized country code:", normalizedCountry);
+
+      // Ensure we get the postal code from the address object
+      const postalCode = address.postalCode || address.zip || "";
+      console.log("Mapped postal code:", postalCode);
+
+      const newFormData = {
+        ...formData,
+        name: address.name || "",
+        email: formData.email || user?.email || "", // Preserve email
+        address: address.street || "",
+        city: address.city || "",
+        country: normalizedCountry,
+        zip: postalCode,
+        phone: address.phone || "",
+      };
+
+      console.log("New form data after address selection:", newFormData);
+      setFormData(newFormData);
+
+      // Clear errors as we assume saved addresses are valid
+      setErrors({
+        name: "",
+        email: "",
+        address: "",
+        city: "",
+        country: "",
+        zip: "",
+        phone: "",
+      });
+    },
+    [formData.email, user],
+  );
 
   const handleAddNewAddressClick = useCallback(() => {
     setIsAddingNewAddress(true);
@@ -210,6 +248,22 @@ export default function CheckoutForm() {
 
     const cardNumberElement = elements.getElement(CardNumberElement);
 
+    // Log all data before sending to Stripe
+    console.log("=== STRIPE PAYMENT DEBUG ===");
+    console.log("Form data:", formData);
+    console.log("Billing details to send:", {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      phone: formData.phone?.trim() || null,
+      address: {
+        line1: formData.address.trim(),
+        city: formData.city.trim(),
+        country: formData.country,
+        postal_code: formData.zip.trim(),
+      },
+    });
+    console.log("=========================");
+
     const { error: stripeError, paymentIntent } =
       await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -274,8 +328,14 @@ export default function CheckoutForm() {
         setSucceeded(true);
       } catch (err) {
         console.error("Order creation failed:", err);
+        console.error("Error details:", {
+          message: err.message,
+          response: err.response?.data,
+          status: err.response?.status,
+          orderData: orderData,
+        });
         setError(
-          "Payment succeeded but order creation failed. Please contact support.",
+          `Payment succeeded but order creation failed: ${err.response?.data?.message || err.message}. Please contact support.`,
         );
       } finally {
         setProcessing(false);
@@ -428,10 +488,31 @@ export default function CheckoutForm() {
 
         <form onSubmit={handleSubmit} className="checkout-form-fields">
           {user && !isAddingNewAddress && (
-            <ShippingAddressSelector
-              onAddressSelect={handleAddressSelect}
-              onAddNew={handleAddNewAddressClick}
-            />
+            <>
+              <ShippingAddressSelector
+                onAddressSelect={handleAddressSelect}
+                onAddNew={handleAddNewAddressClick}
+              />
+
+              {/* Show selected address details in form fields */}
+              {formData.name && (
+                <div
+                  className="address-form-section"
+                  style={{ marginTop: "1rem" }}
+                >
+                  <h3
+                    style={{
+                      fontSize: "0.9rem",
+                      marginBottom: "0.5rem",
+                      color: "#666",
+                    }}
+                  >
+                    Selected Address Details
+                  </h3>
+                  {renderFormFields()}
+                </div>
+              )}
+            </>
           )}
 
           {isAddingNewAddress && (
