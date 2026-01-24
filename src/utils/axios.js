@@ -24,4 +24,17 @@ api.interceptors.request.use(
   },
 );
 
+// Add a response interceptor to handle errors
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response && error.response.status === 404) {
+      window.location.href = "/404";
+    }
+    return Promise.reject(error);
+  },
+);
+
 export default api;
