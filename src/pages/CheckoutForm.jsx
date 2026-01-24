@@ -33,12 +33,11 @@ export default function CheckoutForm() {
   const location = useLocation();
 
   const { cart, clearCart } = useCart();
-  const { clientSecret } = useCheckout();
+  const { clientSecret, succeeded, setSucceeded } = useCheckout();
   const { user, addAddress } = useAuth();
 
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(null);
-  const [succeeded, setSucceeded] = useState(false);
 
   const [isAddingNewAddress, setIsAddingNewAddress] = useState(false);
   const [saveAddress, setSaveAddress] = useState(true);

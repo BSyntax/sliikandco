@@ -18,6 +18,7 @@ export const useCheckout = () => useContext(CheckoutContext);
 
 export default function StripeCheckoutProvider({ children }) {
   const [clientSecret, setClientSecret] = useState("");
+  const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
   const { cart } = useCart();
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ export default function StripeCheckoutProvider({ children }) {
 
   const options = useMemo(() => ({ clientSecret }), [clientSecret]);
 
-  if (cart.length === 0) {
+  if (cart.length === 0 && !succeeded) {
     return (
       <div className="checkout-page-wrapper">
         <div className="checkout-empty-state">
@@ -86,7 +87,9 @@ export default function StripeCheckoutProvider({ children }) {
   return (
     <>
       <BreadCrumb from={{ label: "Shop", path: "/shop" }} current="Checkout" />
-      <CheckoutContext.Provider value={{ clientSecret }}>
+      <CheckoutContext.Provider
+        value={{ clientSecret, succeeded, setSucceeded }}
+      >
         <div className="checkout-page-wrapper">
           {clientSecret && (
             <Elements stripe={stripePromise} options={options}>

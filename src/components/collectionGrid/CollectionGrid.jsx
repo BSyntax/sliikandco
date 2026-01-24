@@ -15,25 +15,25 @@ export default function CollectionGrid() {
       title: "Sale 35% Off",
       button: "Shop Sale",
       image: CollectionImage1,
-      link: "/sale",
+      link: "/shop",
     },
     {
       title: "Best Sellers",
       button: "Shop Now",
       image: CollectionImage2,
-      link: "/best-sellers",
+      link: "/shop",
     },
     {
       title: "New Arrivals",
       button: "Explore",
       image: CollectionImage3,
-      link: "/new-arrivals",
+      link: "/shop",
     },
     {
       title: "Gift Guide",
       button: "Shop Gifts",
       image: CollectionImage4,
-      link: "/gift-guide",
+      link: "/shop",
     },
   ];
 
