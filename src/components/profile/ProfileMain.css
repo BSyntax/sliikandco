@@ -31,11 +31,19 @@
 }
 
 .profile-main .fullname-controls {
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
+}
+
+@media (max-width: 480px) {
+  .profile-main .fullname-controls {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .profile-info input[type="email"],
@@ -43,7 +51,8 @@
 .profile-info input[type="tel"],
 .password-group input[type="text"],
 .password-group input[type="password"] {
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   padding: 10px;
   border-radius: 4px;
   font-size: var(--fs-sm);
@@ -116,7 +125,7 @@
 }
 
 .addresses-page .address-details {
-  width: 500px;
+  width: 100%;
   flex: 1;
   display: flex;
   flex-direction: column;

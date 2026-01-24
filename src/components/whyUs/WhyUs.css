@@ -48,7 +48,7 @@
 }
 
 .why-us-content h2 {
-  color: var(--color-white);
+  color: var(--color-white) !important;
   font-weight: 500;
   line-height: var(--l-normal);
 }

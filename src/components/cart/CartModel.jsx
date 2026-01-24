@@ -23,12 +23,12 @@ export default function CartModel({ cartModalOpen, setCartModalOpen }) {
 
   const handleQuantityChange = useCallback(
     (id, quantity) => updateQuantity(id, quantity),
-    [updateQuantity]
+    [updateQuantity],
   );
 
   const total = cart.reduce(
-    (sum, item) => sum + item.price * (item.quantity ?? 1),
-    0
+    (sum, item) => sum + (item.price ?? 0) * (item.quantity ?? 1),
+    0,
   );
 
   return (
@@ -46,9 +46,9 @@ export default function CartModel({ cartModalOpen, setCartModalOpen }) {
         <div className="cart-model-body">
           {cart.length > 0 ? (
             <div className="item-container">
-              {cart.map((item) => (
+              {cart.map((item, index) => (
                 <CartItem
-                  key={item.id}
+                  key={item.id || item._id || index}
                   item={item}
                   onQuantityChange={handleQuantityChange}
                   onDelete={handleDelete}

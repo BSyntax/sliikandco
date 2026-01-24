@@ -134,6 +134,20 @@ export default function ProductGrid({
     indexOfLastProduct,
   );
 
+  if (filteredProducts.length === 0) {
+    return (
+      <div className="no-products-found container">
+        <div className="no-products-content">
+          <h3>No Items found</h3>
+          <p>
+            We couldn't find any products matching your current filters. Try
+            adjusting your selections or clearing filters.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       className={`product-grid ${

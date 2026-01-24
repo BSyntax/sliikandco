@@ -6,6 +6,89 @@ import { IoAdd } from "react-icons/io5";
 
 import { useAuth } from "../../context/AuthProvider";
 
+const AddressForm = ({
+  isAdding,
+  formData,
+  handleChange,
+  handleSave,
+  handleCancel,
+}) => (
+  <div className="address-card address-form-card">
+    <form onSubmit={handleSave} className="address-form">
+      <h3>{isAdding ? "Add a new address" : "Edit address"}</h3>
+
+      <div className="form-group login">
+        <label htmlFor="country">Country/Region</label>
+        <Input
+          id="country"
+          name="country"
+          value={formData.country}
+          onChange={handleChange}
+          placeholder="Country"
+          required
+        />
+      </div>
+
+      <div className="form-group login">
+        <label htmlFor="name">Full name (First and Last name)</label>
+        <Input
+          id="name"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Full name"
+          required
+        />
+      </div>
+
+      <div className="form-group login">
+        <label htmlFor="phone">Phone number</label>
+        <Input
+          id="phone"
+          name="phone"
+          value={formData.phone}
+          onChange={handleChange}
+          placeholder="Phone number"
+        />
+      </div>
+
+      <div className="form-group login">
+        <label htmlFor="street">Street address</label>
+        <Input
+          id="street"
+          name="street"
+          value={formData.street}
+          onChange={handleChange}
+          placeholder="Street address, P.O. box, company name, c/o"
+          required
+        />
+      </div>
+
+      <div className="form-group login">
+        <label htmlFor="city">City / Postal code</label>
+        <Input
+          id="city"
+          name="city"
+          value={formData.city}
+          onChange={handleChange}
+          placeholder="City / Postal code"
+          required
+        />
+      </div>
+
+      <div className="form-actions">
+        <Button text="Save Address" variant="primary" type="submit" />
+        <Button
+          text="Cancel"
+          variant="secondary"
+          onClick={handleCancel}
+          type="button"
+        />
+      </div>
+    </form>
+  </div>
+);
+
 export default function Addresses() {
   const {
     addresses,
@@ -76,88 +159,17 @@ export default function Addresses() {
     setDefaultAddress(id);
   };
 
-  const AddressForm = () => (
-    <div className="address-card address-form-card">
-      <form onSubmit={handleSave} className="address-form">
-        <h3>{isAdding ? "Add a new address" : "Edit address"}</h3>
-
-        <div className="form-group login">
-          <label htmlFor="country">Country/Region</label>
-          <Input
-            id="country"
-            name="country"
-            value={formData.country}
-            onChange={handleChange}
-            placeholder="Country"
-            required
-          />
-        </div>
-
-        <div className="form-group login">
-          <label htmlFor="name">Full name (First and Last name)</label>
-          <Input
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Full name"
-            required
-          />
-        </div>
-
-        <div className="form-group login">
-          <label htmlFor="phone">Phone number</label>
-          <Input
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="Phone number"
-          />
-        </div>
-
-        <div className="form-group login">
-          <label htmlFor="street">Street address</label>
-          <Input
-            id="street"
-            name="street"
-            value={formData.street}
-            onChange={handleChange}
-            placeholder="Street address, P.O. box, company name, c/o"
-            required
-          />
-        </div>
-
-        <div className="form-group login">
-          <label htmlFor="city">City / Postal code</label>
-          <Input
-            id="city"
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-            placeholder="City / Postal code"
-            required
-          />
-        </div>
-
-        <div className="form-actions">
-          <Button text="Save Address" variant="primary" type="submit" />
-          <Button
-            text="Cancel"
-            variant="secondary"
-            onClick={handleCancel}
-            type="button"
-          />
-        </div>
-      </form>
-    </div>
-  );
-
   return (
     <div className="addresses-page">
       <div className="addresses-grid">
         {isAdding ? (
-          <AddressForm />
+          <AddressForm
+            isAdding={isAdding}
+            formData={formData}
+            handleChange={handleChange}
+            handleSave={handleSave}
+            handleCancel={handleCancel}
+          />
         ) : (
           <div className="add-address-card" onClick={handleAdd}>
             <IoAdd className="add-icon" />
@@ -167,7 +179,14 @@ export default function Addresses() {
 
         {addresses.map((addr) =>
           editingId === addr.id ? (
-            <AddressForm key={addr.id} />
+            <AddressForm
+              key={addr.id}
+              isAdding={false}
+              formData={formData}
+              handleChange={handleChange}
+              handleSave={handleSave}
+              handleCancel={handleCancel}
+            />
           ) : (
             <div
               key={addr.id}
@@ -209,7 +228,7 @@ export default function Addresses() {
                 )}
               </div>
             </div>
-          )
+          ),
         )}
       </div>
     </div>

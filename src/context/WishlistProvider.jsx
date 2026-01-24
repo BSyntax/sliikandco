@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 import { useCart } from "./CartProvider";
 import { useProducts } from "../context/ProductProvider";
 
@@ -8,7 +14,25 @@ export const WishlistProvider = ({ children }) => {
   const { products } = useProducts();
   const { addCart } = useCart();
 
-  const [wishlist, setWishlist] = useState([]);
+  // Initialize wishlist from localStorage if available
+  const [wishlist, setWishlist] = useState(() => {
+    try {
+      const savedWishlist = localStorage.getItem("wishlist");
+      return savedWishlist ? JSON.parse(savedWishlist) : [];
+    } catch (error) {
+      console.error("Failed to load wishlist from localStorage:", error);
+      return [];
+    }
+  });
+
+  // Persist wishlist to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    } catch (error) {
+      console.error("Failed to save wishlist to localStorage:", error);
+    }
+  }, [wishlist]);
 
   const addToWishlist = useCallback((product) => {
     if (!product?.id) {
@@ -39,7 +63,7 @@ export const WishlistProvider = ({ children }) => {
       addCart(product);
       removeFromWishlist(product.id);
     },
-    [addCart, removeFromWishlist]
+    [addCart, removeFromWishlist],
   );
 
   return (

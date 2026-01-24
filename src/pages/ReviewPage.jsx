@@ -7,7 +7,7 @@ import UploadPhoto from "../components/controls/UploadPhoto";
 import ItemRecommendation from "../components/controls/ItemRecommendation";
 import { useProducts } from "../context/ProductProvider";
 import { toast } from "react-toastify";
-
+import api from "../utils/axios";
 
 export default function ReviewPage() {
   const [rating, setRating] = useState(0);
@@ -19,7 +19,7 @@ export default function ReviewPage() {
   const [photos, setPhotos] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
-  const { getProductById } = useProducts();
+  const { getProductById, refreshProducts } = useProducts();
 
   useEffect(() => {
     const foundProduct = getProductById(id);
@@ -53,7 +53,7 @@ export default function ReviewPage() {
     setPhotos(selected);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!product) return;
     if (!rating || rating === 0) {
@@ -68,17 +68,25 @@ export default function ReviewPage() {
       });
       return;
     }
-    const formData = {
-      id: product.id,
-      reviewer: fullName,
-      rating: rating,
-      comment: review,
-      recommend: recommend,
-      images: "", // later use the acual image
-      date: new Date().toJSON().slice(0, 10).split("-").reverse().join("-"),
-    };
-    product.reviews.push(formData);
-    if (handleCancel) handleCancel();
+
+    try {
+      await api.post(`/products/${product.id}/reviews`, {
+        rating,
+        comment: review,
+        recommend: recommend === "yes",
+        name: fullName,
+        // images: photos // For now skipping actual image upload unless user has a utility for it
+      });
+
+      toast.success("Review submitted successfully!");
+      if (refreshProducts) await refreshProducts();
+      if (handleCancel) handleCancel();
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.message || "Failed to submit review.";
+      toast.error(errorMessage);
+      console.error("Review submission failed:", err);
+    }
   };
 
   const handleClosePreview = () => {

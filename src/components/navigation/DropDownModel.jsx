@@ -5,18 +5,18 @@ export default function DropDownModel({ type, closeDropdown }) {
   const content = {
     shop: {
       Men: [
-        { name: "Shop All", path: "/shop" },
+        { name: "Shop All", path: "/shop/men" },
         { name: "Tops", path: "/shop/men/tops" },
-        { name: "Jackets & Coats", path: "/shop/men/jackets" },
-        { name: "Pants & Jeans", path: "/shop/men/pants" },
+        { name: "Jackets & Coats", path: "/shop/men/outerwear" },
+        { name: "Pants & Jeans", path: "/shop/men/bottoms" },
         { name: "Accessories", path: "/shop/men/accessories" },
       ],
       Women: [
+        { name: "Shop All", path: "/shop/women" },
         { name: "Tops", path: "/shop/women/tops" },
         { name: "Dresses", path: "/shop/women/dresses" },
-        { name: "Jackets & Coats", path: "/shop/women/jackets" },
-        { name: "Pants & Skirts", path: "/shop/women/pants-skirts" },
-        { name: "Accessories", path: "/shop/women/accessories" },
+        { name: "Jackets & Coats", path: "/shop/women/outerwear" },
+        { name: "Pants & Skirts", path: "/shop/women/bottoms" },
       ],
     },
     collection: {

@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import Button from "../controls/Button";
 import { RiCloseFill, RiDeleteBinLine } from "react-icons/ri";
 import { RiDeleteBinFill } from "react-icons/ri";
-import { encryptId } from "../../utils/idUtils";
 
 export default function WishItem({
   product,
@@ -22,7 +21,10 @@ export default function WishItem({
           <img src={image} alt={name} />
         </div>
         <div className="product-name">
-          <Link to={`/product/${encryptId(id)}`} className="wishlist-item-name">
+          <Link
+            to={`/product/${id || product._id}`}
+            className="wishlist-item-name"
+          >
             {name}
           </Link>
         </div>

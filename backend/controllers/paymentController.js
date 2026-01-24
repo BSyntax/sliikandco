@@ -38,7 +38,12 @@ export const createPaymentIntent = async (req, res) => {
       amount: totalInCents,
       currency: "zar",
       automatic_payment_methods: { enabled: true },
-      metadata: { cart_items: JSON.stringify(cleanItems) },
+      metadata: {
+        cart_items:
+          JSON.stringify(cleanItems).length > 499
+            ? `Order with ${cleanItems.length} items (list truncated)`
+            : JSON.stringify(cleanItems),
+      },
     });
 
     res.json({ clientSecret: paymentIntent.client_secret });

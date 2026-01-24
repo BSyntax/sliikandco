@@ -65,3 +65,25 @@
     }
   }
 }
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .lookbook-gallery {
+    padding-top: 1rem;
+
+    & .lookbook-grid {
+      grid-template-columns: repeat(4, 1fr);
+
+      & .lookbook-item {
+        height: 350px;
+
+        &:nth-of-type(1) {
+          display: none;
+        }
+
+        &:nth-of-type(3) {
+          display: none;
+        }
+      }
+    }
+  }
+}

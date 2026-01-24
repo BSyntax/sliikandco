@@ -144,3 +144,14 @@
     }
   }
 }
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .team-section .team-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .team-section .team-card {
+    height: 350px;
+  }
+}

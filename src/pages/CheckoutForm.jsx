@@ -4,8 +4,9 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 
+import api from "../utils/axios";
 import { useEffect, useState, useCallback } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useCart } from "../context/CartProvider";
 import { useCheckout } from "../context/CheckoutProvider";
 import { useAuth } from "../context/AuthProvider";
@@ -21,8 +22,6 @@ import Card1 from "../assets/cards/card-1.webp";
 import Card3 from "../assets/cards/card-3.webp";
 import Card4 from "../assets/cards/card-4.webp";
 
-import { encryptId } from "../utils/idUtils";
-
 const cards = [Card3, Card4, Card1];
 const VAT = 15;
 const DELIVERY_FEE = 50;
@@ -31,8 +30,9 @@ export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const { cart } = useCart();
+  const { cart, clearCart } = useCart();
   const { clientSecret } = useCheckout();
   const { user, addAddress } = useAuth();
 
@@ -78,15 +78,15 @@ export default function CheckoutForm() {
   }, [user]);
 
   const subtotal = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
+    (sum, item) => sum + (item.price ?? 0) * (item.quantity ?? 1),
+    0,
   );
   const vatAmount = subtotal * (VAT / 100);
   const totalAmount =
     subtotal + vatAmount >= 500
       ? subtotal + vatAmount
       : subtotal + vatAmount + DELIVERY_FEE;
-  const formatPrice = (amount) => `R${amount.toFixed(2)}`;
+  const formatPrice = (amount) => `R${(amount ?? 0).toFixed(2)}`;
 
   useEffect(() => {
     if (succeeded) {
@@ -107,8 +107,12 @@ export default function CheckoutForm() {
   };
 
   const handleAddressSelect = useCallback((address) => {
-    const normalizedCountry =
-      address.country === "South Africa" ? "ZA" : address.country;
+    const countryMap = {
+      "South Africa": "ZA",
+      "United States": "US",
+      Poland: "PL",
+    };
+    const normalizedCountry = countryMap[address.country] || address.country;
 
     setFormData((prev) => ({
       ...prev,
@@ -173,6 +177,10 @@ export default function CheckoutForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user) {
+      navigate("/login", { state: { from: location } });
+      return;
+    }
 
     if (!stripe || !elements || !clientSecret) return;
     if (!validateForm()) return;
@@ -217,15 +225,58 @@ export default function CheckoutForm() {
 
     if (stripeError) {
       setError(stripeError.message);
+      setProcessing(false);
     } else if (paymentIntent?.status === "succeeded") {
-      cart.length = 0;
-      setSucceeded(true);
+      try {
+        const orderItems = cart.map((item) => ({
+          ...item,
+          product: item.id || item._id, // Ensure we pass product ID
+          _id: undefined, // Clear any existing _id to avoid conflicts if needed, or keeping it is fine if backend ignores
+        }));
+
+        const orderData = {
+          orderItems,
+          shippingAddress: {
+            name: formData.name,
+            street: formData.address,
+            city: formData.city,
+            postalCode: formData.zip,
+            country: formData.country,
+            phone: formData.phone,
+          },
+          paymentMethod: "Card",
+          itemsPrice: subtotal,
+          taxPrice: vatAmount,
+          shippingPrice: totalAmount > 500 ? 0 : DELIVERY_FEE,
+          totalPrice: totalAmount,
+          isPaid: true,
+          paidAt: Date.now(),
+          paymentResult: {
+            id: paymentIntent.id,
+            status: paymentIntent.status,
+            update_time: String(paymentIntent.created),
+            email_address: formData.email,
+          },
+        };
+
+        console.log("Order creation response:", orderData);
+        await api.post("/orders", orderData);
+
+        console.log("Setting succeeded to true");
+        clearCart();
+        setSucceeded(true);
+      } catch (err) {
+        console.error("Order creation failed:", err);
+        setError(
+          "Payment succeeded but order creation failed. Please contact support.",
+        );
+      } finally {
+        setProcessing(false);
+      }
     }
   };
 
   if (succeeded) {
-    cart.length = 0;
-
     return (
       <div className="checkout-page-wrapper">
         <div className="checkout-empty-state">
@@ -435,13 +486,15 @@ export default function CheckoutForm() {
             />
             <Button
               text={
-                processing
-                  ? "Processing..."
-                  : `Confirm Payment ${formatPrice(totalAmount)}`
+                !user
+                  ? "Login to Continue"
+                  : processing
+                    ? "Processing..."
+                    : `Confirm Payment ${formatPrice(totalAmount)}`
               }
               type="submit"
               variant="primary"
-              disabled={!stripe || processing || !clientSecret}
+              disabled={user && (!stripe || processing || !clientSecret)}
               className="pay-btn proceed-to-pay-btn"
             />
           </div>
@@ -449,15 +502,15 @@ export default function CheckoutForm() {
       </div>
       <div className="checkout-right">
         <div className="summary-items">
-          {cart.map((item) => (
-            <div key={item.id} className="summary-item">
+          {cart.map((item, index) => (
+            <div key={item.id || item._id || index} className="summary-item">
               <div className="item-image">
                 <img src={item.image} alt={item.name} />
               </div>
               <div className="item-info">
                 <div className="item-details">
                   <NavLink
-                    to={`/product/${encryptId(item.id)}`}
+                    to={`/product/${item.id || item._id}`}
                     className="item-name"
                   >
                     {item.name}
@@ -468,7 +521,7 @@ export default function CheckoutForm() {
                   <span className="item-qty">Quantity: {item.quantity}</span>
                 </div>
                 <div className="item-price">
-                  {formatPrice(item.price * item.quantity)}
+                  {formatPrice((item.price ?? 0) * (item.quantity ?? 1))}
                 </div>
               </div>
             </div>

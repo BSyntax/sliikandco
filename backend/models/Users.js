@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 
 const addressSchema = new mongoose.Schema(
   {
-    fullName: {
+    name: {
       type: String,
       required: true,
     },
@@ -22,6 +22,9 @@ const addressSchema = new mongoose.Schema(
     phone: {
       type: String,
       required: true,
+    },
+    postalCode: {
+      type: String,
     },
     isDefault: {
       type: Boolean,

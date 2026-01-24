@@ -3,7 +3,22 @@ import { RiStarFill, RiStarLine } from "react-icons/ri";
 import AvatarPlaceholder from "../../assets/images/avatar-placeholder.webp";
 
 export default function ReviewCard({ reviewInfo }) {
-  const { reviewer, rating, date, comment, recommend, images = [] } = reviewInfo;
+  const {
+    name,
+    reviewer,
+    rating,
+    date,
+    createdAt,
+    comment,
+    user,
+    images = [],
+  } = reviewInfo;
+
+  const displayName = name || reviewer || "Anonymous";
+  const displayDate = createdAt
+    ? new Date(createdAt).toLocaleDateString()
+    : date || "No date";
+  const isVerified = !!user;
 
   const renderStars = () => {
     return Array.from({ length: 5 }, (_, i) =>
@@ -11,7 +26,7 @@ export default function ReviewCard({ reviewInfo }) {
         <RiStarFill key={i} className="star-filled" color="#101419" size={14} />
       ) : (
         <RiStarLine key={i} className="star-empty" color="#101419" size={14} />
-      )
+      ),
     );
   };
 
@@ -24,15 +39,15 @@ export default function ReviewCard({ reviewInfo }) {
             <div className={`avatar${images?.length > 0 ? " has-img" : ""}`}>
               <img
                 src={images?.length > 0 ? images[0] : AvatarPlaceholder}
-                alt={reviewer}
+                alt={displayName}
               />
             </div>
-            <div className="reviewer-name">{reviewer}</div>
-            <div className="verified-badge">Verified</div>
+            <div className="reviewer-name">{displayName}</div>
+            {isVerified && <div className="verified-badge">Verified</div>}
           </div>
         </div>
 
-        <div className="review-date">{date}</div>
+        <div className="review-date">{displayDate}</div>
       </div>
 
       <div className="review-comment">

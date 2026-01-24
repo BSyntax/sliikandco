@@ -19,6 +19,7 @@ const loginUser = asyncHandler(async (req, res) => {
       phone: user.phone,
       birthDate: user.birthDate,
       isAdmin: user.isAdmin,
+      addresses: user.addresses,
       token: generateToken(user._id),
     });
   } else {
@@ -53,7 +54,9 @@ const registerUser = asyncHandler(async (req, res) => {
       email: user.email,
       phone: user.phone,
       birthDate: user.birthDate,
+      birthDate: user.birthDate,
       isAdmin: user.isAdmin,
+      addresses: user.addresses,
       token: generateToken(user._id),
     });
   } else {
@@ -75,7 +78,9 @@ const getUserProfile = asyncHandler(async (req, res) => {
       email: user.email,
       phone: user.phone,
       birthDate: user.birthDate,
+      birthDate: user.birthDate,
       isAdmin: user.isAdmin,
+      addresses: user.addresses,
     });
   } else {
     res.status(404);
@@ -99,6 +104,10 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       user.password = req.body.password;
     }
 
+    if (req.body.addresses) {
+      user.addresses = req.body.addresses;
+    }
+
     const updatedUser = await user.save();
 
     res.json({
@@ -107,7 +116,9 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       email: updatedUser.email,
       phone: updatedUser.phone,
       birthDate: updatedUser.birthDate,
+      birthDate: updatedUser.birthDate,
       isAdmin: updatedUser.isAdmin,
+      addresses: updatedUser.addresses,
       token: generateToken(updatedUser._id),
     });
   } else {

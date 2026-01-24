@@ -18,36 +18,15 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const [addresses, setAddresses] = useState([
-    {
-      id: 1,
-      name: "Mateusz Wierzbicki",
-      street: "ul. Przykładowa 123/45",
-      city: "00-000 Warszawa",
-      country: "Poland",
-      phone: "+48 123 456 789",
-      isDefault: true,
-    },
-    {
-      id: 2,
-      name: "John Doe",
-      street: "123 Maple Street",
-      city: "Springfield, IL 62704",
-      country: "United States",
-      phone: "+1 555 123 4567",
-      isDefault: false,
-    },
-  ]);
-
   const login = async (email, password) => {
     try {
       const { data } = await api.post("/users/login", { email, password });
       setUser(data);
       localStorage.setItem("userInfo", JSON.stringify(data));
-      navigate("/profile");
+      // navigate("/profile"); // Handled in Login component
       return { success: true };
     } catch (error) {
-      console.error("Login Error Details:", error); // Debugging log
+      console.error("Login Error Details:", error);
       let message = "An error occurred";
       if (error.response) {
         if (error.response.status === 404) {
@@ -75,7 +54,7 @@ export const AuthProvider = ({ children }) => {
       navigate("/profile");
       return { success: true };
     } catch (error) {
-      console.error("Register Error Details:", error); // Debugging log
+      console.error("Register Error Details:", error);
       let message = "An error occurred";
       if (error.response) {
         if (error.response.status === 404) {
@@ -117,7 +96,7 @@ export const AuthProvider = ({ children }) => {
   const deleteAccount = async () => {
     try {
       await api.delete("/users/profile");
-      logout(); // Clear state and redirect
+      logout();
       return { success: true, message: "Account deleted successfully" };
     } catch (error) {
       console.error("Delete Account Error:", error);
@@ -137,41 +116,52 @@ export const AuthProvider = ({ children }) => {
     navigate("/");
   };
 
-  const addAddress = (newAddress) => {
-    const address = { ...newAddress, id: Date.now() };
-    if (address.isDefault || addresses.length === 0) {
-      setAddresses((prev) =>
-        prev.map((addr) => ({ ...addr, isDefault: false })),
-      );
-      address.isDefault = true;
-    }
-    setAddresses((prev) => [...prev, address]);
-  };
+  const addresses = user?.addresses || [];
 
-  const editAddress = (id, updatedAddress) => {
-    setAddresses((prev) => {
-      // If setting as default, unset others
-      const newAddresses = updatedAddress.isDefault
-        ? prev.map((addr) => ({ ...addr, isDefault: false }))
-        : [...prev];
+  const addAddress = async (newAddress) => {
 
-      return newAddresses.map((addr) =>
-        addr.id === id ? { ...updatedAddress, id } : addr,
-      );
-    });
-  };
+    let updatedAddresses = [...addresses];
 
-  const deleteAddress = (id) => {
-    setAddresses((prev) => prev.filter((addr) => addr.id !== id));
-  };
-
-  const setDefaultAddress = (id) => {
-    setAddresses((prev) =>
-      prev.map((addr) => ({
+    if (newAddress.isDefault || addresses.length === 0) {
+      updatedAddresses = updatedAddresses.map((addr) => ({
         ...addr,
-        isDefault: addr.id === id,
-      })),
+        isDefault: false,
+      }));
+      newAddress.isDefault = true;
+    }
+
+    updatedAddresses.push(newAddress);
+    await updateProfile({ addresses: updatedAddresses });
+  };
+
+  const editAddress = async (id, updatedAddress) => {
+    let updatedAddresses = addresses.map((addr) =>
+      addr._id === id || addr.id === id ? { ...updatedAddress, _id: id } : addr,
     );
+
+    if (updatedAddress.isDefault) {
+      updatedAddresses = updatedAddresses.map((addr) => ({
+        ...addr,
+        isDefault: addr._id === id || addr.id === id,
+      }));
+    }
+
+    await updateProfile({ addresses: updatedAddresses });
+  };
+
+  const deleteAddress = async (id) => {
+    const updatedAddresses = addresses.filter(
+      (addr) => addr._id !== id && addr.id !== id,
+    );
+    await updateProfile({ addresses: updatedAddresses });
+  };
+
+  const setDefaultAddress = async (id) => {
+    const updatedAddresses = addresses.map((addr) => ({
+      ...addr,
+      isDefault: addr._id === id || addr.id === id,
+    }));
+    await updateProfile({ addresses: updatedAddresses });
   };
 
   return (

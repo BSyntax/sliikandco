@@ -29,9 +29,9 @@ export default function ShippingAddressSelector({ onAddressSelect, onAddNew }) {
   return (
     <div className="shipping-address-selector">
       <div className="saved-addresses-list">
-        {addresses.map((addr) => (
+        {addresses.map((addr, index) => (
           <div
-            key={addr.id}
+            key={addr.id || addr._id || index}
             className={`saved-address-item ${
               selectedId === addr.id ? "selected" : ""
             }`}

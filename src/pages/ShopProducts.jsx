@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BreadCrumb from "../components/wishitem/BreadCrumb";
 import ProductGrid from "../components/productGrid/ProductGrid";
 import FilterEdit from "../components/filter/FilterEdit";
@@ -8,17 +8,37 @@ import FollowUs from "../components/followUs/FollowUs";
 import "../components/navigation/ShopFilters.css";
 import { IoChevronDown } from "react-icons/io5";
 import { LuSlidersHorizontal } from "react-icons/lu";
+import { useParams } from "react-router-dom";
 
 import SidePanel from "../components/navigation/SidePanel";
 import { BiFilterAlt } from "react-icons/bi";
 
 export default function ShopProducts() {
+  const { gender: urlGender, category: urlCategory } = useParams();
   const [selectedSort, setSelectedSort] = useState("");
   const [itemCount, setItemCount] = useState(0);
   const [selectedFilters, setSelectedFilters] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [priceRange, setPriceRange] = useState({ min: 0, max: 2000 });
   const [showFilterPanel, setShowFilterPanel] = useState(false);
+
+  // Sync state with URL parameters
+  useEffect(() => {
+    const filters = {};
+    if (urlGender) {
+      // Capitalize first letter to match database values (e.g., 'men' -> 'Men')
+      filters.gender = [urlGender.charAt(0).toUpperCase() + urlGender.slice(1)];
+    }
+    if (urlCategory) {
+      // Logic for multi-word categories or specific mappings if needed
+      // For now, capitalize first letter
+      filters.category = [
+        urlCategory.charAt(0).toUpperCase() + urlCategory.slice(1),
+      ];
+    }
+    setSelectedFilters(filters);
+    setCurrentPage(1);
+  }, [urlGender, urlCategory]);
 
   const productsPerPage = 12;
 
@@ -49,9 +69,15 @@ export default function ShopProducts() {
     setCurrentPage(1);
   };
 
+  const breadcrumbTitle = urlCategory
+    ? urlCategory.charAt(0).toUpperCase() + urlCategory.slice(1)
+    : urlGender
+      ? urlGender.charAt(0).toUpperCase() + urlGender.slice(1)
+      : "Shop";
+
   return (
     <>
-      <BreadCrumb from="Home" current="Shop" />
+      <BreadCrumb from="Home" current={breadcrumbTitle} />
       <div className={`shop-page-flex container`}>
         <button
           className="mobile-filter-toggle"

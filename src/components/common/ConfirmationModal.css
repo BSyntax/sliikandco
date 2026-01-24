@@ -12,9 +12,9 @@
 }
 
 .modal-content {
-  background: white;
+  background: var(--color-white);
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: 2px;
   max-width: 400px;
   width: 90%;
   text-align: center;
@@ -22,13 +22,19 @@
 }
 
 .modal-content h2 {
+  font-size: var(--f-xl);
+  font-weight: 500;
   margin-bottom: 1rem;
-  color: #333;
+  color: var(--color-dark);
+  line-height: var(--l-normal);
 }
 
 .modal-content p {
   margin-bottom: 2rem;
-  color: #666;
+  font-size: var(--f-sm);
+  font-weight: 400;
+  color: var(--color-dark);
+  line-height: var(--l-normal);
 }
 
 .modal-actions {
@@ -38,21 +44,21 @@
 }
 
 .modal-content .delete-btn {
-  background-color: #dc3545 !important;
-  border-color: #dc3545 !important;
+  background-color: var(--color-danger) !important;
+  border-color: var(--color-danger) !important;
   color: white !important;
 }
 
 .modal-content .delete-btn:hover {
-  background-color: #c82333 !important;
+  background-color: var(--color-danger) !important;
 }
 
 .cancel-btn {
-  background-color: #6c757d !important;
-  border-color: #6c757d !important;
-  color: white !important;
+  background-color: transparent !important;
+  border-color: var(--color-gray) !important;
+  color: var(--color-dark) !important;
 }
 
 .cancel-btn:hover {
-  background-color: #5a6268 !important;
+  background-color: var(--color-gray-hover) !important;
 }

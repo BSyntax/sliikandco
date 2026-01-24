@@ -12,6 +12,8 @@ export default function Reviews({ product }) {
   const navigate = useNavigate();
 
   const [sortValue, setSortValue] = useState("recent");
+  const [currentPage, setCurrentPage] = useState(1);
+  const reviewsPerPage = 3;
 
   useEffect(() => {
     if (!product || !product.reviews) return;
@@ -48,10 +50,16 @@ export default function Reviews({ product }) {
 
     switch (sortValue) {
       case "recent":
-        sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
+        sorted.sort(
+          (a, b) =>
+            new Date(b.createdAt || b.date) - new Date(a.createdAt || a.date),
+        );
         break;
       case "oldest":
-        sorted.sort((a, b) => new Date(a.date) - new Date(b.date));
+        sorted.sort(
+          (a, b) =>
+            new Date(a.createdAt || a.date) - new Date(b.createdAt || b.date),
+        );
         break;
       case "high-rated":
         sorted.sort((a, b) => b.rating - a.rating);
@@ -60,7 +68,7 @@ export default function Reviews({ product }) {
         sorted.sort((a, b) => a.rating - b.rating);
         break;
       case "with-photos":
-        sorted = sorted.filter((r) => r.images?.length > 0);
+        sorted = sorted.filter((r) => r.images && r.images.length > 0);
         break;
       default:
         break;
@@ -69,8 +77,17 @@ export default function Reviews({ product }) {
     return sorted;
   }, [product, sortValue]);
 
+  // Pagination logic
+  const indexOfLastReview = currentPage * reviewsPerPage;
+  const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
+  const currentReviews = sortedReviews.slice(
+    indexOfFirstReview,
+    indexOfLastReview,
+  );
+  const totalPages = Math.ceil(sortedReviews.length / reviewsPerPage);
+
   const handleShowReviewForm = () => {
-    navigate(`/review/${product.id}`);
+    navigate(`/review/${product.id || product._id}`);
   };
 
   return (
@@ -91,12 +108,61 @@ export default function Reviews({ product }) {
             {renderStars(averageRating)}
             <span>{averageRating.toFixed(1)} out of 5</span>
           </div>
-          <div>Based on {product.reviews.length} reviews</div>
+          <div>Based on {product.reviews?.length || 0} reviews</div>
         </div>
 
         <RatingBreakdown counts={ratingCounts} />
-        <ReviewSort sortValue={sortValue} onSortChange={setSortValue} />
-        <ReviewList reviews={sortedReviews} />
+        <ReviewSort
+          sortValue={sortValue}
+          onSortChange={(val) => {
+            setSortValue(val);
+            setCurrentPage(1);
+          }}
+        />
+        <ReviewList reviews={currentReviews} />
+
+        {totalPages > 1 && (
+          <div
+            className="review-pagination"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "1rem",
+              marginTop: "2rem",
+              alignItems: "center",
+            }}
+          >
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              style={{
+                padding: "0.5rem 1rem",
+                cursor: currentPage === 1 ? "not-allowed" : "pointer",
+                border: "1px solid #ddd",
+                background: "none",
+              }}
+            >
+              Previous
+            </button>
+            <span>
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
+              disabled={currentPage === totalPages}
+              style={{
+                padding: "0.5rem 1rem",
+                cursor: currentPage === totalPages ? "not-allowed" : "pointer",
+                border: "1px solid #ddd",
+                background: "none",
+              }}
+            >
+              Next
+            </button>
+          </div>
+        )}
       </section>
     </>
   );

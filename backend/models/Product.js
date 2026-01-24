@@ -2,18 +2,17 @@ import mongoose from "mongoose";
 
 const reviewSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
+    name: { type: String },
     rating: { type: Number, required: true },
     comment: { type: String, required: true },
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User',
+      ref: "User",
     },
     date: {
       type: String,
       required: true,
-      default: () => new Date().toLocaleDateString('en-US'),
+      default: () => new Date().toLocaleDateString("en-US"),
     },
     recommend: {
       type: Boolean,
@@ -21,15 +20,14 @@ const reviewSchema = new mongoose.Schema(
     },
     images: [String],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const productSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User',
+      ref: "User",
     },
     name: {
       type: String,
@@ -97,7 +95,7 @@ const productSchema = new mongoose.Schema(
     gallery: [String],
     tags: [String],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.model("Product", productSchema);

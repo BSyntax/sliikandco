@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import Button from "../components/controls/Button";
 import InputControl from "../components/controls/InputControl";
 import { useAuth } from "../context/AuthProvider";
@@ -14,6 +14,7 @@ const PASSWORD_RULES = [
 
 export default function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -58,6 +59,10 @@ export default function Login() {
     if (!success) {
       setEmailError(message); // Or handle general error
       setIsLoading(false);
+    } else {
+      // Success - navigation is now handled in the component
+      const from = location.state?.from?.pathname || "/profile";
+      navigate(from, { replace: true });
     }
   };
 

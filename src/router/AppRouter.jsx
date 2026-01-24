@@ -17,7 +17,9 @@ import ReviewPage from "../pages/ReviewPage";
 import CheckoutForm from "../pages/CheckoutForm";
 import ScrollToTop from "../components/controls/ScrollToTop";
 import StripeCheckoutProvider from "../context/CheckoutProvider";
+
 import Profile from "../pages/Profile";
+import ProtectedRoute from "./ProtectedRoute";
 
 // Toast
 import { ToastContainer } from "react-toastify";
@@ -42,9 +44,19 @@ export default function AppRouter() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/shop" element={<ShopProducts />} />
+          <Route path="/shop/:gender" element={<ShopProducts />} />
+          <Route path="/shop/:gender/:category" element={<ShopProducts />} />
           <Route path="/review/:id" element={<ReviewPage />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/profile/*" element={<Profile />} />
+          <Route path="/search" element={<Search />} />
+          <Route
+            path="/profile/*"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/checkout"
             element={

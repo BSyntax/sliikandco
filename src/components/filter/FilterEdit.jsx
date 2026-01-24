@@ -20,7 +20,10 @@ export default function FilterEdit({
     "Price: High to Low",
   ];
 
-  const handleToggle = () => setIsOpen(!isOpen);
+  const handleToggle = (e) => {
+    e.stopPropagation();
+    setIsOpen(!isOpen);
+  };
 
   const handleSelect = (value) => {
     setSelected(value);
@@ -40,7 +43,9 @@ export default function FilterEdit({
 
   return (
     <div className="filter-edit container">
-      <div className="item-count">{itemCount} {initialText}</div>
+      <div className="item-count">
+        {itemCount} {initialText}
+      </div>
 
       <div className="filter-controls">
         <span className="filter-label">

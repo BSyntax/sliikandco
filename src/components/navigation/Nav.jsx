@@ -79,7 +79,10 @@ export default function Nav() {
               </NavLink>
               {dropdownType === "shop" && (
                 <div className="menu-dropdown active">
-                  <DropDownModel type="shop" />
+                  <DropDownModel
+                    type="shop"
+                    closeDropdown={() => setDropdownType(null)}
+                  />
                 </div>
               )}
             </div>
@@ -98,7 +101,10 @@ export default function Nav() {
               </NavLink>
               {dropdownType === "collection" && (
                 <div className="menu-dropdown active">
-                  <DropDownModel type="collection" />
+                  <DropDownModel
+                    type="collection"
+                    closeDropdown={() => setDropdownType(null)}
+                  />
                 </div>
               )}
             </div>
@@ -209,6 +215,10 @@ export default function Nav() {
               onClick={closeMobileMenu}
             >
               Contact
+            </NavLink>
+
+            <NavLink to="/wishlist" className="nav-link">
+              Wishlist
             </NavLink>
           </div>
 

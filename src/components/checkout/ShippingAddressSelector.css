@@ -5,8 +5,8 @@
 
 .saved-addresses-list {
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
@@ -89,4 +89,14 @@
 .add-new-address-action .add-address-card span {
   font-size: var(--f-md);
   font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .saved-addresses-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .add-new-address-action .add-address-card {
+    min-width: 100%;
+  }
 }

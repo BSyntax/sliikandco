@@ -259,11 +259,15 @@
 
   .product-actions {
     width: 100%;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   .product-actions .button {
-    flex: 1;
+    width: 100%;
+  }
+
+  .product-actions .icon-button {
+    width: 100%;
   }
 }

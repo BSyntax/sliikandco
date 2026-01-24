@@ -8,18 +8,18 @@ import {
   IoChevronDown,
   IoChevronUp,
 } from "react-icons/io5";
-import { encryptId } from "../../utils/idUtils";
 
 const OrderItem = ({ order }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const formattedDate = new Date(order.date).toLocaleDateString("en-US", {
+  const orderDate = order.createdAt || order.date;
+  const formattedDate = new Date(orderDate).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
     year: "numeric",
   });
 
-  const returnDate = new Date(order.date);
+  const returnDate = new Date(orderDate);
   returnDate.setDate(returnDate.getDate() + 30);
   const formattedReturnDate = returnDate.toLocaleDateString("en-US", {
     month: "long",
@@ -40,11 +40,15 @@ const OrderItem = ({ order }) => {
         </div>
         <div className="header-column">
           <span className="label">Total</span>
-          <span className="value">R{order.total.toFixed(2)}</span>
+          <span className="value">
+            R{(order.totalPrice ?? order.total ?? 0).toFixed(2)}
+          </span>
         </div>
         <div className="header-column">
           <span className="label">Ship to</span>
-          <span className="value link-text">Customer Name</span>
+          <span className="value link-text">
+            {order.shippingAddress?.name || "Customer"}
+          </span>
         </div>
         <div className="header-column right-align">
           <span className="label">Order {order.id}</span>
@@ -70,8 +74,11 @@ const OrderItem = ({ order }) => {
           </h3>
 
           <div className="order-products-list">
-            {order.items.map((item) => (
-              <div key={item.id} className="order-product-item">
+            {(order.orderItems || []).map((item, index) => (
+              <div
+                key={item.id || item._id || index}
+                className="order-product-item"
+              >
                 <div className="product-image-container">
                   <div className="product-image-bg">
                     <img src={item.image} alt={item.name} />
@@ -79,10 +86,7 @@ const OrderItem = ({ order }) => {
                 </div>
 
                 <div className="product-details">
-                  <Link
-                    to={`/product/${encryptId(item.id)}`}
-                    className="product-name"
-                  >
+                  <Link to={`/product/${item.id}`} className="product-name">
                     {item.name}
                   </Link>
                   <p className="return-window">
@@ -117,15 +121,16 @@ OrderItem.propTypes = {
     date: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     total: PropTypes.number.isRequired,
-    items: PropTypes.arrayOf(
+    orderItems: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-          .isRequired,
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         name: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
-        quantity: PropTypes.number.isRequired,
+        qty: PropTypes.number,
+        quantity: PropTypes.number,
         image: PropTypes.string.isRequired,
-      })
+      }),
     ).isRequired,
   }).isRequired,
 };

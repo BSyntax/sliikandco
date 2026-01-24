@@ -1,10 +1,12 @@
 import React from "react";
 import "./ConfirmationModal.css";
 import Button from "../controls/Button";
+import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
 const ConfirmationModal = ({ isOpen, onClose, onConfirm, title, message }) => {
+  useLockBodyScroll(isOpen);
   if (!isOpen) return null;
-
+  
   return (
     <div className="modal-overlay">
       <div className="modal-content">

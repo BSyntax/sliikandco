@@ -1,5 +1,6 @@
 .addresses-page {
   padding-bottom: 2rem;
+  padding-inline: 0rem !important;
 }
 
 .addresses-header {

@@ -1,14 +1,32 @@
-import React, { useState } from "react";
-import { orders } from "../../../data/orders";
+import React, { useState, useEffect } from "react";
 import OrderItem from "./OrderItem";
 import Button from "../controls/Button";
 import { Link } from "react-router-dom";
 import DateFilter from "../filter/DateFilter";
 import "./OrderHistory.css";
+import api from "../../utils/axios";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 export default function OrderHistory() {
   const [activeTab, setActiveTab] = useState("Orders");
   const [selectedDateFilter, setSelectedDateFilter] = useState("All Time");
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const { data } = await api.get("/orders/myorders");
+        setOrders(data);
+      } catch (error) {
+        console.error("Failed to fetch orders", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, []);
 
   const filterOrders = () => {
     let filtered = [...orders];
@@ -16,7 +34,7 @@ export default function OrderHistory() {
     // Filter by Tab
     if (activeTab === "Not Yet Shipped") {
       filtered = filtered.filter(
-        (order) => order.status !== "Delivered" && order.status !== "Cancelled"
+        (order) => !order.isDelivered && order.status !== "Cancelled",
       );
     } else if (activeTab === "Cancelled Orders") {
       filtered = filtered.filter((order) => order.status === "Cancelled");
@@ -25,7 +43,8 @@ export default function OrderHistory() {
     // Filter by Date
     const now = new Date();
     filtered = filtered.filter((order) => {
-      const orderDate = new Date(order.date);
+      // Order date might be 'createdAt' from MongoDB
+      const orderDate = new Date(order.createdAt || order.date);
       const diffTime = Math.abs(now - orderDate);
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
