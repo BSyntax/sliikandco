@@ -65,13 +65,25 @@ const AddressForm = ({
       </div>
 
       <div className="form-group login">
-        <label htmlFor="city">City / Postal code</label>
+        <label htmlFor="city">City</label>
         <Input
           id="city"
           name="city"
           value={formData.city}
           onChange={handleChange}
-          placeholder="City / Postal code"
+          placeholder="City"
+          required
+        />
+      </div>
+
+      <div className="form-group login">
+        <label htmlFor="postalCode">ZIP / Postal code</label>
+        <Input
+          id="postalCode"
+          name="postalCode"
+          value={formData.postalCode}
+          onChange={handleChange}
+          placeholder="ZIP / Postal code"
           required
         />
       </div>
@@ -106,6 +118,7 @@ export default function Addresses() {
     name: "",
     street: "",
     city: "",
+    postalCode: "",
     country: "",
     phone: "",
     isDefault: false,
@@ -122,6 +135,7 @@ export default function Addresses() {
       name: "",
       street: "",
       city: "",
+      postalCode: "",
       country: "",
       phone: "",
       isDefault: addresses.length === 0,
@@ -197,7 +211,9 @@ export default function Addresses() {
               <div className="address-content">
                 <h4>{addr.name}</h4>
                 <p>{addr.street}</p>
-                <p>{addr.city}</p>
+                <p>
+                  {addr.city}, {addr.postalCode}
+                </p>
                 <p>{addr.country}</p>
                 <p>Phone: {addr.phone}</p>
               </div>

@@ -123,7 +123,15 @@ export default function CheckoutForm() {
       phone: address.phone || prev.phone || "",
     }));
     // Clear errors as we assume saved addresses are valid
-    setErrors({});
+    // However, we must ensure zip is actually present to satisfy validation
+    setErrors((prev) => ({
+      ...prev,
+      name: "",
+      address: "",
+      city: "",
+      country: "",
+      zip: "",
+    }));
   }, []);
 
   const handleAddNewAddressClick = useCallback(() => {

@@ -24,6 +24,8 @@ export default function StripeCheckoutProvider({ children }) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (succeeded) return; // Don't reset or fetch new secret if we just finished successfully
+
     if (cart.length === 0) {
       setClientSecret("");
       return;
@@ -47,7 +49,7 @@ export default function StripeCheckoutProvider({ children }) {
         console.error("PaymentIntent failed:", err);
         setError("Failed to initialize payment. Please try again.");
       });
-  }, [cart]);
+  }, [cart, succeeded]);
 
   const options = useMemo(() => ({ clientSecret }), [clientSecret]);
 
@@ -68,7 +70,7 @@ export default function StripeCheckoutProvider({ children }) {
     );
   }
 
-  if (cart.length > 0 && !clientSecret && !error) {
+  if (cart.length > 0 && !clientSecret && !error && !succeeded) {
     return (
       <div className="checkout-page-wrapper">
         <p className="checkout-loading-state">Loading secure payment...</p>
@@ -76,7 +78,7 @@ export default function StripeCheckoutProvider({ children }) {
     );
   }
 
-  if (error) {
+  if (error && !succeeded) {
     return (
       <div className="checkout-page-wrapper">
         <p className="checkout-error-state">{error}</p>
@@ -91,11 +93,11 @@ export default function StripeCheckoutProvider({ children }) {
         value={{ clientSecret, succeeded, setSucceeded }}
       >
         <div className="checkout-page-wrapper">
-          {clientSecret && (
+          {clientSecret || succeeded ? (
             <Elements stripe={stripePromise} options={options}>
               {children}
             </Elements>
-          )}
+          ) : null}
         </div>
       </CheckoutContext.Provider>
     </>
