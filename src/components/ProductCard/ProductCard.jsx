@@ -74,6 +74,7 @@ export default function ProductCard({ product, onProductClick }) {
           onMouseEnter={handleImageHover}
           onMouseLeave={() => setImage(product.image)}
           alt={product.name}
+          loading="lazy"
         />
         <button className="wishlist-btn" onClick={handleWishlistToggle}>
           {isProductInWishlist ? (

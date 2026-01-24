@@ -16,10 +16,20 @@ export default function Hero() {
     <div className="hero">
       <div className="hero-image">
         <div className="image-container women-container">
-          <img src={heroWomen} alt="hero image 2" className="women" />
+          <img
+            src={heroWomen}
+            alt="hero image 2"
+            className="women"
+            fetchpriority="high"
+          />
         </div>
         <div className="image-container men-container">
-          <img src={heroMen} alt="hero image 1" className="man" />
+          <img
+            src={heroMen}
+            alt="hero image 1"
+            className="man"
+            fetchpriority="high"
+          />
         </div>
       </div>
 
