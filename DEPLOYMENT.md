@@ -22,7 +22,7 @@ This guide outlines the steps to host your full-stack application using Vercel, 
    - `MONGO_URI`: (Your Atlas connection string)
    - `JWT_SECRET`: (Any secure random string)
    - `STRIPE_SECRET_KEY`: (Your Stripe Secret Key)
-   - `FRONTEND_URL`: (Your Vercel URL, e.g., `https://sliikandco.vercel.app`)
+   - `FRONTEND_URL`: `https://sliikco.store`
    - `NODE_ENV`: `production`
 
 ## 3. Frontend (Vercel)
