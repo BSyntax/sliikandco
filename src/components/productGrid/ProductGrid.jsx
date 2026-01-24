@@ -3,6 +3,7 @@ import "./ProductGrid.css";
 import { useProducts } from "../../context/ProductProvider";
 import PropTypes from "prop-types";
 import { useEffect, useMemo } from "react";
+import LoadingSpinner from "../common/LoadingSpinner";
 
 export default function ProductGrid({
   headerTitle,
@@ -18,7 +19,7 @@ export default function ProductGrid({
   minPrice,
   maxPrice,
 }) {
-  const { products } = useProducts();
+  const { products, loading } = useProducts();
 
   const filteredProducts = useMemo(() => {
     let newFilteredProducts = [];
@@ -133,6 +134,10 @@ export default function ProductGrid({
     indexOfFirstProduct,
     indexOfLastProduct,
   );
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   if (filteredProducts.length === 0) {
     return (
