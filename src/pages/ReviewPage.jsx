@@ -75,7 +75,6 @@ export default function ReviewPage() {
         comment: review,
         recommend: recommend === "yes",
         name: fullName,
-        // images: photos // For now skipping actual image upload unless user has a utility for it
       });
 
       toast.success("Review submitted successfully!");

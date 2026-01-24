@@ -1599,7 +1599,7 @@ img {
 @media (max-width: 374px) {
   .review-page-container {
     width: 100%;
-    padding: 1rem;
+    padding: 1.5rem;
   }
 
   .review-page-container .review-page-form {

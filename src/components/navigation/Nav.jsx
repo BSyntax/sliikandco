@@ -190,7 +190,9 @@ export default function Nav() {
             >
               <span>Shop</span> <RiAddLine size={16} />
             </button>
-            {mobileDropdown === "shop" && <DropDownModel type="shop" />}
+            {mobileDropdown === "shop" && (
+              <DropDownModel type="shop" closeDropdown={closeMobileMenu} />
+            )}
 
             <button
               className="nav-link"
@@ -203,7 +205,10 @@ export default function Nav() {
               <span>Collections</span> <RiAddLine size={16} />
             </button>
             {mobileDropdown === "collection" && (
-              <DropDownModel type="collection" />
+              <DropDownModel
+                type="collection"
+                closeDropdown={closeMobileMenu}
+              />
             )}
 
             <NavLink to="/about" className="nav-link" onClick={closeMobileMenu}>
@@ -217,7 +222,11 @@ export default function Nav() {
               Contact
             </NavLink>
 
-            <NavLink to="/wishlist" className="nav-link">
+            <NavLink
+              to="/wishlist"
+              className="nav-link"
+              onClick={closeMobileMenu}
+            >
               Wishlist
             </NavLink>
           </div>
