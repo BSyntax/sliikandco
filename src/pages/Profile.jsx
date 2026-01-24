@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import Breadcrumbs from "../components/wishitem/BreadCrumb";
-import Sidebar from "../components/profile/sidebar.jsx";
+import Sidebar from "../components/profile/Sidebar.jsx";
 import ProfileMain from "../components/profile/ProfileMain.jsx";
 import ProfileInfo from "../components/profile/ProfileInfo.jsx";
 import OrderHistory from "../components/profile/OrderHistory.jsx";

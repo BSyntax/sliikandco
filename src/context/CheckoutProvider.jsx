@@ -5,10 +5,11 @@ import { useCart } from "./CartProvider";
 import BreadCrumb from "../components/wishitem/BreadCrumb";
 import Button from "../components/controls/Button";
 import { useNavigate } from "react-router-dom";
+import api from "../utils/axios";
 
 const stripePromise = loadStripe(
   import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY ||
-    "pk_test_51SGJRHLl6DRXnOadGlUZXYUokqQvDnMOhOGL4cdRcGzRPQXbO3AUvhRuXMUjMEvLb4zBcWjhiOakmNosnxu8tTiG00uvZ5LVBz"
+    "pk_test_51SGJRHLl6DRXnOadGlUZXYUokqQvDnMOhOGL4cdRcGzRPQXbO3AUvhRuXMUjMEvLb4zBcWjhiOakmNosnxu8tTiG00uvZ5LVBz",
 );
 
 const CheckoutContext = createContext();
@@ -27,10 +28,8 @@ export default function StripeCheckoutProvider({ children }) {
       return;
     }
 
-    fetch("http://127.0.0.1:5000/create-payment-intent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+    api
+      .post("/payment/create-payment-intent", {
         items: cart.map((item) => ({
           id: item.id,
           name: item.name,
@@ -39,13 +38,10 @@ export default function StripeCheckoutProvider({ children }) {
           size: item.size,
           selectedColor: item.selectedColor,
         })),
-      }),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Network error");
-        return res.json();
       })
-      .then((data) => setClientSecret(data.clientSecret))
+      .then((res) => {
+        setClientSecret(res.data.clientSecret);
+      })
       .catch((err) => {
         console.error("PaymentIntent failed:", err);
         setError("Failed to initialize payment. Please try again.");

@@ -127,3 +127,27 @@
     }
   }
 }
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .promo-banner {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .promo-banner .promo-image {
+    height: 500px;
+  }
+
+  .promo-banner .promo-content {
+    padding: 3rem;
+    height: auto;
+  }
+
+  .promo-content .promo-headline {
+    font-size: var(--f-2xl);
+  }
+
+  .promo-content .promo-description {
+    font-size: var(--f-md);
+  }
+}

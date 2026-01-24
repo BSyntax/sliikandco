@@ -1,5 +1,7 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/Users.js";
+import Order from "../models/Order.js";
+import Product from "../models/Product.js";
 import generateToken from "../utils/generateToken.js";
 import mongoose from "mongoose";
 
@@ -134,8 +136,21 @@ const deleteUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
+    // 1. Delete all user orders
+    await Order.deleteMany({ user: req.user._id });
+
+    // 2. Remove user reviews from all products
+    await Product.updateMany(
+      { "reviews.user": req.user._id },
+      { $pull: { reviews: { user: req.user._id } } },
+    );
+
+    // 3. Delete the user profile
     await user.deleteOne();
-    res.json({ message: "User deleted successfully" });
+
+    res.json({
+      message: "User and all associated data deleted successfully",
+    });
   } else {
     res.status(404);
     throw new Error("User not found");

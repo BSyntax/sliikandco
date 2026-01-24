@@ -708,7 +708,6 @@ img {
   .wishitem .product-name .wishlist-item-name {
     width: 100%;
     white-space: normal;
-
   }
 
   .wishitem .wishitem-price,
@@ -1086,7 +1085,7 @@ img {
   }
 }
 
-@media (min-width: 375px) and (max-width: 768px) {
+@media (min-width: 375px) and (max-width: 767px) {
   .about-container .about-text {
     width: 100%;
 
@@ -1105,6 +1104,30 @@ img {
 
   .about-container .about-images {
     display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .about-section .about-content {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .about-container .about-text {
+    width: 100%;
+    text-align: center;
+  }
+
+  .about-text .button {
+    margin-inline: auto;
+  }
+
+  .about-container .about-images {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    scale: 0.85;
   }
 }
 

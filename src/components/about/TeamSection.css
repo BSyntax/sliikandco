@@ -132,6 +132,11 @@
 
       &:not(:first-child) {
         margin-top: 2rem;
+        display: none;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 2rem;
       }
 
       & .team-name {
@@ -142,6 +147,17 @@
         font-size: var(--f-sm) !important;
       }
     }
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .team-section .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .team-section .team-card {
+    height: 350px;
   }
 }
 
