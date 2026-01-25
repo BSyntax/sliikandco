@@ -430,10 +430,6 @@ img {
 @media (min-width: 1024px) {
   .login-container {
     width: 100%;
-
-    .login-aligner {
-      height: calc(100vh - 80px - 244px);
-    }
   }
 }
 
@@ -3065,6 +3061,6 @@ img {
 .loading-text {
   font-size: var(--f-md);
   color: var(--text-color);
-  font-weight: 500;
+  font-weight: 400;
   font-family: "Jost", sans-serif;
 }

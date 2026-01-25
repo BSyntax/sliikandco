@@ -4,6 +4,7 @@ import { useProducts } from "../../context/ProductProvider";
 import PropTypes from "prop-types";
 import { useEffect, useMemo } from "react";
 import LoadingSpinner from "../common/LoadingSpinner";
+import NoProducts from "../../assets/images/no-products-found.webp";
 
 export default function ProductGrid({
   headerTitle,
@@ -143,7 +144,13 @@ export default function ProductGrid({
     return (
       <div className="no-products-found container">
         <div className="no-products-content">
-          <h3>No Items found</h3>
+          <div className="no-products-image-container">
+            <img
+              src={NoProducts}
+              alt="No Products Found"
+              className="no-products-image"
+            />
+          </div>
           <p>
             We couldn't find any products matching your current filters. Try
             adjusting your selections or clearing filters.

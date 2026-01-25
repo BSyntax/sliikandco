@@ -10,11 +10,15 @@ import {
   deleteUser,
   getUserById,
   updateUser,
+  forgotPassword,
+  resetPassword,
 } from "../controllers/authController.js";
 import { protect } from "../middleware/authMiddleware.js";
 
 router.route("/").post(registerUser).get(protect, getUsers);
 router.post("/login", loginUser);
+router.post("/forgot-password", forgotPassword);
+router.put("/reset-password/:token", resetPassword);
 router
   .route("/profile")
   .get(protect, getUserProfile)

@@ -19,15 +19,13 @@
   text-align: center;
 }
 
-.no-products-content h3 {
-  font-size: var(--f-2xl);
-  margin-bottom: 1rem;
-  font-weight: 500;
-  line-height: var(--l-normal);
+.no-products-found .no-products-image-container {
+  margin-bottom: 1.5rem;
 }
 
+
 .no-products-content p {
-  font-size: var(--f-xs);
+  font-size: var(--f-sm);
   font-weight: 400;
   line-height: var(--l-normal);
 }
