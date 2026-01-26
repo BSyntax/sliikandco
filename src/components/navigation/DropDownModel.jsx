@@ -6,7 +6,7 @@ export default function DropDownModel({ type, closeDropdown }) {
     shop: {
       Men: [
         { name: "Shop All", path: "/shop/men" },
-        { name: "Tops", path: "/shop/men/tops" },
+        { name: "Shirts", path: "/shop/men/shirts" },
         { name: "Jackets & Coats", path: "/shop/men/outerwear" },
         { name: "Pants & Jeans", path: "/shop/men/bottoms" },
         { name: "Accessories", path: "/shop/men/accessories" },

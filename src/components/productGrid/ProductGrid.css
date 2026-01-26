@@ -21,6 +21,9 @@
 
 .no-products-found .no-products-image-container {
   margin-bottom: 1.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 
