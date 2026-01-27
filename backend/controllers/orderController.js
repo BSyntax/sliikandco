@@ -19,6 +19,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
 
   if (orderItems && orderItems.length === 0) {
     res.status(400);
+
     throw new Error("No order items");
   } else {
     // Validate and fetch product details from database
@@ -29,6 +30,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
 
       if (!mongoose.isValidObjectId(productId)) {
         res.status(400);
+
         throw new Error(`Invalid product ID: ${productId}`);
       }
 
@@ -36,17 +38,17 @@ const addOrderItems = asyncHandler(async (req, res) => {
 
       if (!product) {
         res.status(404);
+
         throw new Error(`Product not found: ${productId}`);
       }
 
       const quantity = item.qty || item.quantity || 1;
 
-      // Check stock availability
-      if (product.countInStock < quantity) {
+      // Check stock availability (Boolean check)
+      if (product.inStock === false) {
         res.status(400);
-        throw new Error(
-          `Insufficient stock for ${product.name}. Available: ${product.countInStock}, Requested: ${quantity}`,
-        );
+
+        throw new Error(`Product out of stock: ${product.name}`);
       }
 
       // Use price from database, not from request

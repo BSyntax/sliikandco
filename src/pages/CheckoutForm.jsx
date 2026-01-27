@@ -107,9 +107,6 @@ export default function CheckoutForm() {
 
   const handleAddressSelect = useCallback(
     (address) => {
-      console.log("Address selected:", address);
-      console.log("Address country value:", address.country);
-
       // Comprehensive country mapping - handles both full names and codes
       const countryMap = {
         "South Africa": "ZA",
@@ -138,11 +135,8 @@ export default function CheckoutForm() {
         normalizedCountry = "ZA";
       }
 
-      console.log("Normalized country code:", normalizedCountry);
-
       // Ensure we get the postal code from the address object
       const postalCode = address.postalCode || address.zip || "";
-      console.log("Mapped postal code:", postalCode);
 
       const newFormData = {
         ...formData,
@@ -155,7 +149,6 @@ export default function CheckoutForm() {
         phone: address.phone || "",
       };
 
-      console.log("New form data after address selection:", newFormData);
       setFormData(newFormData);
 
       // Clear errors as we assume saved addresses are valid
@@ -248,37 +241,29 @@ export default function CheckoutForm() {
 
     const cardNumberElement = elements.getElement(CardNumberElement);
 
-    // Log all data before sending to Stripe
-    console.log("=== STRIPE PAYMENT DEBUG ===");
-    console.log("Form data:", formData);
-    console.log("Billing details to send:", {
+    const billingDetails = {
       name: formData.name.trim(),
       email: formData.email.trim(),
-      phone: formData.phone?.trim() || null,
       address: {
         line1: formData.address.trim(),
         city: formData.city.trim(),
-        country: formData.country,
+        country:
+          formData.country && formData.country.length === 2
+            ? formData.country
+            : "ZA",
         postal_code: formData.zip.trim(),
       },
-    });
-    console.log("=========================");
+    };
+
+    if (formData.phone && formData.phone.trim()) {
+      billingDetails.phone = formData.phone.trim();
+    }
 
     const { error: stripeError, paymentIntent } =
       await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: cardNumberElement,
-          billing_details: {
-            name: formData.name.trim(),
-            email: formData.email.trim(),
-            phone: formData.phone?.trim() || null,
-            address: {
-              line1: formData.address.trim(),
-              city: formData.city.trim(),
-              country: formData.country,
-              postal_code: formData.zip.trim(),
-            },
-          },
+          billing_details: billingDetails,
         },
       });
 
@@ -288,6 +273,7 @@ export default function CheckoutForm() {
       setError(stripeError.message);
       setProcessing(false);
     } else if (paymentIntent?.status === "succeeded") {
+      let orderData;
       try {
         const orderItems = cart.map((item) => ({
           ...item,
@@ -295,7 +281,7 @@ export default function CheckoutForm() {
           _id: undefined, // Clear any existing _id to avoid conflicts if needed, or keeping it is fine if backend ignores
         }));
 
-        const orderData = {
+        orderData = {
           orderItems,
           shippingAddress: {
             name: formData.name,
@@ -320,20 +306,11 @@ export default function CheckoutForm() {
           },
         };
 
-        console.log("Order creation response:", orderData);
         await api.post("/orders", orderData);
 
-        console.log("Setting succeeded to true");
         clearCart();
         setSucceeded(true);
       } catch (err) {
-        console.error("Order creation failed:", err);
-        console.error("Error details:", {
-          message: err.message,
-          response: err.response?.data,
-          status: err.response?.status,
-          orderData: orderData,
-        });
         setError(
           `Payment succeeded but order creation failed: ${err.response?.data?.message || err.message}. Please contact support.`,
         );

@@ -70,10 +70,10 @@ const productSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
-    countInStock: {
-      type: Number,
+    inStock: {
+      type: Boolean,
       required: true,
-      default: 0,
+      default: true,
     },
     sizesAvailable: [String],
     sizeType: String,
