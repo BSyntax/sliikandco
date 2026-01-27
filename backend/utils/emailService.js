@@ -107,3 +107,42 @@ export const sendPasswordResetEmail = async ({ email, name, resetUrl }) => {
     throw error;
   }
 };
+
+/**
+ * Send contact form email to admin
+ * @param {Object} options - Email options
+ * @param {string} options.name - Sender name
+ * @param {string} options.email - Sender email
+ * @param {string} options.phone - Sender phone
+ * @param {string} options.message - Message content
+ */
+export const sendContactEmail = async ({ name, email, phone, message }) => {
+  try {
+    const { data, error } = await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev",
+      to: "mzu.nqwiliso@gmail.com",
+      subject: `New Contact Form Submission from ${name}`,
+      html: `
+        <h2>New Contact Message</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <div style="margin-top: 20px; padding: 15px; background-color: #f5f5f5; border-left: 4px solid #333;">
+          <p><strong>Message:</strong></p>
+          <p>${message}</p>
+        </div>
+      `,
+    });
+
+    if (error) {
+      console.error("Resend error:", error);
+      throw new Error("Failed to send email");
+    }
+
+    return { success: true, data };
+  } catch (error) {
+    console.error("Email service error:", error);
+    // Don't throw here, just log it. valid submission should still be saved to DB
+    return { success: false, error };
+  }
+};

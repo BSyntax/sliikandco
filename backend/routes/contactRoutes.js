@@ -1,2 +1,8 @@
-// Contact Routes Placeholder
-// Defines routes for contact form submissions. Maps to contactController.
+import express from "express";
+import { submitContactForm } from "../controllers/contactController.js";
+
+const router = express.Router();
+
+router.post("/", submitContactForm);
+
+export default router;

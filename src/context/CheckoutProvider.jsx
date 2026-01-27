@@ -7,10 +7,7 @@ import Button from "../components/controls/Button";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/axios";
 
-const stripePromise = loadStripe(
-  import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY ||
-    "pk_test_51SGJRHLl6DRXnOadGlUZXYUokqQvDnMOhOGL4cdRcGzRPQXbO3AUvhRuXMUjMEvLb4zBcWjhiOakmNosnxu8tTiG00uvZ5LVBz",
-);
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 const CheckoutContext = createContext();
 

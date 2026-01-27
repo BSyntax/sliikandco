@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+import api from "../utils/axios";
 import ContactImage from "../assets/images/contact-store.webp";
 import BreadCrumb from "../components/wishitem/BreadCrumb";
 import Button from "../components/controls/Button";
@@ -14,6 +16,7 @@ export default function Contact() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [fullNameError, setFullNameError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -40,7 +43,7 @@ export default function Contact() {
     setMessageError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!fullName.trim()) {
@@ -68,7 +71,36 @@ export default function Contact() {
     }
     setMessageError("");
 
-    navigate("/");
+    setMessageError("");
+
+    setLoading(true);
+    try {
+      await api.post("/contact", {
+        name: fullName,
+        email,
+        phone,
+        message,
+      });
+
+      toast.success("Message sent successfully! We will get back to you soon.");
+
+      // Reset form
+      setFullName("");
+      setEmail("");
+      setPhone("");
+      setMessage("");
+
+      // Optional: Navigate to home or stay on page
+      // navigate("/");
+    } catch (error) {
+      console.error("Contact form error:", error);
+      toast.error(
+        error.response?.data?.message ||
+          "Failed to send message. Please try again.",
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -166,7 +198,11 @@ export default function Contact() {
                   )}
                 </div>
 
-                <Button text="Submit" type="submit" />
+                <Button
+                  text={loading ? "Sending..." : "Submit"}
+                  type="submit"
+                  disabled={loading}
+                />
               </form>
             </div>
           </div>

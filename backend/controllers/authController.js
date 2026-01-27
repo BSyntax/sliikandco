@@ -58,7 +58,6 @@ const registerUser = asyncHandler(async (req, res) => {
       email: user.email,
       phone: user.phone,
       birthDate: user.birthDate,
-      birthDate: user.birthDate,
       isAdmin: user.isAdmin,
       addresses: user.addresses,
       token: generateToken(user._id),
@@ -81,7 +80,6 @@ const getUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       phone: user.phone,
-      birthDate: user.birthDate,
       birthDate: user.birthDate,
       isAdmin: user.isAdmin,
       addresses: user.addresses,
@@ -119,7 +117,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       name: updatedUser.name,
       email: updatedUser.email,
       phone: updatedUser.phone,
-      birthDate: updatedUser.birthDate,
       birthDate: updatedUser.birthDate,
       isAdmin: updatedUser.isAdmin,
       addresses: updatedUser.addresses,
@@ -178,7 +175,7 @@ const deleteUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
   if (user) {
-    await user.remove();
+    await user.deleteOne();
     res.json({ message: "User removed" });
   } else {
     res.status(404);
@@ -296,8 +293,15 @@ const resetPassword = asyncHandler(async (req, res) => {
     throw new Error("Invalid or expired reset token");
   }
 
+  // Validate new password
+  const { password } = req.body;
+  if (!password || password.length < 6) {
+    res.status(400);
+    throw new Error("Password must be at least 6 characters long");
+  }
+
   // Set new password
-  user.password = req.body.password;
+  user.password = password;
   user.resetPasswordToken = undefined;
   user.resetPasswordExpire = undefined;
 

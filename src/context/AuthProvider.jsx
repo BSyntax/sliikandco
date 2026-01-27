@@ -11,9 +11,14 @@ export const AuthProvider = ({ children }) => {
 
   // Initialize auth state from localStorage
   useEffect(() => {
-    const userInfo = localStorage.getItem("userInfo");
-    if (userInfo) {
-      setUser(JSON.parse(userInfo));
+    try {
+      const userInfo = localStorage.getItem("userInfo");
+      if (userInfo) {
+        setUser(JSON.parse(userInfo));
+      }
+    } catch (error) {
+      console.error("Failed to parse user info from localStorage:", error);
+      localStorage.removeItem("userInfo");
     }
     setLoading(false);
   }, []);
@@ -113,13 +118,17 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("userInfo");
-    navigate("/");
+    // Use setTimeout to ensure state update processes before navigation if needed,
+    // though usually state update is enough.
+    // Ensuring navigation happens after local storage clear.
+    setTimeout(() => {
+      navigate("/");
+    }, 0);
   };
 
   const addresses = user?.addresses || [];
 
   const addAddress = async (newAddress) => {
-
     let updatedAddresses = [...addresses];
 
     if (newAddress.isDefault || addresses.length === 0) {

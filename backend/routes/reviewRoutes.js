@@ -1,2 +1,9 @@
-// Review Routes Placeholder
-// Defines routes for reviews (add review, get reviews). Maps to reviewController.
+import express from "express";
+import { getReviews, createReview } from "../controllers/reviewController.js";
+import { protect } from "../middleware/authMiddleware.js";
+
+const router = express.Router();
+
+router.route("/").get(getReviews).post(protect, createReview);
+
+export default router;

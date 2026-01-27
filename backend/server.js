@@ -13,6 +13,9 @@ import { createPaymentIntent } from "./controllers/paymentController.js";
 import authRoutes from "./routes/authRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import reviewRoutes from "./routes/reviewRoutes.js";
+import wishlistRoutes from "./routes/wishlistRoutes.js";
+import contactRoutes from "./routes/contactRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import colors from "colors";
 
@@ -38,7 +41,9 @@ app.use(
       ) {
         callback(null, true);
       } else {
-        callback(new Error("Not allowed by CORS"));
+        const msg =
+          "The CORS policy for this site does not allow access from the specified Origin.";
+        return callback(null, false);
       }
     },
     credentials: true,
@@ -60,6 +65,9 @@ app.use("/api/payment", (req, res, next) => {
 app.use("/api/users", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/reviews", reviewRoutes);
+app.use("/api/wishlist", wishlistRoutes);
+app.use("/api/contact", contactRoutes);
 
 // Error handling
 app.use(notFound);

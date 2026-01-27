@@ -30,6 +30,13 @@ const getProducts = asyncHandler(async (req, res) => {
 // @route   GET /api/products/:id
 // @access  Public
 const getProductById = asyncHandler(async (req, res) => {
+  const mongoose = await import("mongoose");
+
+  if (!mongoose.default.isValidObjectId(req.params.id)) {
+    res.status(404);
+    throw new Error("Product not found");
+  }
+
   const product = await Product.findById(req.params.id);
 
   if (product) {
@@ -47,7 +54,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
 
   if (product) {
-    await product.remove();
+    await product.deleteOne();
     res.json({ message: "Product removed" });
   } else {
     res.status(404);
@@ -94,6 +101,12 @@ const updateProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
 
   if (product) {
+    // Validate stock is not negative
+    if (countInStock !== undefined && countInStock < 0) {
+      res.status(400);
+      throw new Error("Stock count cannot be negative");
+    }
+
     product.name = name;
     product.price = price;
     product.description = description;
@@ -142,9 +155,13 @@ const createProductReview = asyncHandler(async (req, res) => {
 
     product.numReviews = product.reviews.length;
 
+    // Calculate average rating, ensuring we don't divide by zero
+    const totalRating = product.reviews.reduce(
+      (acc, item) => (item.rating || 0) + acc,
+      0,
+    );
     product.rating =
-      product.reviews.reduce((acc, item) => (item.rating || 0) + acc, 0) /
-      product.reviews.length;
+      product.numReviews > 0 ? totalRating / product.numReviews : 0;
 
     await product.save();
     res.status(201).json({ message: "Review added" });

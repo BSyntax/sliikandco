@@ -1,5 +1,7 @@
 import asyncHandler from "express-async-handler";
 import Order from "../models/Order.js";
+import Product from "../models/Product.js";
+import mongoose from "mongoose";
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -19,13 +21,46 @@ const addOrderItems = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("No order items");
   } else {
+    // Validate and fetch product details from database
+    const orderItemsWithDetails = [];
+
+    for (const item of orderItems) {
+      const productId = item.product || item.id || item._id;
+
+      if (!mongoose.isValidObjectId(productId)) {
+        res.status(400);
+        throw new Error(`Invalid product ID: ${productId}`);
+      }
+
+      const product = await Product.findById(productId);
+
+      if (!product) {
+        res.status(404);
+        throw new Error(`Product not found: ${productId}`);
+      }
+
+      const quantity = item.qty || item.quantity || 1;
+
+      // Check stock availability
+      if (product.countInStock < quantity) {
+        res.status(400);
+        throw new Error(
+          `Insufficient stock for ${product.name}. Available: ${product.countInStock}, Requested: ${quantity}`,
+        );
+      }
+
+      // Use price from database, not from request
+      orderItemsWithDetails.push({
+        product: product._id,
+        name: product.name,
+        image: product.image,
+        price: product.price, // Use DB price, not client price
+        qty: quantity,
+      });
+    }
+
     const order = new Order({
-      orderItems: orderItems.map((x) => ({
-        ...x,
-        product: x.product || x.id || x._id,
-        qty: x.qty || x.quantity || 1,
-        _id: undefined,
-      })),
+      orderItems: orderItemsWithDetails,
       user: req.user._id,
       shippingAddress,
       paymentMethod,
@@ -45,12 +80,26 @@ const addOrderItems = asyncHandler(async (req, res) => {
 // @route   GET /api/orders/:id
 // @access  Private
 const getOrderById = asyncHandler(async (req, res) => {
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    res.status(404);
+    throw new Error("Order not found");
+  }
+
   const order = await Order.findById(req.params.id).populate(
     "user",
     "name email",
   );
 
   if (order) {
+    // Check if user owns this order or is admin
+    if (
+      order.user._id.toString() !== req.user._id.toString() &&
+      !req.user.isAdmin
+    ) {
+      res.status(403);
+      throw new Error("Not authorized to view this order");
+    }
+
     res.json(order);
   } else {
     res.status(404);
@@ -59,9 +108,14 @@ const getOrderById = asyncHandler(async (req, res) => {
 });
 
 // @desc    Update order to paid
-// @route   GET /api/orders/:id/pay
+// @route   PUT /api/orders/:id/pay
 // @access  Private
 const updateOrderToPaid = asyncHandler(async (req, res) => {
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    res.status(404);
+    throw new Error("Order not found");
+  }
+
   const order = await Order.findById(req.params.id);
 
   if (order) {
@@ -84,9 +138,14 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 });
 
 // @desc    Update order to delivered
-// @route   GET /api/orders/:id/deliver
+// @route   PUT /api/orders/:id/deliver
 // @access  Private/Admin
 const updateOrderToDelivered = asyncHandler(async (req, res) => {
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    res.status(404);
+    throw new Error("Order not found");
+  }
+
   const order = await Order.findById(req.params.id);
 
   if (order) {

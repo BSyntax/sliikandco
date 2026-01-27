@@ -25,10 +25,24 @@ export const CartProvider = ({ children }) => {
 
   const addCart = (product) => {
     setCart((prev) => {
-      const existing = prev.find((i) => i.id === product.id);
+      const existing = prev.find(
+        (i) =>
+          i.id === product.id &&
+          i.size === product.size &&
+          i.selectedColor === product.selectedColor,
+      );
+
       if (existing) {
+        // limit quantity to 10 per item or stock count if available
+        const maxQty = product.countInStock || 10;
+        if (existing.quantity >= maxQty) return prev;
+
         return prev.map((i) =>
-          i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i,
+          i.id === product.id &&
+          i.size === product.size &&
+          i.selectedColor === product.selectedColor
+            ? { ...i, quantity: i.quantity + 1 }
+            : i,
         );
       }
       return [...prev, { ...product, quantity: 1 }];
