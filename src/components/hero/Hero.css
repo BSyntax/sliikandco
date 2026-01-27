@@ -161,3 +161,37 @@
     font-size: var(--f-3xl);
   }
 }
+
+@media (max-width: 767px) {
+  .hero .hero-image {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+  }
+
+  .image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  .hero-image.slide-0 .women-container {
+    transform: translateX(0);
+  }
+
+  .hero-image.slide-0 .men-container {
+    transform: translateX(100%);
+  }
+
+  .hero-image.slide-1 .women-container {
+    transform: translateX(100%);
+  }
+
+  .hero-image.slide-1 .men-container {
+    transform: translateX(0);
+  }
+}

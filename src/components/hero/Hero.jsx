@@ -7,6 +7,15 @@ import { useNavigate } from "react-router";
 
 export default function Hero() {
   const navigate = useNavigate();
+  const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? 1 : 0));
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleExplore = () => {
     navigate("/shop");
@@ -14,7 +23,7 @@ export default function Hero() {
 
   return (
     <div className="hero">
-      <div className="hero-image">
+      <div className={`hero-image slide-${currentImageIndex}`}>
         <div className="image-container women-container">
           <img
             src={heroWomen}

@@ -71,13 +71,12 @@
 }
 
 .filter-selected {
-  font-size: var(--sml-s);
+  font-size: var(--f-sm);
   font-weight: 400;
   color: var(--text-clr);
   line-height: var(--line-height);
 }
 
-/* Arrow */
 .filter-select-arrow {
   font-size: 13px;
   color: #888;
@@ -87,18 +86,15 @@
   line-height: 20px;
 }
 
-/* Active */
 .filter-select-container:active {
   background-color: #f8f9fa;
 }
 
-/* When opened */
 .filter-select-container.filter-active {
   border-radius: 2px 2px 0 0;
   background-color: #f8f9fa;
 }
 
-/* Options panel */
 .filter-options {
   position: absolute;
   background-color: #fff;
@@ -118,10 +114,9 @@
   max-height: 144px;
 }
 
-/* Option item */
 .filter-options li {
   padding: 5px 0.625rem;
-  font-size: var(--sml-s);
+  font-size: var(--f-sm);
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   list-style: none;
@@ -133,4 +128,36 @@
 
 .filter-options li:active {
   background-color: #e2e2e2;
+}
+
+@media screen and (max-width: 768px) {
+  .filter-edit {
+    .item-count {
+      font-size: var(--f-xs);
+    }
+
+    .filter-controls {
+      .filter-label {
+        font-size: var(--f-sm);
+      }
+    }
+
+    .filter-select-container {
+      width: 140px;
+      max-height: 144px;
+
+      .filter-selected {
+        font-size: var(--f-xs);
+      }
+    }
+
+    .filter-options li {
+      font-size: var(--f-xs);
+    }
+
+    .filter-select-box {
+      width: 140px;
+      justify-content: end;
+    }
+  }
 }
