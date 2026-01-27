@@ -42,9 +42,11 @@ export default function PerksBar() {
       <div className="container">
         {perks.map((perk, index) => (
           <div key={index} className="perk-item">
-            <div className="perk-icon">{perk.icon}</div>
             <div className="perk-content">
-              <h4 className="perk-title">{perk.title}</h4>
+              <div className="perk-header">
+                <span className="perk-icon">{perk.icon}</span>
+                <h4 className="perk-title">{perk.title}</h4>
+              </div>
               <p className="perk-description">{perk.description}</p>
               <Link to={perk.link} className="perk-button">
                 {perk.buttonText} <LuArrowUpRight />

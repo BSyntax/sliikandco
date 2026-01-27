@@ -20,6 +20,13 @@
   padding-inline: 3rem;
 }
 
+.perk-item .perk-content .perk-header {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .perk-item .perk-icon {
   font-size: 1.5rem;
   font-weight: 500;
@@ -37,9 +44,8 @@
   font-size: var(--f-sm);
   font-weight: 400;
   color: #dee2e6;
-  margin-top: 0.5rem;
   line-height: var(--l-normal);
-  margin-bottom: 0.5rem;
+  margin-block: 0.5rem;
 }
 
 .perk-item .perk-button {
@@ -49,6 +55,7 @@
   line-height: var(--l-normal);
   cursor: pointer;
   position: relative;
+  margin-top: auto;
 }
 
 .perk-item .perk-button::after {
