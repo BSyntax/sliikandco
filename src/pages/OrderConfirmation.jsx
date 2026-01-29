@@ -12,6 +12,7 @@ export default function OrderConfirmation() {
           src="https://lottie.host/6d24bf4a-9000-41a9-af6c-95d340585af4/IttqWa2743.lottie"
           autoplay={true}
           loop={false}
+          speed={1.5}
         />
 
         <h2 className="success-payment">You're all set!</h2>
