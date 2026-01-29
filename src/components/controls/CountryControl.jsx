@@ -1,53 +1,23 @@
 import React, { useEffect, useState, useRef } from "react";
-import "./CountryControl.css";
 import PropTypes from "prop-types";
 import { IoChevronDown } from "react-icons/io5";
+import { getAllCountries } from "../../utils/countryConfig";
+import "./CountryControl.css";
 
-export default function CountryControl({ value, onChange }) {
+export default function CountryControl({ value, onChange, error }) {
   const [countries, setCountries] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(
-          "https://restcountries.com/v3.1/all?fields=name,cca2"
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch countries");
-        }
-
-        const data = await response.json();
-
-        const countryOptions = data
-          .map((country) => ({
-            code: country.cca2,
-            name: country.name.common,
-          }))
-          .sort((a, b) => a.name.localeCompare(b.name));
-
-        setCountries(countryOptions);
-        setError(null);
-      } catch (err) {
-        setError(err.message);
-        console.error("Error fetching countries:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCountries();
+    const list = getAllCountries();
+    setCountries(list);
   }, []);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setIsOpen(false);
         setHighlightedIndex(-1);
       }
@@ -61,8 +31,8 @@ export default function CountryControl({ value, onChange }) {
     if (!isOpen) setHighlightedIndex(-1);
   };
 
-  const handleSelect = (countryCode) => {
-    onChange(countryCode);
+  const handleSelect = (code) => {
+    onChange(code);
     setIsOpen(false);
     setHighlightedIndex(-1);
   };
@@ -86,29 +56,18 @@ export default function CountryControl({ value, onChange }) {
       );
     } else if (e.key === "Enter") {
       e.preventDefault();
-      if (highlightedIndex >= 0) {
-        handleSelect(countries[highlightedIndex].code);
-      }
+      if (highlightedIndex >= 0) handleSelect(countries[highlightedIndex].code);
     } else if (e.key === "Escape") {
       setIsOpen(false);
       setHighlightedIndex(-1);
     }
   };
 
-  if (loading) {
-    return <div className="country-control">Loading countries...</div>;
-  }
-
-  if (error) {
-    return <div className="country-control error">Error: {error}</div>;
-  }
-
   const selectedCountry = countries.find((c) => c.code === value);
 
   return (
     <div className="country-control">
       <div
-        id="country-select"
         className={`filter-select-container ${isOpen ? "filter-active" : ""}`}
         onClick={handleToggle}
         onKeyDown={handleKeyDown}
@@ -144,6 +103,7 @@ export default function CountryControl({ value, onChange }) {
           </ul>
         )}
       </div>
+      {error && <span className="error-text">{error}</span>}
     </div>
   );
 }
@@ -151,6 +111,7 @@ export default function CountryControl({ value, onChange }) {
 CountryControl.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  error: PropTypes.string,
 };
 
 CountryControl.defaultProps = {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthProvider";
 import "./ShippingAddressSelector.css";
 import { IoAdd } from "react-icons/io5";
-// Note: I will need to create this CSS file or add styles to a parent CSS
+
 
 export default function ShippingAddressSelector({ onAddressSelect, onAddNew }) {
   const { addresses } = useAuth();

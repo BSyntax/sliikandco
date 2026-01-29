@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "../controls/Button.jsx";
 import Input from "../controls/InputControl.jsx";
+import CountryControl from "../controls/CountryControl.jsx";
 import "./Addresses.css";
 import { IoAdd } from "react-icons/io5";
 
@@ -19,13 +20,11 @@ const AddressForm = ({
 
       <div className="form-group login">
         <label htmlFor="country">Country/Region</label>
-        <Input
-          id="country"
-          name="country"
+        <CountryControl
           value={formData.country}
-          onChange={handleChange}
-          placeholder="Country"
-          required
+          onChange={(code) =>
+            handleChange({ target: { name: "country", value: code } })
+          }
         />
       </div>
 
@@ -126,7 +125,7 @@ export default function Addresses() {
 
   const handleEdit = (address) => {
     setFormData(address);
-    setEditingId(address.id);
+    setEditingId(address.id || address._id);
     setIsAdding(false);
   };
 
@@ -191,10 +190,10 @@ export default function Addresses() {
           </div>
         )}
 
-        {addresses.map((addr) =>
-          editingId === addr.id ? (
+        {addresses.map((addr, index) =>
+          editingId === (addr.id || addr._id) ? (
             <AddressForm
-              key={addr.id}
+              key={addr.id || addr._id || index}
               isAdding={false}
               formData={formData}
               handleChange={handleChange}
@@ -203,7 +202,7 @@ export default function Addresses() {
             />
           ) : (
             <div
-              key={addr.id}
+              key={addr.id || addr._id || index}
               className={`address-card ${addr.isDefault ? "default" : ""}`}
             >
               {addr.isDefault && <div className="default-badge">Default</div>}
@@ -229,7 +228,7 @@ export default function Addresses() {
                   <span className="separator">|</span>
                   <button
                     className="action-link"
-                    onClick={() => handleRemove(addr.id)}
+                    onClick={() => handleRemove(addr.id || addr._id)}
                   >
                     Remove
                   </button>
@@ -237,7 +236,7 @@ export default function Addresses() {
                 {!addr.isDefault && (
                   <button
                     className="action-link set-default-btn"
-                    onClick={() => handleSetDefault(addr.id)}
+                    onClick={() => handleSetDefault(addr.id || addr._id)}
                   >
                     Set as Default
                   </button>

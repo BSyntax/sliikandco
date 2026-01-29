@@ -22,7 +22,7 @@ const addressSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
-      required: true,
+      default: "",
     },
     postalCode: {
       type: String,

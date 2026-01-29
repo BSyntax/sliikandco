@@ -130,8 +130,8 @@ export default function OrderHistory() {
                 </Link>
               </div>
             ) : (
-              filteredOrders.map((order) => (
-                <OrderItem key={order.id} order={order} />
+              filteredOrders.map((order, index) => (
+                <OrderItem key={order.id || order._id || index} order={order} />
               ))
             )}
           </div>

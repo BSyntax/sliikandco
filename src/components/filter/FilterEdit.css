@@ -157,7 +157,7 @@
 
     .filter-select-box {
       width: 140px;
-      justify-content: end;
+      justify-content: space-between;
     }
   }
 }

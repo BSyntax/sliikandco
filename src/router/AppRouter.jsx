@@ -18,11 +18,11 @@ import ReviewPage from "../pages/ReviewPage";
 import CheckoutForm from "../pages/CheckoutForm";
 import ScrollToTop from "../components/controls/ScrollToTop";
 import StripeCheckoutProvider from "../context/CheckoutProvider";
+import OrderConfirmation from "../pages/OrderConfirmation";
 
 import Profile from "../pages/Profile";
 import ProtectedRoute from "./ProtectedRoute";
 
-// Toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -64,6 +64,14 @@ export default function AppRouter() {
             element={
               <StripeCheckoutProvider>
                 <CheckoutForm />
+              </StripeCheckoutProvider>
+            }
+          />
+          <Route
+            path="/order-confirmation"
+            element={
+              <StripeCheckoutProvider>
+                <OrderConfirmation />
               </StripeCheckoutProvider>
             }
           />

@@ -14,13 +14,18 @@ import { useAuth } from "../context/AuthProvider";
 import Button from "../components/controls/Button";
 import InputControl from "../components/controls/InputControl";
 import CountryControl from "../components/controls/CountryControl";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import PaymentCardForm from "../components/paymentForm/PaymentCardForm";
 import ShippingAddressSelector from "../components/checkout/ShippingAddressSelector";
+import { getAllCountries } from "../utils/countryConfig";
+
+import countries from "i18n-iso-countries";
+import en from "i18n-iso-countries/langs/en.json";
 
 import Card1 from "../assets/cards/card-1.webp";
 import Card3 from "../assets/cards/card-3.webp";
 import Card4 from "../assets/cards/card-4.webp";
+
+countries.registerLocale(en);
 
 const cards = [Card3, Card4, Card1];
 const VAT = 15;
@@ -38,7 +43,6 @@ export default function CheckoutForm() {
 
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(null);
-
   const [isAddingNewAddress, setIsAddingNewAddress] = useState(false);
   const [saveAddress, setSaveAddress] = useState(true);
 
@@ -63,34 +67,31 @@ export default function CheckoutForm() {
   });
 
   useEffect(() => {
-    if (user && user.email) {
+    if (user?.email) {
       setFormData((prev) => ({ ...prev, email: user.email }));
     }
   }, [user]);
 
   useEffect(() => {
-    if (!user) {
-      setIsAddingNewAddress(true);
-    } else {
-      setIsAddingNewAddress(false);
-    }
+    setIsAddingNewAddress(!user);
   }, [user]);
 
   const subtotal = cart.reduce(
     (sum, item) => sum + (item.price ?? 0) * (item.quantity ?? 1),
     0,
   );
+
   const vatAmount = subtotal * (VAT / 100);
   const totalAmount =
     subtotal + vatAmount >= 500
       ? subtotal + vatAmount
       : subtotal + vatAmount + DELIVERY_FEE;
+
   const formatPrice = (amount) => `R${(amount ?? 0).toFixed(2)}`;
 
   useEffect(() => {
     if (succeeded) {
-      const timer = setTimeout(() => navigate("/"), 15000);
-      return () => clearTimeout(timer);
+      navigate("/order-confirmation");
     }
   }, [succeeded, navigate]);
 
@@ -101,57 +102,38 @@ export default function CheckoutForm() {
   };
 
   const handleCountryChange = (value) => {
-    setFormData((prev) => ({ ...prev, country: value }));
+    const alpha2 =
+      value.length === 2
+        ? value.toUpperCase()
+        : countries.getAlpha2Code(value, "en");
+
+    if (!alpha2) {
+      setErrors((prev) => ({ ...prev, country: "Invalid country" }));
+      return;
+    }
+
+    setFormData((prev) => ({ ...prev, country: alpha2 }));
     setErrors((prev) => ({ ...prev, country: "" }));
   };
 
   const handleAddressSelect = useCallback(
     (address) => {
-      // Comprehensive country mapping - handles both full names and codes
-      const countryMap = {
-        "South Africa": "ZA",
-        "United States": "US",
-        "United Kingdom": "GB",
-        Poland: "PL",
-        // Add reverse mappings for safety
-        ZA: "ZA",
-        US: "US",
-        GB: "GB",
-        PL: "PL",
-      };
+      const normalizedCountry =
+        address.country?.length === 2
+          ? address.country.toUpperCase()
+          : countries.getAlpha2Code(address.country, "en");
 
-      let normalizedCountry = address.country;
-
-      // First try direct mapping
-      if (countryMap[address.country]) {
-        normalizedCountry = countryMap[address.country];
-      }
-      // If it's already a 2-letter code, keep it
-      else if (address.country && address.country.length === 2) {
-        normalizedCountry = address.country.toUpperCase();
-      }
-      // Default to ZA if nothing matches
-      else {
-        normalizedCountry = "ZA";
-      }
-
-      // Ensure we get the postal code from the address object
-      const postalCode = address.postalCode || address.zip || "";
-
-      const newFormData = {
-        ...formData,
+      setFormData((prev) => ({
+        ...prev,
         name: address.name || "",
-        email: formData.email || user?.email || "", // Preserve email
+        email: prev.email || user?.email || "",
         address: address.street || "",
         city: address.city || "",
-        country: normalizedCountry,
-        zip: postalCode,
+        country: normalizedCountry || "",
+        zip: address.postalCode || address.zip || "",
         phone: address.phone || "",
-      };
+      }));
 
-      setFormData(newFormData);
-
-      // Clear errors as we assume saved addresses are valid
       setErrors({
         name: "",
         email: "",
@@ -162,12 +144,11 @@ export default function CheckoutForm() {
         phone: "",
       });
     },
-    [formData.email, user],
+    [user],
   );
 
   const handleAddNewAddressClick = useCallback(() => {
     setIsAddingNewAddress(true);
-    // Clear form except email if user exists
     setFormData({
       name: "",
       email: user?.email || "",
@@ -180,30 +161,35 @@ export default function CheckoutForm() {
   }, [user]);
 
   const validateForm = () => {
-    let valid = true;
     const newErrors = {};
+    let valid = true;
 
     if (!formData.name.trim()) {
       newErrors.name = "Full name is required.";
       valid = false;
     }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email.trim() || !emailRegex.test(formData.email)) {
+    if (!emailRegex.test(formData.email)) {
       newErrors.email = "Enter a valid email address.";
       valid = false;
     }
+
     if (!formData.address.trim()) {
       newErrors.address = "Address is required.";
       valid = false;
     }
+
     if (!formData.city.trim()) {
       newErrors.city = "City is required.";
       valid = false;
     }
-    if (!formData.country.trim()) {
-      newErrors.country = "Country is required.";
+
+    if (!/^[A-Z]{2}$/.test(formData.country)) {
+      newErrors.country = "Select a valid country.";
       valid = false;
     }
+
     if (!formData.zip.trim()) {
       newErrors.zip = "ZIP code is required.";
       valid = false;
@@ -215,6 +201,7 @@ export default function CheckoutForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!user) {
       navigate("/login", { state: { from: location } });
       return;
@@ -226,8 +213,7 @@ export default function CheckoutForm() {
     setProcessing(true);
     setError(null);
 
-    // Save address if requested and user is logged in and we are in "Add New" mode
-    if (user && isAddingNewAddress && saveAddress) {
+    if (isAddingNewAddress && saveAddress) {
       addAddress({
         name: formData.name,
         street: formData.address,
@@ -235,7 +221,7 @@ export default function CheckoutForm() {
         country: formData.country,
         postalCode: formData.zip,
         phone: formData.phone,
-        isDefault: false, // By default, don't force it to default unless we want to
+        isDefault: false,
       });
     }
 
@@ -247,17 +233,11 @@ export default function CheckoutForm() {
       address: {
         line1: formData.address.trim(),
         city: formData.city.trim(),
-        country:
-          formData.country && formData.country.length === 2
-            ? formData.country
-            : "ZA",
+        country: formData.country,
         postal_code: formData.zip.trim(),
       },
+      phone: formData.phone?.trim() || undefined,
     };
-
-    if (formData.phone && formData.phone.trim()) {
-      billingDetails.phone = formData.phone.trim();
-    }
 
     const { error: stripeError, paymentIntent } =
       await stripe.confirmCardPayment(clientSecret, {
@@ -271,17 +251,18 @@ export default function CheckoutForm() {
 
     if (stripeError) {
       setError(stripeError.message);
-      setProcessing(false);
-    } else if (paymentIntent?.status === "succeeded") {
-      let orderData;
+      return;
+    }
+
+    if (paymentIntent?.status === "succeeded") {
       try {
         const orderItems = cart.map((item) => ({
           ...item,
-          product: item.id || item._id, // Ensure we pass product ID
-          _id: undefined, // Clear any existing _id to avoid conflicts if needed, or keeping it is fine if backend ignores
+          product: item.id || item._id,
+          _id: undefined,
         }));
 
-        orderData = {
+        await api.post("/orders", {
           orderItems,
           shippingAddress: {
             name: formData.name,
@@ -304,54 +285,19 @@ export default function CheckoutForm() {
             update_time: String(paymentIntent.created),
             email_address: formData.email,
           },
-        };
-
-        await api.post("/orders", orderData);
+        });
 
         clearCart();
         setSucceeded(true);
       } catch (err) {
         setError(
-          `Payment succeeded but order creation failed: ${err.response?.data?.message || err.message}. Please contact support.`,
+          `Payment succeeded but order creation failed: ${
+            err.response?.data?.message || err.message
+          }`,
         );
-      } finally {
-        setProcessing(false);
       }
     }
   };
-
-  if (succeeded) {
-    return (
-      <div className="checkout-page-wrapper">
-        <div className="checkout-empty-state">
-          <DotLottieReact
-            className="lottie-small"
-            src="https://lottie.host/6d24bf4a-9000-41a9-af6c-95d340585af4/IttqWa2743.lottie"
-            autoplay={true}
-            loop={false}
-          />
-
-          <h2 className="success-payment">You're all set!</h2>
-          <p className="success-message">
-            A confirmation email has been sent to you.
-          </p>
-
-          <div className="success-actions">
-            <Button
-              text="Track Your Order"
-              onClick={() => navigate("/account/orders")}
-              variant="primary"
-            />
-            <Button
-              text="Continue Shopping"
-              onClick={() => navigate("/shop")}
-              variant="secondary"
-            />
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   const renderFormFields = () => (
     <>
@@ -471,7 +417,6 @@ export default function CheckoutForm() {
                 onAddNew={handleAddNewAddressClick}
               />
 
-              {/* Show selected address details in form fields */}
               {formData.name && (
                 <div
                   className="address-form-section"

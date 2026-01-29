@@ -1378,63 +1378,8 @@ img {
   color: var(--text-color);
 }
 
-@media (max-width: 374px) {
-  .reviews {
-    & h2 {
-      font-size: var(--f-xl);
-    }
 
-    & .button {
-      padding-block: 0.5rem;
-      font-size: var(--f-xs);
-    }
-
-    & .overall-rating {
-      font-size: var(--f-sm);
-      line-height: var(--l-normal);
-    }
-
-    & .rating-breakdown {
-      width: 100%;
-    }
-
-    & .review-sort {
-      width: 100%;
-    }
-
-    & .filter-select-container {
-      width: 130px;
-
-      & .filter-select-box {
-        width: 100%;
-        padding: 0.5rem 1rem;
-        background: #fff;
-        font-size: var(--f-xs);
-        cursor: pointer;
-      }
-
-      & .review-list {
-        width: 100%;
-      }
-    }
-  }
-
-  .rating-breakdown-bar {
-    width: 100%;
-    height: 8px !important;
-  }
-
-  .rating-breakdown-bar div {
-    height: 8px !important;
-  }
-
-  .review-card .reviewer-details {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-}
-
-@media (min-width: 375px) and (max-width: 768px) {
+@media (max-width: 768px) {
   .reviews {
     & h2 {
       font-size: var(--f-xl);
