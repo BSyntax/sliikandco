@@ -1,4 +1,4 @@
-# Sliik & Co. — Fashion E-Commerce Platform
+# Sliik & Co. Fashion E-Commerce Platform
 
 ![Sliik & Co. Hero](/public/readme-assets/hero.png)
 
