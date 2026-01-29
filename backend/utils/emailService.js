@@ -183,7 +183,7 @@ export const sendOrderConfirmationEmail = async (order, email) => {
                   <div class="item">
                     <div style="display: flex; justify-content: space-between;">
                       <span>${item.name} x ${item.qty}</span>
-                      <span>R${item.price}</span>
+                      <span> R${item.price}</span>
                     </div>
                   </div>
                 `,
