@@ -122,24 +122,12 @@ export default function Reviews({ product }) {
         <ReviewList reviews={currentReviews} />
 
         {totalPages > 1 && (
-          <div
-            className="review-pagination"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: "1rem",
-              marginTop: "2rem",
-              alignItems: "center",
-            }}
-          >
+          <div className="review-pagination">
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
               style={{
-                padding: "0.5rem 1rem",
                 cursor: currentPage === 1 ? "not-allowed" : "pointer",
-                border: "1px solid #ddd",
-                background: "none",
               }}
             >
               Previous
@@ -153,10 +141,7 @@ export default function Reviews({ product }) {
               }
               disabled={currentPage === totalPages}
               style={{
-                padding: "0.5rem 1rem",
                 cursor: currentPage === totalPages ? "not-allowed" : "pointer",
-                border: "1px solid #ddd",
-                background: "none",
               }}
             >
               Next

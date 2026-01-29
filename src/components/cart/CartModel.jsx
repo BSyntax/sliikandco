@@ -14,7 +14,10 @@ export default function CartModel({ cartModalOpen, setCartModalOpen }) {
   const { cart, updateQuantity, removeCart } = useCart();
   useLockBodyScroll(cartModalOpen);
 
-  const handleDelete = useCallback((id) => removeCart(id), [removeCart]);
+  const handleDelete = useCallback(
+    (cartItemId) => removeCart(cartItemId),
+    [removeCart],
+  );
 
   const handleCloseCart = () => {
     setCartModalOpen(false);
@@ -22,7 +25,7 @@ export default function CartModel({ cartModalOpen, setCartModalOpen }) {
   };
 
   const handleQuantityChange = useCallback(
-    (id, quantity) => updateQuantity(id, quantity),
+    (cartItemId, quantity) => updateQuantity(cartItemId, quantity),
     [updateQuantity],
   );
 
@@ -48,7 +51,7 @@ export default function CartModel({ cartModalOpen, setCartModalOpen }) {
             <div className="item-container">
               {cart.map((item, index) => (
                 <CartItem
-                  key={item.id || item._id || index}
+                  key={item.cartItemId || index}
                   item={item}
                   onQuantityChange={handleQuantityChange}
                   onDelete={handleDelete}

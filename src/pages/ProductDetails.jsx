@@ -59,7 +59,6 @@ export default function ProductDetails() {
   }, [product]);
 
   useEffect(() => {
-    // Update wishlist status when product or wishlist changes
     if (product) {
       setIsWishlisted(wishlist.some((item) => item.id === product.id));
     }

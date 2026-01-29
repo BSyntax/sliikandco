@@ -7,15 +7,15 @@ import { Link } from "react-router-dom";
 const CartItem = memo(({ item, onQuantityChange, onDelete, onCloseCart }) => {
   const handleDecrease = () => {
     if (item.quantity > 1) {
-      onQuantityChange(item.id, item.quantity - 1);
+      onQuantityChange(item.cartItemId, item.quantity - 1);
     }
   };
 
   const handleIncrease = () => {
-    onQuantityChange(item.id, item.quantity + 1);
+    onQuantityChange(item.cartItemId, item.quantity + 1);
   };
 
-  const handleRemove = () => onDelete(item.id);
+  const handleRemove = () => onDelete(item.cartItemId);
 
   return (
     <div className="cart-item">

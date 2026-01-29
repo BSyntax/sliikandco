@@ -24,7 +24,6 @@ export default function ProductCard({ product, onProductClick }) {
     : product.price;
 
   const handleAddToCart = (sizeToAddToCart) => {
-    console.log(product.image);
     addCart({
       id: product.id,
       name: product.name,

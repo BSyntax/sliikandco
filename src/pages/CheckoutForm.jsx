@@ -37,7 +37,7 @@ export default function CheckoutForm() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { cart, clearCart } = useCart();
+  const { cart, clearCart, removeCart } = useCart();
   const { clientSecret, succeeded, setSucceeded } = useCheckout();
   const { user, addAddress } = useAuth();
 
@@ -381,32 +381,34 @@ export default function CheckoutForm() {
         </div>
 
         <div className="checkout-header">
-          <h2>Shipping Address</h2>
-          {user == null ? (
-            <div className="login-account">
-              <span>Already have an account? </span>
-              <Link to="/login" className="login-link">
-                Login
-              </Link>
-            </div>
-          ) : (
-            isAddingNewAddress && (
-              <button
-                type="button"
-                className="text-btn cancel-add-btn"
-                onClick={() => setIsAddingNewAddress(false)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  textDecoration: "underline",
-                  cursor: "pointer",
-                  marginBottom: "1rem",
-                }}
-              >
-                Cancel
-              </button>
-            )
-          )}
+          <div className="checkout-header-container">
+            <h2 className="checkout-title">Shipping Address</h2>
+            {user == null ? (
+              <div className="login-account">
+                <span>Already have an account? </span>
+                <Link to="/login" className="login-link">
+                  Login
+                </Link>
+              </div>
+            ) : (
+              isAddingNewAddress && (
+                <button
+                  type="button"
+                  className="text-btn cancel-add-btn"
+                  onClick={() => setIsAddingNewAddress(false)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  Cancel
+                </button>
+              )
+            )}
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="checkout-form-fields">
@@ -513,7 +515,7 @@ export default function CheckoutForm() {
       <div className="checkout-right">
         <div className="summary-items">
           {cart.map((item, index) => (
-            <div key={item.id || item._id || index} className="summary-item">
+            <div key={item.cartItemId || index} className="summary-item">
               <div className="item-image">
                 <img src={item.image} alt={item.name} />
               </div>
@@ -530,8 +532,16 @@ export default function CheckoutForm() {
                   </span>
                   <span className="item-qty">Quantity: {item.quantity}</span>
                 </div>
-                <div className="item-price">
-                  {formatPrice((item.price ?? 0) * (item.quantity ?? 1))}
+                <div className="item-info-end">
+                  <div className="item-price">
+                    {formatPrice((item.price ?? 0) * (item.quantity ?? 1))}
+                  </div>
+                  <button
+                    className="remove-item-btn"
+                    onClick={() => removeCart(item.cartItemId)}
+                  >
+                    Remove
+                  </button>
                 </div>
               </div>
             </div>
