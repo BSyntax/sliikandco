@@ -1463,7 +1463,10 @@ img {
   display: flex;
   justify-content: center;
   align-items: start;
-  flex-direction: column;
+}
+
+.review-page-container .form-wrapper {
+  width: 700px;
 }
 
 .review-page-container .review-page-form {
@@ -1601,7 +1604,8 @@ img {
     padding: 1rem;
   }
 
-  .review-page-container .review-page-form {
+  .review-page-container .review-page-form,
+  .review-page-container .form-wrapper {
     width: 100%;
   }
 

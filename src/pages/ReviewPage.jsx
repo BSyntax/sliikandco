@@ -100,62 +100,66 @@ export default function ReviewPage() {
     <>
       <BreadCrumb from="Home" current="Review" />
       <section className="review-page-container container">
-        <div className="review-page-header">
-          <h2>Write a review</h2>
+        <div className="form-wrapper">
+          <div className="review-page-header">
+            <h2>Write a review</h2>
+          </div>
+          <form className="review-page-form" onSubmit={handleSubmit}>
+            <div className="form-group-item form-rating-stars">
+              <div className="rating-star-icons">{renderStars()}</div>
+            </div>
+
+            <div className="form-group-item">
+              <label className="input-required-label">
+                Write your review *
+              </label>
+              <textarea
+                placeholder="Share your thoughts about this product..."
+                rows="6"
+                className="form-text-input"
+                value={review}
+                onChange={(e) => setReview(e.target.value)}
+                required
+              />
+            </div>
+
+            <ItemRecommendation
+              recommend={recommend}
+              setRecommend={setRecommend}
+            />
+            <UploadPhoto
+              handleClosePreview={handleClosePreview}
+              handleFileChange={handleFileChange}
+              photos={photos}
+            />
+
+            <div className="form-group-item">
+              <label className="input-required-label">Your Full Name *</label>
+              <input
+                type="text"
+                className="form-text-input"
+                placeholder="Enter your name"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-action-buttons">
+              <Button
+                text="Submit Review"
+                variant="primary"
+                type="submit"
+                disabled={!product}
+              />
+              <Button
+                text="Cancel"
+                variant="secondary"
+                type="button"
+                onClick={handleCancel}
+              />
+            </div>
+          </form>
         </div>
-        <form className="review-page-form" onSubmit={handleSubmit}>
-          <div className="form-group-item form-rating-stars">
-            <div className="rating-star-icons">{renderStars()}</div>
-          </div>
-
-          <div className="form-group-item">
-            <label className="input-required-label">Write your review *</label>
-            <textarea
-              placeholder="Share your thoughts about this product..."
-              rows="6"
-              className="form-text-input"
-              value={review}
-              onChange={(e) => setReview(e.target.value)}
-              required
-            />
-          </div>
-
-          <ItemRecommendation
-            recommend={recommend}
-            setRecommend={setRecommend}
-          />
-          <UploadPhoto
-            handleClosePreview={handleClosePreview}
-            handleFileChange={handleFileChange}
-            photos={photos}
-          />
-
-          <div className="form-group-item">
-            <label className="input-required-label">Your Full Name *</label>
-            <input
-              type="text"
-              className="form-text-input"
-              placeholder="Enter your name"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-action-buttons">
-            <Button
-              text="Submit Review"
-              variant="primary"
-              type="submit"
-              disabled={!product}
-            />
-            <Button
-              text="Cancel"
-              variant="secondary"
-              type="button"
-              onClick={handleCancel}
-            />
-          </div>
-        </form>
       </section>
     </>
   );

@@ -271,6 +271,7 @@ export default function CheckoutForm() {
             postalCode: formData.zip,
             country: formData.country,
             phone: formData.phone,
+            email: formData.email,
           },
           paymentMethod: "Card",
           itemsPrice: subtotal,

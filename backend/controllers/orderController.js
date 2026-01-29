@@ -1,4 +1,5 @@
 import asyncHandler from "express-async-handler";
+import { sendOrderConfirmationEmail } from "../utils/emailService.js";
 import Order from "../models/Order.js";
 import Product from "../models/Product.js";
 import mongoose from "mongoose";
@@ -15,6 +16,9 @@ const addOrderItems = asyncHandler(async (req, res) => {
     taxPrice,
     shippingPrice,
     totalPrice,
+    isPaid,
+    paidAt,
+    paymentResult,
   } = req.body;
 
   if (orderItems && orderItems.length === 0) {
@@ -51,12 +55,11 @@ const addOrderItems = asyncHandler(async (req, res) => {
         throw new Error(`Product out of stock: ${product.name}`);
       }
 
-      // Use price from database, not from request
       orderItemsWithDetails.push({
         product: product._id,
         name: product.name,
         image: product.image,
-        price: product.price, // Use DB price, not client price
+        price: product.price,
         qty: quantity,
       });
     }
@@ -70,9 +73,22 @@ const addOrderItems = asyncHandler(async (req, res) => {
       taxPrice,
       shippingPrice,
       totalPrice,
+      isPaid: isPaid || false,
+      paidAt: paidAt || null,
+      paymentResult: paymentResult || null,
     });
 
     const createdOrder = await order.save();
+
+    // Send confirmation email immediately if paid or just created (triggered by checkout success)
+    if (createdOrder.shippingAddress && createdOrder.shippingAddress.email) {
+      // We don't await this to avoid blocking the response if email fails,
+      // but logging inside the service will help.
+      sendOrderConfirmationEmail(
+        createdOrder,
+        createdOrder.shippingAddress.email,
+      );
+    }
 
     res.status(201).json(createdOrder);
   }
@@ -93,7 +109,6 @@ const getOrderById = asyncHandler(async (req, res) => {
   );
 
   if (order) {
-    // Check if user owns this order or is admin
     if (
       order.user._id.toString() !== req.user._id.toString() &&
       !req.user.isAdmin
@@ -118,7 +133,10 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
     throw new Error("Order not found");
   }
 
-  const order = await Order.findById(req.params.id);
+  const order = await Order.findById(req.params.id).populate(
+    "user",
+    "name email",
+  );
 
   if (order) {
     order.isPaid = true;
@@ -131,6 +149,11 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
     };
 
     const updatedOrder = await order.save();
+
+    // Send confirmation email
+    if (order.user && order.user.email) {
+      await sendOrderConfirmationEmail(order, order.user);
+    }
 
     res.json(updatedOrder);
   } else {
