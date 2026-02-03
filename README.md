@@ -167,7 +167,6 @@ sliikandco/
 - [ ] Wishlist sync across devices
 - [ ] Advanced product recommendations
 - [ ] Multiple payment methods
-- [ ] Order status notifications
 - [ ] Admin dashboard for product management
 
 ---
