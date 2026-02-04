@@ -17,6 +17,7 @@ export default function ReviewPage() {
   const [review, setReview] = useState("");
   const [recommend, setRecommend] = useState("no");
   const [photos, setPhotos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
   const { getProductById, refreshProducts } = useProducts();
@@ -69,6 +70,7 @@ export default function ReviewPage() {
       return;
     }
 
+    setIsLoading(true);
     try {
       await api.post(`/products/${product.id}/reviews`, {
         rating,
@@ -85,6 +87,8 @@ export default function ReviewPage() {
         err.response?.data?.message || "Failed to submit review.";
       toast.error(errorMessage);
       console.error("Review submission failed:", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -150,6 +154,7 @@ export default function ReviewPage() {
                 variant="primary"
                 type="submit"
                 disabled={!product}
+                isLoading={isLoading}
               />
               <Button
                 text="Cancel"
