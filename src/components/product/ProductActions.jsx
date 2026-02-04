@@ -7,11 +7,18 @@ export default function ProductActions({
   onAddToCart,
   isWishlisted,
   onToggleWishlist,
+  isLoading,
 }) {
   return (
     <div className="product-actions">
       <div className="product-cart-actions">
-        <Button text="Add to Cart" variant="primary" onClick={onAddToCart} />
+        <Button
+          text="Add to Cart"
+          variant="primary"
+          onClick={onAddToCart}
+          isLoading={isLoading}
+          className="add-to-cart-btn"
+        />
       </div>
       <div className="wishlist-control">
         <button className="wishlist-btn" onClick={onToggleWishlist}>
@@ -27,4 +34,5 @@ ProductActions.propTypes = {
   onAddToCart: PropTypes.func.isRequired,
   isWishlisted: PropTypes.bool.isRequired,
   onBuy: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
 };

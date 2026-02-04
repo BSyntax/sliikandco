@@ -58,42 +58,7 @@
   padding: 0.9rem 2rem;
 }
 
-@media (max-width: 374px) {
-  .promo-banner {
-    grid-template-columns: 1fr;
-    height: auto;
-
-    & .promo-image {
-      height: 400px;
-
-      & img {
-        object-position: center top;
-      }
-    }
-
-    & .promo-content {
-      width: 100%;
-      padding-inline: 1rem;
-      height: auto;
-      padding-block: 2rem;
-
-      & .promo-headline {
-        font-size: var(--f-xl);
-      }
-
-      & .promo-description {
-        font-size: var(--f-sm);
-      }
-
-      & .promo-button {
-        font-size: var(--f-sm);
-        padding: 0.9rem 1rem;
-      }
-    }
-  }
-}
-
-@media (min-width: 375px) and (max-width: 767px) {
+@media (max-width: 767px) {
   .promo-banner {
     grid-template-columns: 1fr;
     height: auto;

@@ -1643,7 +1643,7 @@ img {
     .review-page-form
     .form-group-item
     input[type="text"]::placeholder {
-    color: var(--color-gray) !important;
+    color: var(--text-color) !important;
     font-size: var(--f-sm) !important;
     font-weight: 400 !important;
     line-height: var(--l-normal) !important;
@@ -1843,7 +1843,7 @@ img {
 }
 
 .filter-edit {
-  z-index: 1000;
+  z-index: 10;
 }
 /* Pagination Styles */
 .pagination {
@@ -2657,34 +2657,6 @@ img {
   width: 100%;
 }
 
-.cvc-with-icon {
-  position: relative;
-  width: 100%;
-  padding: 16px 18px;
-  border: 1px solid var(--color-gray);
-  border-radius: 2px;
-  background: transparent;
-  min-height: 48px;
-  box-sizing: border-box;
-}
-
-.cvc-icon {
-  position: absolute;
-  top: 50%;
-  right: 12px;
-  transform: translateY(-50%);
-  pointer-events: none;
-  opacity: 0.7;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-}
-
-.cvc-with-icon > div {
-  width: 100% !important;
-  padding-right: 40px !important;
-}
-
 .save-details-label {
   width: 100%;
   display: flex;
@@ -2885,6 +2857,7 @@ img {
 
 .checkout-left .proceed-to-pay-btn {
   flex: 2;
+  white-space: nowrap;
 }
 
 @media (max-width: 768px) {
@@ -2937,29 +2910,13 @@ img {
 
   .checkout-left.login .proceed-to-pay-btn {
     flex: 1;
+    font-size: var(--f-xs);
+    padding-inline: 0.5rem;
   }
 
   .card-input-box {
     padding: 10px 14px;
     min-height: 40px;
-  }
-
-  .cvc-with-icon {
-    padding: 10px 14px;
-    min-height: 40px;
-  }
-
-  .cvc-with-icon > div {
-    padding-right: 32px !important;
-  }
-
-  .cvc-icon {
-    right: 10px;
-  }
-
-  .cvc-icon svg {
-    width: 20px;
-    height: 20px;
   }
 
   .payment-details-info {
@@ -2986,14 +2943,15 @@ img {
   }
 
   .checkout-page .checkout-header .checkout-header-container {
-    flex-direction: column;
-    align-items: start;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 
     .login-account {
-      width: 100%;
-      justify-content: space-between;
+      width: auto;
+      justify-content: flex-end;
       display: flex;
-      align-items: start;
+      align-items: center;
     }
   }
 

@@ -6,6 +6,9 @@
   background-color: transparent;
   color: var(--text-color);
   border: 1px solid var(--color-gray);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .button-primary {
@@ -15,4 +18,19 @@
   color: var(--color-white);
   background-color: var(--color-dark);
   border: none;
+}
+
+.btn-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-left-color: var(--color-white);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

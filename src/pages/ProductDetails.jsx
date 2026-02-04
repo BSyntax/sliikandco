@@ -35,6 +35,7 @@ export default function ProductDetails() {
   const [selectedColor, setSelectedColor] = useState(null);
   const [changeImage, setChangeImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
 
   useEffect(() => {
     const foundProduct = getProductById(id);
@@ -43,7 +44,6 @@ export default function ProductDetails() {
 
   useEffect(() => {
     if (product) {
-      // Set default size and color only when the product changes
       if (product.sizesAvailable && product.sizesAvailable.length > 0) {
         setSelectedSize(product.sizesAvailable[0]);
       } else {
@@ -109,16 +109,22 @@ export default function ProductDetails() {
       alert("Please select a size before adding to cart.");
       return;
     }
-    addCart({
-      id: product.id,
-      name: product.name,
-      price: finalPrice,
-      quantity: quantity,
-      size: selectedSize,
-      sizeType: product.sizeType,
-      image: product.image,
-      selectedColor: selectedColor,
-    });
+
+    setIsAddingToCart(true);
+
+    setTimeout(() => {
+      addCart({
+        id: product.id,
+        name: product.name,
+        price: finalPrice,
+        quantity: quantity,
+        size: selectedSize,
+        sizeType: product.sizeType,
+        image: product.image,
+        selectedColor: selectedColor,
+      });
+      setIsAddingToCart(false);
+    }, 2000);
   };
 
   const handleQuantityIncrease = () => {
@@ -199,6 +205,7 @@ export default function ProductDetails() {
                 quantity={quantity}
                 onQuantityIncrease={handleQuantityIncrease}
                 onQuantityDecrease={handleQuantityDecrease}
+                isLoading={isAddingToCart}
               />
               <div className="product-additional-info">
                 <p>SKU: {product.sku}</p>

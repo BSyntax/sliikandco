@@ -402,7 +402,6 @@ export default function CheckoutForm() {
                     border: "none",
                     textDecoration: "underline",
                     cursor: "pointer",
-                    marginBottom: "1rem",
                   }}
                 >
                   Cancel

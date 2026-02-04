@@ -4,10 +4,9 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 
-// Explicitly load .env file from the backend directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-dotenv.config({ path: path.join(__dirname, ".env") });
+dotenv.config({ path: path.join(__dirname, "../.env") });
 import { connectDB } from "./config/db.js";
 import { createPaymentIntent } from "./controllers/paymentController.js";
 import authRoutes from "./routes/authRoutes.js";

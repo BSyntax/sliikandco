@@ -78,7 +78,6 @@ export default function ProductGrid({
         });
       }
 
-      // Apply price range filter (minPrice & maxPrice from slider)
       if (typeof minPrice === "number" || typeof maxPrice === "number") {
         const min = typeof minPrice === "number" ? minPrice : 0;
         const max =
@@ -90,7 +89,6 @@ export default function ProductGrid({
       }
     }
 
-    // Apply sorting
     if (pageType === "shop" || pageType === "search") {
       switch (selectedSort) {
         case "Price: Low to High":

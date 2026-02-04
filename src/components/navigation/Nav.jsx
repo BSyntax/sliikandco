@@ -7,6 +7,8 @@ import { RiMenu2Fill, RiAddLine, RiCloseLine } from "react-icons/ri";
 
 import DropDownModel from "./DropDownModel";
 import SearchModel from "../search/SearchModel";
+
+import CartToast from "../customToast/CartToast";
 import CartModel from "../cart/CartModel";
 import AnnouncementBar from "./AnnouncementBar";
 import SidePanel from "./SidePanel";
@@ -20,12 +22,18 @@ export default function Nav() {
   const [mobileDropdown, setMobileDropdown] = useState(null);
   const [searchModel, setSearchModel] = useState("close");
   const [sticky, setSticky] = useState(false);
-  const [cartModalOpen, setCartModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const dropdownTimeoutRef = useRef(null);
 
-  const { cart } = useCart();
+  const {
+    cart,
+    cartModalOpen,
+    setCartModalOpen,
+    toastOpen,
+    setToastOpen,
+    lastAddedItem,
+  } = useCart();
   const { wishlist } = useWishlist();
   const { user } = useAuth();
 
@@ -257,6 +265,14 @@ export default function Nav() {
           setCartModalOpen={setCartModalOpen}
         />
       </header>
+      {toastOpen && lastAddedItem && (
+        <CartToast
+          image={lastAddedItem.image}
+          name={lastAddedItem.name}
+          setCartModalOpen={setCartModalOpen}
+          setToastOpen={setToastOpen}
+        />
+      )}
     </>
   );
 }

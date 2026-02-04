@@ -1,7 +1,6 @@
 import React from "react";
 import "./Button.css";
 import PropTypes from "prop-types";
-import { ClipLoader } from "react-spinners";
 
 export default function Button({
   text,
@@ -21,7 +20,7 @@ export default function Button({
       onClick={onClick}
       disabled={disabled || isLoading}
     >
-      {isLoading ? "Loading..." : text}
+      {isLoading ? <div className="btn-spinner"></div> : text}
     </button>
   );
 }

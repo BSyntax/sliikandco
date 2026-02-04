@@ -15,10 +15,12 @@
 }
 
 .filter-edit .filter-controls {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  z-index: 9;
 }
 
 .filter-controls .filter-label {

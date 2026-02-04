@@ -13,6 +13,7 @@ export default function ProductCard({ product, onProductClick }) {
   const [image, setImage] = useState(product.image);
   const { addCart } = useCart();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const isInWishlist = (productId) => {
     return wishlist.some((item) => item.id === productId);
@@ -24,16 +25,22 @@ export default function ProductCard({ product, onProductClick }) {
     : product.price;
 
   const handleAddToCart = (sizeToAddToCart) => {
-    addCart({
-      id: product.id,
-      name: product.name,
-      price: finalPrice,
-      quantity: 1,
-      size: sizeToAddToCart,
-      sizeType: product.sizeType,
-      image: product.image,
-      selectedColor: selectedColor,
-    });
+    setIsLoading(true);
+    setSelectedSize(sizeToAddToCart);
+
+    setTimeout(() => {
+      addCart({
+        id: product.id,
+        name: product.name,
+        price: finalPrice,
+        quantity: 1,
+        size: sizeToAddToCart,
+        sizeType: product.sizeType,
+        image: product.image,
+        selectedColor: selectedColor,
+      });
+      setIsLoading(false);
+    }, 2000);
   };
 
   const handleImageHover = () => {
@@ -111,9 +118,11 @@ export default function ProductCard({ product, onProductClick }) {
                   "size-button" + (selectedSize === size ? " size-active" : "")
                 }
                 onClick={() => {
-                  setSelectedSize(size);
-                  handleAddToCart(size);
+                  if (!isLoading) {
+                    handleAddToCart(size);
+                  }
                 }}
+                disabled={isLoading}
               >
                 {size}
               </button>

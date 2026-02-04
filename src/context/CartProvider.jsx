@@ -14,7 +14,6 @@ export const CartProvider = ({ children }) => {
     try {
       const savedCart = localStorage.getItem("cart");
       const parsedCart = savedCart ? JSON.parse(savedCart) : [];
-      // Migration: Ensure all items have a unique cartItemId
       return parsedCart.map((item) => ({
         ...item,
         cartItemId: item.cartItemId || generateId(),
@@ -33,6 +32,10 @@ export const CartProvider = ({ children }) => {
     }
   }, [cart]);
 
+  const [cartModalOpen, setCartModalOpen] = useState(false);
+  const [toastOpen, setToastOpen] = useState(false);
+  const [lastAddedItem, setLastAddedItem] = useState(null);
+
   const addCart = (product) => {
     setCart((prev) => {
       const existing = prev.find(
@@ -43,9 +46,11 @@ export const CartProvider = ({ children }) => {
       );
 
       if (existing) {
-        // limit quantity to 10 per item or stock count if available
         const maxQty = product.countInStock || 10;
         if (existing.quantity >= maxQty) return prev;
+
+        setLastAddedItem(product);
+        setToastOpen(true);
 
         return prev.map((i) =>
           i.cartItemId === existing.cartItemId
@@ -53,9 +58,17 @@ export const CartProvider = ({ children }) => {
             : i,
         );
       }
+
+      setLastAddedItem(product);
       return [...prev, { ...product, quantity: 1, cartItemId: generateId() }];
     });
   };
+
+  useEffect(() => {
+    if (lastAddedItem) {
+      setToastOpen(true);
+    }
+  }, [lastAddedItem]);
 
   const updateQuantity = (cartItemId, quantity) => {
     if (quantity <= 0) {
@@ -77,7 +90,18 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cart, addCart, updateQuantity, removeCart, clearCart }}
+      value={{
+        cart,
+        addCart,
+        updateQuantity,
+        removeCart,
+        clearCart,
+        cartModalOpen,
+        setCartModalOpen,
+        toastOpen,
+        setToastOpen,
+        lastAddedItem,
+      }}
     >
       {children}
     </CartContext.Provider>

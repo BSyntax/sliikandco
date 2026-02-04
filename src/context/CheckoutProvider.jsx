@@ -48,7 +48,16 @@ export default function StripeCheckoutProvider({ children }) {
       });
   }, [cart, succeeded]);
 
-  const options = useMemo(() => ({ clientSecret }), [clientSecret]);
+  const options = useMemo(
+    () => ({
+      clientSecret,
+      wallets: {
+        applePay: "never",
+        googlePay: "never",
+      },
+    }),
+    [clientSecret],
+  );
 
   if (cart.length === 0 && !succeeded) {
     return (
